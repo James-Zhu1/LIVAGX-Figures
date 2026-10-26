@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes · LIVAGX PMFs</title>
+<meta name="description" content="Methods, conventions and caveats">
+<meta name="generator" content="overall/scripts/build_docs.py">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem('livagx-docs-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><nav class="nav" aria-label="Site"><a class="brand" href="index.html">LIVAGX <span>PMFs · 60 mM parallel</span></a><a class="nl" href="index.html">Home</a><a class="nl" href="figures.html">Figures</a><a class="nl" href="compare/index.html">Compare</a><a class="nl" href="explorer.html">Explorer</a><details class="dropdown"><summary>Systems</summary><div class="menu"><a href="systems/livage_cc.html"><span class="sw" style="--c:var(--sys-livage_cc)" aria-hidden="true"></span><span>LIVAGE (E⁻/E⁻)</span><span class="muted mono">GLU/GLU</span></a><a href="systems/livage_cn.html"><span class="sw" style="--c:var(--sys-livage_cn)" aria-hidden="true"></span><span>LIVAGE (E⁻/E⁰)</span><span class="muted mono">GLU/GLH</span></a><a href="systems/livage_nn.html"><span class="sw" style="--c:var(--sys-livage_nn)" aria-hidden="true"></span><span>LIVAGE (E⁰/E⁰)</span><span class="muted mono">GLH/GLH</span></a><a href="systems/livagg.html"><span class="sw" style="--c:var(--sys-livagg)" aria-hidden="true"></span><span>LIVAGG</span><span class="muted mono">GLY</span></a><a href="systems/livagh.html"><span class="sw" style="--c:var(--sys-livagh)" aria-hidden="true"></span><span>LIVAGH (H⁺)</span><span class="muted mono">HIP</span></a><a href="systems/livagk.html"><span class="sw" style="--c:var(--sys-livagk)" aria-hidden="true"></span><span>LIVAGK</span><span class="muted mono">LYS</span></a><a href="systems/livagq.html"><span class="sw" style="--c:var(--sys-livagq)" aria-hidden="true"></span><span>LIVAGQ</span><span class="muted mono">GLN</span></a><a href="systems/livagr.html"><span class="sw" style="--c:var(--sys-livagr)" aria-hidden="true"></span><span>LIVAGR</span><span class="muted mono">ARG</span></a></div></details><a class="nl" href="data.html">Data</a><a class="nl" href="notes.html" aria-current="page">Notes</a><a class="nl" href="changelog.html">Changelog</a><span class="spacer"></span><button class="theme-toggle" type="button" data-theme-toggle>Theme</button></nav></header>
+<main id="main" class="container">
+
+<h1>Methods &amp; notes</h1>
+<p class="lede">How the numbers on these pages were made, the conventions to keep in mind when reading the plots,
+and the known problems in the source analysis.</p>
+<nav class="toc-inline"><a href="#systems">Systems</a> · <a href="#numbering">Residue numbering</a> · <a href="#pmf">PMFs</a> ·
+<a href="#halves">Halves</a> · <a href="#wells">Well depths</a> · <a href="#halved">Halved analysis</a> · <a href="#caveats">Caveats</a> ·
+<a href="#update">How to update</a> · <a href="#history">Browsing history</a> · <a href="#layout">Folder layout</a></nav>
+
+<h2 id="systems">Systems</h2>
+<p>Two LIVAGX peptides per box at 60 mM, parallel start, Amber force field ("new ff"), 300 K, tripled simulation time.
+X (position 6) varies; the three LIVAGE systems differ only in Glu protonation.</p>
+<div class="table-wrap"><table class="tbl"><thead><tr><th>System</th><th>Key</th><th>Residue 6 (Amber)</th><th>Charge / protonation</th><th>Source folder</th></tr></thead>
+<tbody><tr><td><a class="syslink" href="systems/livage_cc.html"><span class="sw" style="--c:var(--sys-livage_cc)" aria-hidden="true"></span>LIVAGE (E⁻/E⁻)</a></td><td class=mono>livage_cc</td><td class=mono>GLU/GLU</td><td>both Glu charged</td><td class=path><code>livage/<wbr>livage_charged_charged_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livage_cn.html"><span class="sw" style="--c:var(--sys-livage_cn)" aria-hidden="true"></span>LIVAGE (E⁻/E⁰)</a></td><td class=mono>livage_cn</td><td class=mono>GLU/GLH</td><td>one Glu charged, one neutral (GLH)</td><td class=path><code>livage/<wbr>livage_charged_neutral_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livage_nn.html"><span class="sw" style="--c:var(--sys-livage_nn)" aria-hidden="true"></span>LIVAGE (E⁰/E⁰)</a></td><td class=mono>livage_nn</td><td class=mono>GLH/GLH</td><td>both Glu neutral (GLH)</td><td class=path><code>livage/<wbr>livage_neutral_neutral_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livagg.html"><span class="sw" style="--c:var(--sys-livagg)" aria-hidden="true"></span>LIVAGG</a></td><td class=mono>livagg</td><td class=mono>GLY</td><td>neutral</td><td class=path><code>livagg/<wbr>livagg_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livagh.html"><span class="sw" style="--c:var(--sys-livagh)" aria-hidden="true"></span>LIVAGH (H⁺)</a></td><td class=mono>livagh</td><td class=mono>HIP</td><td>His doubly protonated (HIP, +1)</td><td class=path><code>livagh/<wbr>livagh_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livagk.html"><span class="sw" style="--c:var(--sys-livagk)" aria-hidden="true"></span>LIVAGK</a></td><td class=mono>livagk</td><td class=mono>LYS</td><td>Lys +1</td><td class=path><code>livagk/<wbr>livagk_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livagq.html"><span class="sw" style="--c:var(--sys-livagq)" aria-hidden="true"></span>LIVAGQ</a></td><td class=mono>livagq</td><td class=mono>GLN</td><td>neutral</td><td class=path><code>livagq/<wbr>livagq_tripled_time_new_ff/<wbr>analysis_continued</code></td></tr><tr><td><a class="syslink" href="systems/livagr.html"><span class="sw" style="--c:var(--sys-livagr)" aria-hidden="true"></span>LIVAGR</a></td><td class=mono>livagr</td><td class=mono>ARG</td><td>Arg +1</td><td class=path><code>livagr/<wbr>livagr_tripled_time_new_ff/<wbr>analysis_contined</code></td></tr></tbody></table></div>
+
+<h2 id="numbering">Residue numbering</h2>
+<p>cpptraj residue numbers in the stripped topology (<code>*_nowater.prmtop</code>, residues 1–16 kept by <code>strip !:1-16</code>):</p>
+<div class="table-wrap"><table class="tbl numbering"><thead><tr><th>cpptraj :</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th></tr></thead>
+<tbody><tr><th>residue</th><td class="cap">ACE</td><td class="">L</td><td class="">I</td><td class="">V</td><td class="">A</td><td class="">G</td><td class="">X</td><td class="cap">NHE</td><td class="cap">ACE</td><td class="">L</td><td class="">I</td><td class="">V</td><td class="">A</td><td class="">G</td><td class="">X</td><td class="cap">NHE</td></tr><tr><th>position</th><td>cap</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>cap</td><td>cap</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>cap</td></tr><tr><th>peptide</th><td colspan="8">peptide 1</td><td colspan="8">peptide 2</td></tr></tbody></table></div>
+<p>"Pair (i, j)" always means position <i>i</i> on peptide 1 (residue i+1) and position <i>j</i> on peptide 2 (residue j+9),
+so the 6×6 grids are not symmetric: (1, 2) and (2, 1) are different distances. In cross-system plots residue 6 is written X
+(e.g. L1–X6, window AGX).</p>
+
+<h2 id="pmf">Potentials of mean force</h2>
+<ul>
+<li>Distances: cpptraj <code>distance</code> between residue masks (centre of mass, minimum image) on
+<code>com_frames_nowater.dcd</code> (600,000 frames, peptides only), written to <code>pmf_distances.dat</code> in Å and converted to nm.
+36 single-residue pairs, the LIVA fragment (<code>:2-5</code> vs <code>:10-13</code>) and 16 three-residue window distances.</li>
+<li>PMF(r) = −k<sub>B</sub>T ln P(r), k<sub>B</sub> = 0.0019872041 kcal mol<sup>−1</sup> K<sup>−1</sup>, T = 300 K.</li>
+<li>Bins: 0.01 nm for residue pairs (density histogram), 0.02 nm for windows and the LIVA fragment (count histogram
+normalised to probability). Empty bins are left empty (NaN), not interpolated.</li>
+<li>Reference: every curve is shifted so the populated bin nearest 1.8 nm is zero, and only bins below
+1.8 nm are kept. Negative PMF = more probable than at 1.8 nm = attractive well.</li>
+<li>Full trajectory: the first 5% of frames are dropped as equilibration.</li>
+<li>Three-residue windows LIV, IVA, VAG, AGX: off-diagonal window pairs pool both orderings (window i on peptide 1 with window j on
+peptide 2, and j with i), giving 10 unordered pairs.</li>
+</ul>
+
+<h2 id="halves">Halves, mean and uncertainty</h2>
+<ul>
+<li>trim = 5% of all frames; half 1 = frames [trim, mid), half 2 = [mid + trim, end). For the 600,000-frame trajectories this is
+frames 30,001–300,000 and 330,001–600,000 (1-based) — the same ranges the halved analysis uses — 270,000 frames each.</li>
+<li>Mean of halves: both half-PMFs are interpolated onto a common grid (from the larger first populated bin to the smaller last bin,
+capped at 1.8 nm, same bin width) and averaged. Band = |PMF<sub>1</sub> − PMF<sub>2</sub>| / 2.</li>
+<li>Files: <code>single_residue_pmf_halves_value/</code> (both halves), <code>single_residue_pmf_mean_value/</code> (halves + common grid +
+mean + band), <code>single_residue_pmf_full_value/</code>, <code>three_residue_pmf_halves_value/</code>, <code>fragment_pmf_halves_value/</code>.</li>
+</ul>
+
+<h2 id="wells">Well depths on these pages</h2>
+<p>Well depth = minimum of the mean-of-halves PMF over r &lt; 1.8 nm (<code>common.well_depth</code>), reported with the
+distance of the minimum and ± |PMF<sub>1</sub>−PMF<sub>2</sub>|/2 at that distance. "Full trajectory" tables use the full-trajectory PMF
+(no ±). Because every curve is 0 at 1.8 nm, a depth is always relative to that separation; a value near 0 means no
+well deeper than the reference.</p>
+
+<h2 id="halved">Halved structural analysis (<code>halved/</code>)</h2>
+<ol>
+<li>Frames 30,001–300,000 (half 1) and 330,001–600,000 (half 2) of <code>com_frames_nowater.dcd</code>.</li>
+<li>Filter: LIVA–LIVA distance (<code>:2-5</code> vs <code>:10-13</code>) &lt; 7 Å → <code>filtered_frames_*_half.nc</code> (not in the snapshot).
+The number of rows in <code>pep1pep2_angle_*_half.dat</code> is therefore the number of contact frames out of 270,000.</li>
+<li>On contact frames: <code>multidihedral phi psi resrange 1-16</code> (<code>multidihedral_*_half.dat</code>, too large for the snapshot);
+<code>hbond :2-5,10-13 nointramol</code> → <code>interhbond_*_half.txt</code> (inter-peptide H-bonds among L, I, V, A only; G, X and
+the caps are not in the mask; Frac = fraction of contact frames); the angle between two vectors → <code>pep1pep2_angle_*_half.dat</code>.</li>
+<li>On all frames of each half: end-to-end distance of peptide 1, <code>:2@CA</code>–<code>:7@CA</code> → <code>end_to_end_dist_*_half.dat</code>.</li>
+<li>Plots: <code>combined_first_second_half.py</code> (H-bond network and heatmaps, angle and end-to-end histograms).</li>
+</ol>
+<p>Because H-bond fractions are per contact frame, a system with fewer contacts can show the same fraction with fewer bonds overall;
+multiply by the contact fraction for a per-frame comparison (the <code>hbonds_per_all_frames</code> column of
+<code>figures/halved/halved_summary.csv</code>).</p>
+
+<h2 id="caveats">Caveats</h2>
+<ol class="caveats">
+<li><b>Peptide angle vectors.</b> The source cpptraj input defines v1 = :2 → :5 (Leu → Ala of peptide 1) but v2 = :9 → :12 (ACE → Val of peptide 2); the matching vector would be :10 → :13, so this angle is likely off by one residue on peptide 2. The angle histograms and any angle statistic should be read with this in mind
+until the cpptraj input is fixed and re-run.</li>
+<li><b>livagr folder name.</b> The source folder is <code>livagr/livagr_tripled_time_new_ff/analysis_contined</code> (typo); the snapshot
+normalises it to <code>data/livagr/</code> like every other system, and the manifest keeps the real source path.</li>
+<li><b>Halved script label strings.</b> Plot titles and file names in the three LIVAGE folders say LIVAGH_CC / _CN / _NN: a label typo in combined_first_second_half.py. The data are the LIVAGE system. In <code>livagh</code> the script now sets
+<code>LIVAGH_tripled_time_new_ff_doubled</code>, while the PNGs on disk were written before that edit and are named without
+<code>_doubled</code>; re-running the script would create differently named files. These pages strip the label to identify the
+plot type, so either spelling is handled.</li>
+<li><b>Too-large files.</b> Trajectory, <code>pmf_distances.dat</code> and the multidihedral output are not versioned; only their
+size and time stamp are in the manifest. See <a href="data.html#not-copied">Data → files that live only in the source folders</a>.</li>
+</ol>
+
+<h2 id="update">How to update</h2>
+<pre><code>cd /hopper/groups/nerenberglab/Project-Peptide_Hydrogel/1-9/60mM_parallel/overall
+./update.sh</code></pre>
+<p><code>update.sh</code> re-syncs the snapshot from the source folders (<code>scripts/sync_data.py</code>, read-only on the source),
+regenerates the figures (<code>scripts/fig_*.py</code>), rebuilds this site (<code>scripts/build_docs.py</code>) and commits a git
+snapshot with a tag. Only <code>overall/</code> is ever written. To rebuild just the pages:</p>
+<pre><code>cd /hopper/groups/nerenberglab/Project-Peptide_Hydrogel/1-9/60mM_parallel/overall
+/hopper/home/jzii2024/miniconda3/envs/pmf/bin/python scripts/build_docs.py</code></pre>
+<p>Open <code>docs/index.html</code> in a browser (works straight from the file system).</p>
+
+<h2 id="history">Browsing history</h2>
+<pre><code>git -C overall log --oneline --decorate        # list snapshots
+git -C overall tag                             # list snapshot tags
+git -C overall diff --stat &lt;tagA&gt; &lt;tagB&gt; -- data/   # which results changed
+git -C overall show &lt;tag&gt;:data/manifest.json   # manifest of an old snapshot
+git -C overall checkout &lt;tag&gt;                  # whole folder (docs too) as it was
+git -C overall checkout main                   # back to the latest</code></pre>
+<p>The <a href="changelog.html">changelog</a> lists every snapshot with the data files that changed per system.</p>
+
+<h2 id="layout">Folder layout of <code>overall/</code></h2>
+<ul>
+<li><code>data/&lt;system&gt;/</code> — snapshot of each analysis folder; <code>data/manifest.json</code> — every source file with status.</li>
+<li><code>figures/</code> — new figures (<code>overview/</code>, <code>cross_system/</code>, <code>halved/</code>, <code>qc/</code>) and their CSV
+tables; <code>figures/index.json</code> registers them with title and caption.</li>
+<li><code>docs/</code> — this site. <code>docs/systems/previews/</code> holds downscaled WebP copies of the very large original PNGs.</li>
+<li><code>scripts/</code> — <code>common.py</code> (systems, loaders), <code>style.py</code> (plot look), <code>sync_data.py</code>,
+figure scripts, <code>build_docs.py</code>.</li>
+</ul>
+
+</main>
+<footer class="site-footer"><div class="inner">
+Generated by <code>overall/scripts/build_docs.py</code> on 2026-10-26 11:59 PDT.
+Source analysis folders (read-only): <code>/hopper/groups/nerenberglab/Project-Peptide_Hydrogel/1-9/60mM_parallel</code>.
+</div></footer>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

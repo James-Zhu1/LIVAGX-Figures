@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIVAGX PMF Explorer</title>
+<meta name="description" content="Interactive potentials of mean force for the eight two-peptide LIVAGX systems: residue pairs, three-residue windows and the LIVA fragment.">
+<script>
+  /* apply a remembered theme before first paint (per-viewer convenience only) */
+  try {
+    var t = localStorage.getItem('livagx-docs-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) { /* storage blocked: follow the system theme */ }
+</script>
+<!-- shared look of the docs site, if present; the page does not depend on it -->
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  :root {
+    color-scheme: light;
+    --surface: #fcfcfb;
+    --raised: #ffffff;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --axis: #c3c2b7;
+    --border: #e1e0d9;
+    --context: #d3d2ca;
+    --hover: #f1f0ec;
+    --focus: #2a78d6;
+    --shadow: 0 4px 16px rgba(11, 11, 11, 0.08);
+    /* series: fixed per system (common.PALETTE); overwritten from the data file */
+    --s0: #2a78d6; --s1: #eb6834; --s2: #1baf7a; --s3: #eda100;
+    --s4: #e87ba4; --s5: #008300; --s6: #6250d6; --s7: #e34948;
+    --px-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface: #1a1a19;
+      --raised: #222220;
+      --ink: #f0efec;
+      --ink-2: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --axis: #4a4a46;
+      --border: #34342f;
+      --context: #464641;
+      --hover: #262624;
+      --focus: #3987e5;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      --s0: #3987e5; --s1: #d95926; --s2: #199e70; --s3: #c98500;
+      --s4: #d55181; --s5: #008300; --s6: #9085e9; --s7: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --raised: #222220;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #4a4a46;
+    --border: #34342f;
+    --context: #464641;
+    --hover: #262624;
+    --focus: #3987e5;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    --s0: #3987e5; --s1: #d95926; --s2: #199e70; --s3: #c98500;
+    --s4: #d55181; --s5: #008300; --s6: #9085e9; --s7: #e66767;
+  }
+
+  html, body { margin: 0; }
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--px-font);
+    font-size: 15px;
+    line-height: 1.45;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  .px-page *, .px-page *::before, .px-page *::after { box-sizing: border-box; }
+  .px-page code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+  .px-page :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* top bar */
+  .px-top {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    max-width: 1240px; margin: 0 auto; padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .px-top a.px-home { color: var(--ink-2); text-decoration: none; font-size: 14px; padding: 4px 2px; border-radius: 4px; }
+  .px-top a.px-home:hover { color: var(--ink); text-decoration: underline; }
+  .px-top .px-crumb { color: var(--muted); font-size: 14px; }
+  .px-top .px-spacer { flex: 1 1 auto; }
+
+  .px-wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px 48px; }
+  .px-head h1 { font-size: 26px; line-height: 1.2; margin: 22px 0 6px; font-weight: 650; letter-spacing: -0.01em; }
+  .px-head .px-lede { margin: 0 0 6px; color: var(--ink-2); max-width: 72ch; }
+  .px-head .px-meta { margin: 0; color: var(--muted); font-size: 13px; }
+
+  /* buttons */
+  .px-btn, .px-seg button, .px-chip {
+    font: inherit; color: var(--ink); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .px-btn {
+    font-size: 13px; padding: 5px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--raised);
+  }
+  .px-btn:hover { background: var(--hover); }
+  .px-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+  /* control row */
+  .px-controls {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px;
+    margin: 18px 0 10px; padding: 12px 0 0; border-top: 1px solid var(--border);
+  }
+  .px-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; max-width: 100%; }
+  .px-group-label { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
+  .px-seg {
+    display: inline-flex; flex-wrap: wrap; max-width: 100%;
+    border: 1px solid var(--border); border-radius: 8px; background: var(--raised); padding: 2px; gap: 2px;
+  }
+  .px-seg button {
+    font-size: 13px; padding: 5px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .px-seg button:hover { background: var(--hover); color: var(--ink); }
+  .px-seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+  .px-seg button[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; background: transparent; color: var(--ink-2); }
+
+  .px-systems { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 18px; }
+  .px-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; padding: 4px 11px 4px 9px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--raised); white-space: nowrap;
+  }
+  .px-chip:hover { background: var(--hover); }
+  .px-chip .px-sw { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+  .px-chip[aria-pressed="false"] { background: transparent; color: var(--muted); }
+  .px-chip[aria-pressed="false"] .px-sw { background: transparent; box-shadow: inset 0 0 0 1.5px var(--c); }
+  .px-presets { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-left: 4px; }
+  .px-presets .px-btn { border-radius: 999px; padding: 4px 10px; color: var(--ink-2); }
+  .px-hint { font-size: 12px; color: var(--muted); margin-left: 4px; }
+
+  /* main layout */
+  .px-layout { display: grid; grid-template-columns: minmax(0, 270px) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 860px) { .px-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+  .px-side h2, .px-main h2 { font-size: 13px; font-weight: 600; color: var(--ink-2); margin: 0 0 8px; letter-spacing: 0.02em; }
+  .px-matrix-wrap { max-width: 360px; }
+  .px-matrix { display: grid; gap: 3px; }
+  .px-matrix .px-mh { font-size: 11.5px; color: var(--ink-2); display: flex; align-items: center; justify-content: center; text-align: center; min-height: 18px; font-variant-numeric: tabular-nums; }
+  .px-matrix .px-mh.px-row { justify-content: flex-end; padding-right: 4px; }
+  .px-cell {
+    font: inherit; font-size: 10.5px; font-variant-numeric: tabular-nums; aspect-ratio: 1 / 1; min-width: 0;
+    border: 1px solid var(--border); border-radius: 5px; background: var(--raised); color: var(--ink);
+    padding: 0; cursor: pointer; position: relative; white-space: nowrap; overflow: hidden; letter-spacing: -0.02em;
+  }
+  .px-cell:hover { filter: brightness(0.96); box-shadow: inset 0 0 0 1px var(--ink-2); }
+  .px-cell[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 1px var(--surface); font-weight: 650; z-index: 1; }
+  .px-cell-empty { aspect-ratio: 1 / 1; }
+  .px-axis-cap { font-size: 11.5px; color: var(--muted); margin: 6px 0 0; }
+  .px-frag-cell { aspect-ratio: auto; padding: 14px 12px; width: 100%; font-size: 14px; text-align: left; }
+
+  .px-shade { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .px-shade label { font-size: 12px; color: var(--muted); }
+  .px-shade select {
+    font: inherit; font-size: 13px; color: var(--ink); background: var(--raised);
+    border: 1px solid var(--border); border-radius: 8px; padding: 5px 8px; max-width: 100%;
+  }
+  .px-ramp { height: 10px; border-radius: 3px; border: 1px solid var(--border); }
+  .px-ramp-ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .px-ramp-cap { font-size: 11.5px; color: var(--muted); margin: 0; }
+
+  .px-title { margin: 0 0 2px; font-size: 20px; font-weight: 650; letter-spacing: -0.005em; }
+  .px-sub { margin: 0 0 12px; color: var(--ink-2); font-size: 13.5px; }
+
+  .px-chart { position: relative; width: 100%; min-width: 0; }
+  .px-svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; font-family: var(--px-font); }
+  .px-svg:focus { outline: none; }
+  .px-svg:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+  .px-svg text { font-family: var(--px-font); }
+  .px-empty { padding: 48px 12px; text-align: center; color: var(--muted); border: 1px dashed var(--border); border-radius: 10px; }
+
+  .px-tip {
+    position: absolute; top: 0; left: 0; pointer-events: none; z-index: 5;
+    background: var(--raised); color: var(--ink); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: var(--shadow); padding: 8px 10px; font-size: 12px; line-height: 1.35; min-width: 190px; max-width: 300px;
+    font-variant-numeric: tabular-nums;
+  }
+  .px-tip[hidden] { display: none; }
+  .px-tip .px-tip-h { color: var(--ink-2); margin-bottom: 4px; }
+  .px-tip table { border-collapse: collapse; width: 100%; }
+  .px-tip td { padding: 1px 0; vertical-align: middle; }
+  .px-tip td.px-v { text-align: right; padding-left: 10px; white-space: nowrap; }
+  .px-tip td.px-l { color: var(--ink); padding-left: 6px; white-space: nowrap; }
+  .px-tip .px-u { color: var(--muted); }
+
+  .px-sw-line { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--c); vertical-align: middle; }
+  .px-sw-line.px-dash { border-top-style: dashed; }
+  .px-sw-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c); vertical-align: middle; }
+
+  .px-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 12.5px; }
+  .px-legend li { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
+  .px-legend .px-lw { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .px-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 8px 0 0; font-size: 12px; color: var(--ink-2); }
+  .px-key > span { display: inline-flex; align-items: center; gap: 6px; }
+  .px-band-sw { display: inline-block; width: 16px; height: 9px; background: var(--ink-2); opacity: 0.22; border-radius: 2px; }
+  .px-key .px-band-btn {
+    display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 12px; color: var(--ink-2);
+    background: var(--raised); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px 2px 8px; cursor: pointer;
+  }
+  .px-key .px-band-btn:hover { background: var(--hover); color: var(--ink); }
+  .px-key .px-band-btn[aria-pressed="false"] { background: transparent; color: var(--muted); }
+  .px-key .px-band-btn[aria-pressed="false"] .px-band-sw { background: transparent; opacity: 1; box-shadow: inset 0 0 0 1px var(--muted); }
+
+  .px-caption { margin: 12px 0 0; color: var(--ink-2); font-size: 13px; max-width: 80ch; }
+  .px-caption strong { color: var(--ink); font-weight: 600; }
+
+  /* small multiples */
+  .px-mult { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px 16px; }
+  .px-panel { min-width: 0; border: 1px solid var(--border); border-radius: 10px; padding: 8px 8px 4px; background: var(--raised); }
+  .px-panel-h { display: flex; align-items: baseline; gap: 2px 6px; flex-wrap: wrap; font-size: 12.5px; margin: 0 2px 4px; }
+  .px-panel-h .px-pl { font-weight: 600; }
+  .px-panel-h .px-pid { color: var(--muted); }
+  .px-panel-h .px-ro { flex: 1 0 100%; color: var(--ink-2); font-variant-numeric: tabular-nums; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* tables */
+  .px-tablebar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 10px; }
+  .px-tablebar .px-note { font-size: 12px; color: var(--muted); }
+  .px-tscroll { width: 100%; overflow: auto; max-height: 520px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; }
+  .px-table { border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; width: 100%; }
+  .px-table caption { text-align: left; font-size: 12.5px; color: var(--ink-2); padding: 8px 10px; caption-side: top; }
+  .px-table th, .px-table td { padding: 4px 10px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
+  .px-table th { position: sticky; top: 0; background: var(--raised); color: var(--ink-2); font-weight: 600; z-index: 1; }
+  .px-table th:first-child, .px-table td:first-child { text-align: left; }
+  .px-table td.px-na { color: var(--muted); }
+
+  details.px-howto { margin: 26px 0 0; border-top: 1px solid var(--border); padding-top: 12px; color: var(--ink-2); font-size: 13.5px; }
+  details.px-howto summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+  details.px-howto ul { padding-left: 20px; margin: 8px 0; }
+  details.px-howto li { margin: 3px 0; }
+  .px-error { padding: 16px; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); }
+  .px-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 560px) {
+    .px-head h1 { font-size: 22px; }
+    .px-controls { gap: 10px 12px; }
+    .px-seg button { padding: 5px 8px; }
+    .px-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="px-page">
+  <nav class="px-top" aria-label="Site">
+    <a class="px-home" href="index.html">&larr; Docs home</a>
+    <span class="px-crumb">/ PMF explorer</span>
+    <span class="px-spacer"></span>
+    <button type="button" class="px-btn" id="px-theme" aria-live="polite">Theme: auto</button>
+  </nav>
+
+  <main class="px-wrap" id="px-app">
+    <header class="px-head">
+      <h1>PMF explorer</h1>
+      <p class="px-lede">Potentials of mean force between the two peptides of every LIVAGX system (60&nbsp;mM, parallel, 300&nbsp;K).
+        Pick a PMF in the matrix, toggle systems with the chips, hover the chart to read values.
+        Negative PMF = attractive; every curve is zero at 1.8&nbsp;nm.</p>
+      <p class="px-meta" id="px-meta"></p>
+    </header>
+
+    <div class="px-controls" role="toolbar" aria-label="Chart controls">
+      <div class="px-group"><span class="px-group-label" id="lbl-fam">PMF family</span>
+        <div class="px-seg" role="group" aria-labelledby="lbl-fam" id="px-fam"></div></div>
+      <div class="px-group"><span class="px-group-label" id="lbl-kind">Curve</span>
+        <div class="px-seg" role="group" aria-labelledby="lbl-kind" id="px-kind"></div></div>
+      <div class="px-group"><span class="px-group-label" id="lbl-view">View</span>
+        <div class="px-seg" role="group" aria-labelledby="lbl-view" id="px-view"></div></div>
+      <div class="px-group"><span class="px-group-label" id="lbl-y">PMF axis range</span>
+        <div class="px-seg" role="group" aria-labelledby="lbl-y" id="px-y"></div></div>
+    </div>
+    <div class="px-systems" role="group" aria-label="Systems shown" id="px-systems"></div>
+
+    <div class="px-layout">
+      <aside class="px-side" aria-label="PMF selector">
+        <h2 id="px-pick-h">Pick a PMF</h2>
+        <div class="px-matrix-wrap">
+          <div class="px-matrix" id="px-matrix" role="group" aria-labelledby="px-pick-h"></div>
+          <p class="px-axis-cap" id="px-axis-cap"></p>
+        </div>
+        <div class="px-shade" id="px-shade-box">
+          <label for="px-shade">Shade cells by well depth of</label>
+          <select id="px-shade"></select>
+          <div id="px-ramp-box"></div>
+        </div>
+      </aside>
+
+      <section class="px-main">
+        <h2 class="px-sr">Chart</h2>
+        <p class="px-sr" aria-live="polite" id="px-live"></p>
+        <p class="px-title" id="px-title"></p>
+        <p class="px-sub" id="px-sub"></p>
+        <div class="px-chart" id="px-chart"></div>
+        <ul class="px-legend" id="px-legend" aria-label="Legend"></ul>
+        <div class="px-key" id="px-key"></div>
+        <p class="px-caption" id="px-caption"></p>
+      </section>
+    </div>
+
+    <details class="px-howto">
+      <summary>How to read this page</summary>
+      <ul>
+        <li><strong>What a PMF is here</strong>: &minus;<i>kT</i>&nbsp;ln&nbsp;<i>P</i>(<i>r</i>) at 300&nbsp;K of the raw histogram of a centre-of-mass distance (cpptraj, &Aring; converted to nm), with no <i>r</i>&sup2; volume (Jacobian) correction, exactly as <code>pmf_from_cpptraj.py</code> computes it. Each curve is shifted to 0 at the populated bin nearest 1.8&nbsp;nm and cut there, so a negative value means &ldquo;more probable than at 1.8&nbsp;nm&rdquo;.</li>
+        <li><strong>Residue pairs</strong>: PMF of the centre-of-mass distance between position <em>i</em> of peptide 1 (rows) and position <em>j</em> of peptide 2 (columns); 36 ordered pairs, 0.01&nbsp;nm bins. X = residue 6 (E, G, H, K, Q or R depending on the system). In the symmetric systems (<em>i</em>,&nbsp;<em>j</em>) and (<em>j</em>,&nbsp;<em>i</em>) are equivalent, so their difference is a second convergence check. LIVAGE (E&#8315;/E&#8304;) is not symmetric: residue 6 is GLU (&minus;1) on peptide 1 and GLH (neutral) on peptide 2.</li>
+        <li><strong>3-residue windows</strong>: LIV, IVA, VAG, AGX; off-diagonal cells pool both orderings (window <em>a</em> of peptide 1 with <em>b</em> of peptide 2 and vice versa); 0.02&nbsp;nm bins. <strong>LIVA fragment</strong>: residues 2&ndash;5 vs 10&ndash;13.</li>
+        <li><strong>Mean &plusmn; band</strong>: mean of the first and second trajectory halves (each with the first 5% of all frames dropped) on a common grid; the band is |PMF<sub>1</sub> &minus; PMF<sub>2</sub>|/2, a quick convergence check (click the band entry under the chart to hide or show it). <strong>Full</strong>: whole-trajectory PMF after dropping the first 5% of frames (pairs only). <strong>Halves</strong>: both halves drawn, solid = half 1, dashed = half 2.</li>
+        <li><strong>PMF axis range</strong>: <em>Fit</em> zooms on the wells of the shown curves; <em>Shared</em> uses one range for every PMF of the family so you can compare depths between cells; <em>Full</em> also shows the repulsive wall.</li>
+        <li>Keyboard: every control is a button; arrow keys move inside the matrix; focus the chart and use &larr;/&rarr; (Shift = 5 bins) to move the read-out. Double-click a system chip to show only that system. The URL remembers the view, so you can bookmark or share it.</li>
+        <li>Data: <code>overall/data/&lt;system&gt;/&lt;SEQ&gt;_PMF/</code> CSV snapshots written by <code>pmf_from_cpptraj.py</code>, exported to <code>docs/assets/pmf_data.js</code> by <code>overall/scripts/export_explorer_data.py</code>.</li>
+      </ul>
+    </details>
+  </main>
+</div>
+<noscript><p style="padding:16px">The PMF explorer needs JavaScript.</p></noscript>
+<script src="assets/pmf_data.js"></script>
+<script src="assets/explorer.js"></script>
+</body>
+</html>
