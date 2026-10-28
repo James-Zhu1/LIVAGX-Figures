@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.colors import LinearSegmentedColormap, Normalize  # noqa: E402
+from matplotlib.colors import LinearSegmentedColormap, Normalize, to_rgb  # noqa: E402
 from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Patch  # noqa: E402
 
@@ -39,12 +39,21 @@ WIN_NAMES = ["LIV", "IVA", "VAG", "AGX"]
 E2E_BINS = np.arange(3.0, 19.0 + 1e-9, 0.2)
 ANG_BINS = np.arange(0.0, 180.0 + 1e-9, 3.0)
 MIN_EDGE = 0.005  # H-bond edges below this mean occupancy are not drawn
-# H-bond direction colours, as in the original hbond heatmaps: red = peptide 1 donates, blue = peptide 2
-HB_RED = "#c23434"
-HB_BLUE = "#1c5cab"
-CMAP_RED = LinearSegmentedColormap.from_list(
-    "seq_red", ["#fbe9e8", "#f6c3c2", "#ee9190", "#e66767", "#e34948", "#c23434", "#a32525", "#7a1717"])
-CMAP_BY_DONOR = {1: CMAP_RED, 2: style.CMAP_SEQ}
+# H-bond direction colours: system colour = peptide 1 donates, gray = peptide 2 donates
+HB_GRAY = "#6b6a66"
+
+
+def donor_cmap(s, donor: int) -> LinearSegmentedColormap:
+    """Light -> dark ramp in the system colour (pep 1 donates) or gray (pep 2 donates)."""
+    if donor == 2:
+        return LinearSegmentedColormap.from_list("hb_gray", ["#f4f3f0", "#b9b8b1", "#6b6a66", "#2f2e2b"])
+    c = np.array(to_rgb(s.color))
+    return LinearSegmentedColormap.from_list(f"hb_{s.key}", [(0.98, 0.98, 0.975), tuple(0.5 * c + 0.5), tuple(c),
+                                                             tuple(0.55 * c)])
+
+
+def donor_edge(s, donor: int) -> str:
+    return s.color if donor == 1 else HB_GRAY
 
 ROW_H = 3.3
 COL_W = [3.3, 3.3, 3.3, 4.6, 3.0, 3.0, 3.0]
@@ -137,7 +146,8 @@ def hbond_halves(per) -> tuple[np.ndarray, np.ndarray, dict]:
 
 def hbond_heat(ax, s, mean, diff, norm, donor: int, bottom: bool) -> None:
     acceptor = 3 - donor
-    ax.imshow(mean, cmap=CMAP_BY_DONOR[donor], norm=norm, aspect="equal")
+    cmap = donor_cmap(s, donor)
+    ax.imshow(mean, cmap=cmap, norm=norm, aspect="equal")
     labs = [f"{s.sequence[p]}{p + 1}" for p in range(4)]
     ax.set_xticks(range(4), labs, fontsize=7)
     ax.set_yticks(range(4), labs, fontsize=7)
@@ -149,7 +159,8 @@ def hbond_heat(ax, s, mean, diff, norm, donor: int, bottom: bool) -> None:
     for i in range(4):
         for j in range(4):
             v = mean[i, j]
-            ink = "white" if norm(v) > 0.55 else style.INK
+            r_, g_, b_ = cmap(norm(v))[:3]
+            ink = "white" if 0.2126 * r_ + 0.7152 * g_ + 0.0722 * b_ < 0.45 else style.INK
             ax.text(j, i, f"{v:.2f}\n±{diff[i, j]:.2f}", ha="center", va="center",
                     fontsize=5.6, color=ink, linespacing=1.0)
     ax.set_title(f"pep {donor} → pep {acceptor}", fontsize=8, pad=14)
@@ -158,34 +169,27 @@ def hbond_heat(ax, s, mean, diff, norm, donor: int, bottom: bool) -> None:
 
 
 def hbond_network(ax, s, edges, wmax) -> None:
-    """Drawn antiparallel: peptide 1 runs N->C left to right, peptide 2 right to left."""
-    pos = np.arange(1, 5)
-    y = {1: 1.0, 2: 0.0}
-
-    def xof(pep: int, p: int) -> float:
-        return float(p) if pep == 1 else float(5 - p)
-
-    for pep, face, edge in ((1, s.color, s.color), (2, style.SURFACE, s.color)):
-        ax.scatter([xof(pep, p) for p in pos], [y[pep]] * 4, s=260, c=face, edgecolors=edge,
-                   linewidths=1.6, zorder=4)
-        for p in pos:
-            ax.text(xof(pep, p), y[pep], s.sequence[p - 1], ha="center", va="center", fontsize=8,
-                    zorder=5, color="white" if pep == 1 else style.INK, weight="bold")
-    ax.text(0.35, 1.0, "pep 1\nN→C", ha="right", va="center", fontsize=7, color=style.INK_2)
-    ax.text(0.35, 0.0, "pep 2\nC←N", ha="right", va="center", fontsize=7, color=style.INK_2)
+    """Circular layout from the original combined_first_second_half.py: the eight
+    LIVA residues (pep 1 L I V A, then pep 2 L I V A) evenly spaced on a circle."""
+    order = [(1, p) for p in range(1, 5)] + [(2, p) for p in range(1, 5)]
+    theta = np.linspace(0, 2 * np.pi, len(order), endpoint=False)
+    xy = {node: (np.cos(t), np.sin(t)) for node, t in zip(order, theta)}
+    for (pep, p), (x, y) in xy.items():
+        face = s.color if pep == 1 else style.SURFACE
+        ax.scatter([x], [y], s=330, c=face, edgecolors=s.color, linewidths=1.6, zorder=4)
+        ax.text(x, y, f"{s.sequence[p - 1]}{p}", ha="center", va="center", fontsize=7, zorder=5,
+                color="white" if pep == 1 else style.INK, weight="bold")
     for ((dp, dpos), (ap, apos)), w in sorted(edges.items(), key=lambda kv: kv[1]):
         if w < MIN_EDGE or dpos > 4 or apos > 4:
             continue
-        col = HB_RED if dp == 1 else HB_BLUE
-        rad = 0.18 if dp == 1 else -0.18
-        arr = FancyArrowPatch((xof(dp, dpos), y[dp]), (xof(ap, apos), y[ap]),
-                              connectionstyle=f"arc3,rad={rad}",
+        arr = FancyArrowPatch(xy[(dp, dpos)], xy[(ap, apos)], connectionstyle="arc3,rad=0.2",
                               arrowstyle="-|>", mutation_scale=6 + 6 * w / wmax,
-                              lw=0.4 + 5.5 * w / wmax, color=col, alpha=0.35 + 0.6 * w / wmax,
-                              shrinkA=9, shrinkB=9, zorder=3)
+                              lw=0.4 + 5.5 * w / wmax, color=donor_edge(s, dp), alpha=0.35 + 0.6 * w / wmax,
+                              shrinkA=10, shrinkB=10, zorder=3)
         ax.add_patch(arr)
-    ax.set_xlim(0.0, 4.6)
-    ax.set_ylim(-0.45, 1.45)
+    ax.set_xlim(-1.35, 1.35)
+    ax.set_ylim(-1.35, 1.35)
+    ax.set_aspect("equal", adjustable="box")
     ax.axis("off")
 
 
@@ -231,7 +235,7 @@ def build():
              "H-bond occupancy (LIVA), by direction", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)"]
     subs = ["each mini panel: x 0.3–1.8 nm, y −1.75…2.5 kcal/mol", "same axes; rows/cols = window on pep 1 / pep 2",
             "mean of halves ± |PMF₁−PMF₂|/2", "rows = donor, cols = acceptor; per contact frame, mean ± |h₁−h₂|/2",
-            "antiparallel layout; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
+            "filled = pep 1, open = pep 2; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
 
     for r, s in enumerate(SYSTEMS):
         bottom = r == len(SYSTEMS) - 1
@@ -264,8 +268,8 @@ def build():
         fig.text(xc, 1 - 0.8 / fig_h, sub, ha="center", fontsize=8, color=style.INK_2)
 
     # legends for the H-bond columns (once, under the column headers)
-    leg = [Line2D([], [], color=HB_RED, lw=2.5, label="pep 1 donates"),
-           Line2D([], [], color=HB_BLUE, lw=2.5, label="pep 2 donates")]
+    leg = [Line2D([], [], color=style.INK, lw=2.5, label="pep 1 donates (system colour)"),
+           Line2D([], [], color=HB_GRAY, lw=2.5, label="pep 2 donates (gray)")]
     box = gs[0, 4].get_position(fig)
     fig.legend(handles=leg, loc="upper center", bbox_to_anchor=(0.5 * (box.x0 + box.x1), 1 - 0.88 / fig_h),
                ncol=2, fontsize=7, handlelength=1.4, columnspacing=1.0)
@@ -273,9 +277,9 @@ def build():
     bw = 0.42 * (box.x1 - box.x0)
     for k, (donor, x0) in enumerate(((1, box.x0 + 0.04 * (box.x1 - box.x0)), (2, box.x0 + 0.54 * (box.x1 - box.x0)))):
         cax = fig.add_axes([x0, 0.12 / fig_h, bw, 0.1 / fig_h])
-        cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=CMAP_BY_DONOR[donor]), cax=cax,
+        cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=donor_cmap(SYSTEMS[-1], donor)), cax=cax,
                           orientation="horizontal")
-        cb.set_label(f"pep {donor} → pep {3 - donor} occupancy", fontsize=7)
+        cb.set_label(f"pep {donor} → pep {3 - donor} occupancy" + (" (each row in its system colour)" if donor == 1 else ""), fontsize=7)
         cb.ax.tick_params(labelsize=6)
     return fig
 
@@ -287,8 +291,8 @@ CAPTION = (
     "y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide "
     "backbone H-bond occupancy over the LIVA positions (the cpptraj mask), split by direction as in the original "
     "hbond heatmaps (left: peptide 1 N–H donates to peptide 2 O; right: peptide 2 donates to peptide 1; rows = "
-    "donor, columns = acceptor; red = peptide 1 donates, blue = peptide 2 donates, both on the same 0–max range), per LIVA–LIVA contact frame, mean ± half difference. Column 5: the same "
-    "H-bonds as directed arrows (donor N–H → acceptor O; red = peptide 1 donates, blue = peptide 2), peptide 2 drawn antiparallel (C←N) under peptide 1 (N→C) for readability only; width and opacity ∝ mean occupancy on one scale "
+    "donor, columns = acceptor; system colour = peptide 1 donates, gray = peptide 2 donates, both on the same 0–max range), per LIVA–LIVA contact frame, mean ± half difference. Column 5: the same "
+    "H-bonds as directed arrows (donor N–H → acceptor O; system colour = peptide 1 donates, gray = peptide 2) on the circular layout of the original analysis script (filled nodes = peptide 1, open = peptide 2); width and opacity ∝ mean occupancy on one scale "
     f"for all rows, bonds below {MIN_EDGE} not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) "
     "and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, "
     "vertical line = mean; shared axes down each column. " + ANGLE_CAVEAT)
