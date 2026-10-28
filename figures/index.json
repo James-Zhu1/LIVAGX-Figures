@@ -318,6 +318,23 @@
   "order": 1
  },
  {
+  "file": "figures/overview/system_rows.png",
+  "title": "Per-system overview: PMFs, H-bonds, angle, end-to-end",
+  "caption": "One row per system, seven analyses. Columns 1–3: residue-pair (6×6, row = position on peptide 1, column = position on peptide 2), three-residue window (upper triangle) and LIVA–LIVA PMFs, all the mean of the two trajectory halves with a ±|PMF₁−PMF₂|/2 band; every PMF panel shares x 0.3–1.8 nm and y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide backbone H-bond occupancy over the LIVA positions (the cpptraj mask), both donor directions summed, per LIVA–LIVA contact frame, mean ± half difference, one colour scale for all rows. Column 5: the same H-bonds as directed arrows (donor N–H → acceptor O); width and opacity ∝ mean occupancy on one scale for all rows, bonds below 0.005 not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, vertical line = mean; shared axes down each column. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "overview",
+  "systems": [
+   "livage_cc",
+   "livage_cn",
+   "livage_nn",
+   "livagg",
+   "livagh",
+   "livagk",
+   "livagq",
+   "livagr"
+  ],
+  "order": 2
+ },
+ {
   "file": "figures/qc/halves_rmsd_heatmap.png",
   "title": "Convergence: RMS difference between trajectory halves",
   "caption": "Each cell is the root-mean-square difference between the first-half and second-half PMF (5%-trimmed halves, put on a common grid with the source combine_pmfs algorithm), computed only where the mean-of-halves PMF is below 2 kcal/mol to cut off the hard-core wall; darker blue = the two halves disagree more, and the five worst PMFs of each system are boxed in bold. The cutoff does not remove the sparsely sampled foot of the wall: in the 86 corner-marked cells most of the RMS comes from the repulsive side inside the well (mean PMF 0.5–2 kcal/mol, usually a few bins at r < 0.45 nm), including the largest value (LIVAGQ A4–A4: 0.39 kcal/mol, 0.05 without the edge), so unmarked cells are the better guide to disagreement in the well itself. Columns: 36 residue pairs (position on peptide 1 – position on peptide 2, X = residue 6), 10 three-residue window pairs and the LIVA–LIVA fragment; data from the *_halves_value CSVs.",

@@ -35,7 +35,7 @@ Re-syncs `data/`, regenerates `figures/` and `docs/`, then commits and tags
 - `scripts/common.py` system registry (labels, paths, fixed colours), PMF loaders
 - `scripts/style.py` shared figure style
 - `scripts/sync_data.py` snapshot to `data/<key>/` (skips `*.in *.prmtop *.log *.nc` and files > 20 MB; all listed in `data/manifest.json`)
-- `scripts/fig_overview_grid.py`, `fig_cross_system.py`, `fig_halved_compare.py`, `fig_qc.py` figures + CSV tables in `figures/`
+- `scripts/fig_overview_grid.py` (all systems overlaid), `fig_system_rows.py` (8 rows x 7 analyses), `fig_cross_system.py`, `fig_halved_compare.py`, `fig_qc.py` figures + CSV tables in `figures/`
 - `scripts/export_explorer_data.py`, `scripts/build_docs.py` the docs site
 
 To add a system, add one line to `_SYS` in `scripts/common.py` and run `./update.sh`.

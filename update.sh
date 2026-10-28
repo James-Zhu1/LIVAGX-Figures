@@ -22,7 +22,7 @@ step() { printf '\n== %s\n' "$*"; }
 step "sync data snapshot"
 $PY scripts/sync_data.py
 
-for s in fig_overview_grid fig_cross_system fig_halved_compare fig_qc export_explorer_data; do
+for s in fig_overview_grid fig_system_rows fig_cross_system fig_halved_compare fig_qc export_explorer_data; do
     step "$s"
     $PY "scripts/$s.py"
 done
