@@ -8,7 +8,7 @@
     6  pep1-pep2 angle              mean of the two half densities, band = |h1-h2|/2
     7  end-to-end distance          same
 
-Output: overall/figures/overview/system_rows.png (group 'overview').
+Output: overall/figures/overview/system_rows.png (300 dpi, group 'overview') and system_rows.pdf (vector).
 
 Run from overall/:
     /hopper/home/jzii2024/miniconda3/envs/pmf/bin/python scripts/fig_system_rows.py
@@ -28,8 +28,8 @@ from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Patch  # noqa: E402
 
 import style  # noqa: E402
-from common import (SYSTEMS, WINDOW_PAIRS, load_fragment, load_pair, load_window,  # noqa: E402
-                    pair_ids)
+from common import (FIGURES, SYSTEMS, WINDOW_PAIRS, assert_inside_overall, load_fragment,  # noqa: E402
+                    load_pair, load_window, pair_ids)
 from fig_halved_compare import ANGLE_CAVEAT, atom_res, load_all, res_to_pos  # noqa: E402
 
 XLIM = (0.3, 1.8)
@@ -301,8 +301,12 @@ CAPTION = (
 def main() -> None:
     style.apply()
     fig = build()
+    # vector copy for zooming / publication (style.save closes the figure)
+    pdf = assert_inside_overall(FIGURES / "overview" / "system_rows.pdf")
+    fig.savefig(pdf, bbox_inches="tight")
+    print("wrote", pdf, f"{pdf.stat().st_size / 1e6:.2f} MB")
     p = style.save(fig, "overview/system_rows.png", "Per-system overview: PMFs, H-bonds, angle, end-to-end",
-                   CAPTION, "overview", [s.key for s in SYSTEMS], order=2, dpi=110)
+                   CAPTION, "overview", [s.key for s in SYSTEMS], order=2, dpi=300)
     print("wrote", p, f"{p.stat().st_size / 1e6:.2f} MB")
 
 
