@@ -141,21 +141,28 @@ def hbond_heat(ax, s, mean, diff, norm) -> None:
 
 
 def hbond_network(ax, s, edges, wmax) -> None:
-    xs = np.arange(1, 5)
+    """Drawn antiparallel: peptide 1 runs N->C left to right, peptide 2 right to left."""
+    pos = np.arange(1, 5)
     y = {1: 1.0, 2: 0.0}
+
+    def xof(pep: int, p: int) -> float:
+        return float(p) if pep == 1 else float(5 - p)
+
     for pep, face, edge in ((1, s.color, s.color), (2, style.SURFACE, s.color)):
-        ax.scatter(xs, [y[pep]] * 4, s=260, c=face, edgecolors=edge, linewidths=1.6, zorder=4)
-        for x in xs:
-            ax.text(x, y[pep], s.sequence[x - 1], ha="center", va="center", fontsize=8, zorder=5,
-                    color="white" if pep == 1 else style.INK, weight="bold")
-    ax.text(0.35, 1.0, "pep 1", ha="right", va="center", fontsize=7, color=style.INK_2)
-    ax.text(0.35, 0.0, "pep 2", ha="right", va="center", fontsize=7, color=style.INK_2)
+        ax.scatter([xof(pep, p) for p in pos], [y[pep]] * 4, s=260, c=face, edgecolors=edge,
+                   linewidths=1.6, zorder=4)
+        for p in pos:
+            ax.text(xof(pep, p), y[pep], s.sequence[p - 1], ha="center", va="center", fontsize=8,
+                    zorder=5, color="white" if pep == 1 else style.INK, weight="bold")
+    ax.text(0.35, 1.0, "pep 1\nN→C", ha="right", va="center", fontsize=7, color=style.INK_2)
+    ax.text(0.35, 0.0, "pep 2\nC←N", ha="right", va="center", fontsize=7, color=style.INK_2)
     for ((dp, dpos), (ap, apos)), w in sorted(edges.items(), key=lambda kv: kv[1]):
         if w < MIN_EDGE or dpos > 4 or apos > 4:
             continue
         col = s.color if dp == 1 else style.INK_2
         rad = 0.18 if dp == 1 else -0.18
-        arr = FancyArrowPatch((dpos, y[dp]), (apos, y[ap]), connectionstyle=f"arc3,rad={rad}",
+        arr = FancyArrowPatch((xof(dp, dpos), y[dp]), (xof(ap, apos), y[ap]),
+                              connectionstyle=f"arc3,rad={rad}",
                               arrowstyle="-|>", mutation_scale=6 + 6 * w / wmax,
                               lw=0.4 + 5.5 * w / wmax, color=col, alpha=0.35 + 0.6 * w / wmax,
                               shrinkA=9, shrinkB=9, zorder=3)
@@ -207,7 +214,7 @@ def build():
              "H-bond occupancy (LIVA)", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)"]
     subs = ["each mini panel: x 0.3–1.8 nm, y −1.75…2.5 kcal/mol", "same axes; rows/cols = window on pep 1 / pep 2",
             "mean of halves ± |PMF₁−PMF₂|/2", "per contact frame, mean ± |h₁−h₂|/2",
-            "arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
+            "antiparallel layout; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
 
     for r, s in enumerate(SYSTEMS):
         bottom = r == len(SYSTEMS) - 1
@@ -259,7 +266,7 @@ CAPTION = (
     "y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide "
     "backbone H-bond occupancy over the LIVA positions (the cpptraj mask), both donor directions summed, per "
     "LIVA–LIVA contact frame, mean ± half difference, one colour scale for all rows. Column 5: the same "
-    "H-bonds as directed arrows (donor N–H → acceptor O); width and opacity ∝ mean occupancy on one scale "
+    "H-bonds as directed arrows (donor N–H → acceptor O), peptide 2 drawn antiparallel (C←N) under peptide 1 (N→C) for readability only; width and opacity ∝ mean occupancy on one scale "
     f"for all rows, bonds below {MIN_EDGE} not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) "
     "and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, "
     "vertical line = mean; shared axes down each column. " + ANGLE_CAVEAT)
