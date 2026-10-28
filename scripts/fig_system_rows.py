@@ -41,7 +41,7 @@ ANG_BINS = np.arange(0.0, 180.0 + 1e-9, 3.0)
 MIN_EDGE = 0.005  # H-bond edges below this mean occupancy are not drawn
 
 ROW_H = 3.3
-COL_W = [3.3, 3.3, 3.3, 2.7, 3.0, 3.0, 3.0]
+COL_W = [3.3, 3.3, 3.3, 4.6, 3.0, 3.0, 3.0]
 LABEL_W = 2.5
 
 
@@ -108,25 +108,34 @@ def fragment_panel(ax, s, c, bottom: bool) -> None:
 
 
 def hbond_halves(per) -> tuple[np.ndarray, np.ndarray, dict]:
-    """Mean/half-diff of the symmetric 4x4 matrix + mean directed edge occupancies."""
-    m1, m2 = per["first"]["hbmat"], per["second"]["hbmat"]
+    """Directed 4x4 occupancy matrices, as in the original hbond heatmaps.
+
+    Returns mean and |h1-h2|/2 arrays of shape (2, 4, 4): [0] = peptide 1 donates
+    (rows = donor position on pep 1, cols = acceptor position on pep 2), [1] =
+    peptide 2 donates (rows = donor on pep 2, cols = acceptor on pep 1); plus the
+    mean directed edge occupancies for the network diagram.
+    """
+    mats = np.zeros((2, 2, 4, 4))  # half, direction, donor pos, acceptor pos
     edges: dict[tuple, list[float]] = {}
     for k, h in enumerate(("first", "second")):
         for _, r in per[h]["hb"].iterrows():
             a, d = res_to_pos(atom_res(r.acceptor)), res_to_pos(atom_res(r.donor))
             if a is None or d is None or a[0] == d[0]:
                 continue
-            key = (d, a)  # donor -> acceptor, each (peptide, position)
-            edges.setdefault(key, [0.0, 0.0])[k] += r.frac
+            edges.setdefault((d, a), [0.0, 0.0])[k] += r.frac  # donor -> acceptor
+            if d[1] <= 4 and a[1] <= 4:
+                mats[k, d[0] - 1, d[1] - 1, a[1] - 1] += r.frac
     mean_edges = {k: 0.5 * (v[0] + v[1]) for k, v in edges.items()}
-    return 0.5 * (m1 + m2), 0.5 * np.abs(m1 - m2), mean_edges
+    return 0.5 * (mats[0] + mats[1]), 0.5 * np.abs(mats[0] - mats[1]), mean_edges
 
 
-def hbond_heat(ax, s, mean, diff, norm) -> None:
+def hbond_heat(ax, s, mean, diff, norm, donor: int, bottom: bool) -> None:
+    acceptor = 3 - donor
     ax.imshow(mean, cmap=style.CMAP_SEQ, norm=norm, aspect="equal")
     labs = [f"{s.sequence[p]}{p + 1}" for p in range(4)]
     ax.set_xticks(range(4), labs, fontsize=7)
     ax.set_yticks(range(4), labs, fontsize=7)
+    ax.xaxis.set_ticks_position("top")
     ax.tick_params(length=0, pad=2)
     ax.grid(False)
     for sp in ax.spines.values():
@@ -137,7 +146,9 @@ def hbond_heat(ax, s, mean, diff, norm) -> None:
             ink = "white" if norm(v) > 0.55 else style.INK
             ax.text(j, i, f"{v:.2f}\n±{diff[i, j]:.2f}", ha="center", va="center",
                     fontsize=5.6, color=ink, linespacing=1.0)
-    ax.set_xlabel("position on the other peptide", fontsize=7, color=style.INK_2)
+    ax.set_title(f"pep {donor} → pep {acceptor}", fontsize=8, pad=14)
+    ax.set_ylabel(f"donor (pep {donor})", fontsize=7, color=style.INK_2, labelpad=1)
+    ax.set_xlabel(f"acceptor (pep {acceptor})", fontsize=7, color=style.INK_2, labelpad=2)
 
 
 def hbond_network(ax, s, edges, wmax) -> None:
@@ -211,9 +222,9 @@ def build():
                           top=1 - 1.25 / fig_h, bottom=0.45 / fig_h, wspace=0.16, hspace=0.14)
 
     heads = ["Residue-pair PMFs (6×6)", "Three-residue window PMFs", "LIVA–LIVA fragment PMF",
-             "H-bond occupancy (LIVA)", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)"]
+             "H-bond occupancy (LIVA), by direction", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)"]
     subs = ["each mini panel: x 0.3–1.8 nm, y −1.75…2.5 kcal/mol", "same axes; rows/cols = window on pep 1 / pep 2",
-            "mean of halves ± |PMF₁−PMF₂|/2", "per contact frame, mean ± |h₁−h₂|/2",
+            "mean of halves ± |PMF₁−PMF₂|/2", "rows = donor, cols = acceptor; per contact frame, mean ± |h₁−h₂|/2",
             "antiparallel layout; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
 
     for r, s in enumerate(SYSTEMS):
@@ -222,7 +233,9 @@ def build():
         window_block(fig, gs[r, 1], s, {ab: load_window(s, *ab) for ab in WINDOW_PAIRS})
         fragment_panel(fig.add_subplot(gs[r, 2]), s, load_fragment(s), bottom)
         mean, diff, edges = hb[s.key]
-        hbond_heat(fig.add_subplot(gs[r, 3]), s, mean, diff, norm)
+        gh = gs[r, 3].subgridspec(1, 2, wspace=0.35)
+        for k in range(2):
+            hbond_heat(fig.add_subplot(gh[0, k]), s, mean[k], diff[k], norm, donor=k + 1, bottom=bottom)
         hbond_network(fig.add_subplot(gs[r, 4]), s, edges, wmax)
         d = data[s.key]
         density_panel(fig.add_subplot(gs[r, 5]), s, d["first"]["angle"], d["second"]["angle"],
@@ -264,8 +277,9 @@ CAPTION = (
     "column = position on peptide 2), three-residue window (upper triangle) and LIVA–LIVA PMFs, all the "
     "mean of the two trajectory halves with a ±|PMF₁−PMF₂|/2 band; every PMF panel shares x 0.3–1.8 nm and "
     "y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide "
-    "backbone H-bond occupancy over the LIVA positions (the cpptraj mask), both donor directions summed, per "
-    "LIVA–LIVA contact frame, mean ± half difference, one colour scale for all rows. Column 5: the same "
+    "backbone H-bond occupancy over the LIVA positions (the cpptraj mask), split by direction as in the original "
+    "hbond heatmaps (left: peptide 1 N–H donates to peptide 2 O; right: peptide 2 donates to peptide 1; rows = "
+    "donor, columns = acceptor), per LIVA–LIVA contact frame, mean ± half difference, one colour scale for all panels. Column 5: the same "
     "H-bonds as directed arrows (donor N–H → acceptor O), peptide 2 drawn antiparallel (C←N) under peptide 1 (N→C) for readability only; width and opacity ∝ mean occupancy on one scale "
     f"for all rows, bonds below {MIN_EDGE} not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) "
     "and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, "

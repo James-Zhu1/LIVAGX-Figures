@@ -792,7 +792,7 @@
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_mean.view.webp": {
-  "fp": "1345153-1793224217",
+  "fp": "1345153-1793224359",
   "thumb": [
    1000,
    547
@@ -803,7 +803,7 @@
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_full.view.webp": {
-  "fp": "1358390-1793224218",
+  "fp": "1358390-1793224360",
   "thumb": [
    1000,
    547
@@ -814,14 +814,14 @@
   ]
  },
  "systems/previews/_figures/figures/overview/system_rows.view.webp": {
-  "fp": "1730265-1793224229",
+  "fp": "1878904-1793224372",
   "thumb": [
    1000,
-   1133
+   1060
   ],
   "view": [
    2400,
-   2719
+   2544
   ]
  }
 }
