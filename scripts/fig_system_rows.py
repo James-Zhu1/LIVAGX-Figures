@@ -23,7 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.colors import Normalize  # noqa: E402
+from matplotlib.colors import LinearSegmentedColormap, Normalize  # noqa: E402
 from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Patch  # noqa: E402
 
@@ -39,6 +39,12 @@ WIN_NAMES = ["LIV", "IVA", "VAG", "AGX"]
 E2E_BINS = np.arange(3.0, 19.0 + 1e-9, 0.2)
 ANG_BINS = np.arange(0.0, 180.0 + 1e-9, 3.0)
 MIN_EDGE = 0.005  # H-bond edges below this mean occupancy are not drawn
+# H-bond direction colours, as in the original hbond heatmaps: red = peptide 1 donates, blue = peptide 2
+HB_RED = "#c23434"
+HB_BLUE = "#1c5cab"
+CMAP_RED = LinearSegmentedColormap.from_list(
+    "seq_red", ["#fbe9e8", "#f6c3c2", "#ee9190", "#e66767", "#e34948", "#c23434", "#a32525", "#7a1717"])
+CMAP_BY_DONOR = {1: CMAP_RED, 2: style.CMAP_SEQ}
 
 ROW_H = 3.3
 COL_W = [3.3, 3.3, 3.3, 4.6, 3.0, 3.0, 3.0]
@@ -131,7 +137,7 @@ def hbond_halves(per) -> tuple[np.ndarray, np.ndarray, dict]:
 
 def hbond_heat(ax, s, mean, diff, norm, donor: int, bottom: bool) -> None:
     acceptor = 3 - donor
-    ax.imshow(mean, cmap=style.CMAP_SEQ, norm=norm, aspect="equal")
+    ax.imshow(mean, cmap=CMAP_BY_DONOR[donor], norm=norm, aspect="equal")
     labs = [f"{s.sequence[p]}{p + 1}" for p in range(4)]
     ax.set_xticks(range(4), labs, fontsize=7)
     ax.set_yticks(range(4), labs, fontsize=7)
@@ -170,7 +176,7 @@ def hbond_network(ax, s, edges, wmax) -> None:
     for ((dp, dpos), (ap, apos)), w in sorted(edges.items(), key=lambda kv: kv[1]):
         if w < MIN_EDGE or dpos > 4 or apos > 4:
             continue
-        col = s.color if dp == 1 else style.INK_2
+        col = HB_RED if dp == 1 else HB_BLUE
         rad = 0.18 if dp == 1 else -0.18
         arr = FancyArrowPatch((xof(dp, dpos), y[dp]), (xof(ap, apos), y[ap]),
                               connectionstyle=f"arc3,rad={rad}",
@@ -258,17 +264,19 @@ def build():
         fig.text(xc, 1 - 0.8 / fig_h, sub, ha="center", fontsize=8, color=style.INK_2)
 
     # legends for the H-bond columns (once, under the column headers)
-    leg = [Line2D([], [], color=style.INK, lw=2.5, label="pep 1 donates (system colour)"),
-           Line2D([], [], color=style.INK_2, lw=2.5, label="pep 2 donates (gray)")]
+    leg = [Line2D([], [], color=HB_RED, lw=2.5, label="pep 1 donates"),
+           Line2D([], [], color=HB_BLUE, lw=2.5, label="pep 2 donates")]
     box = gs[0, 4].get_position(fig)
     fig.legend(handles=leg, loc="upper center", bbox_to_anchor=(0.5 * (box.x0 + box.x1), 1 - 0.88 / fig_h),
                ncol=2, fontsize=7, handlelength=1.4, columnspacing=1.0)
-    sm = plt.cm.ScalarMappable(norm=norm, cmap=style.CMAP_SEQ)
     box = gs[len(SYSTEMS) - 1, 3].get_position(fig)
-    cax = fig.add_axes([box.x0 + 0.1 * (box.x1 - box.x0), 0.12 / fig_h, 0.8 * (box.x1 - box.x0), 0.1 / fig_h])
-    cb = fig.colorbar(sm, cax=cax, orientation="horizontal")
-    cb.set_label("H-bond occupancy (fraction of contact frames)", fontsize=7)
-    cb.ax.tick_params(labelsize=6)
+    bw = 0.42 * (box.x1 - box.x0)
+    for k, (donor, x0) in enumerate(((1, box.x0 + 0.04 * (box.x1 - box.x0)), (2, box.x0 + 0.54 * (box.x1 - box.x0)))):
+        cax = fig.add_axes([x0, 0.12 / fig_h, bw, 0.1 / fig_h])
+        cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=CMAP_BY_DONOR[donor]), cax=cax,
+                          orientation="horizontal")
+        cb.set_label(f"pep {donor} → pep {3 - donor} occupancy", fontsize=7)
+        cb.ax.tick_params(labelsize=6)
     return fig
 
 
@@ -279,8 +287,8 @@ CAPTION = (
     "y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide "
     "backbone H-bond occupancy over the LIVA positions (the cpptraj mask), split by direction as in the original "
     "hbond heatmaps (left: peptide 1 N–H donates to peptide 2 O; right: peptide 2 donates to peptide 1; rows = "
-    "donor, columns = acceptor), per LIVA–LIVA contact frame, mean ± half difference, one colour scale for all panels. Column 5: the same "
-    "H-bonds as directed arrows (donor N–H → acceptor O), peptide 2 drawn antiparallel (C←N) under peptide 1 (N→C) for readability only; width and opacity ∝ mean occupancy on one scale "
+    "donor, columns = acceptor; red = peptide 1 donates, blue = peptide 2 donates, both on the same 0–max range), per LIVA–LIVA contact frame, mean ± half difference. Column 5: the same "
+    "H-bonds as directed arrows (donor N–H → acceptor O; red = peptide 1 donates, blue = peptide 2), peptide 2 drawn antiparallel (C←N) under peptide 1 (N→C) for readability only; width and opacity ∝ mean occupancy on one scale "
     f"for all rows, bonds below {MIN_EDGE} not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) "
     "and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, "
     "vertical line = mean; shared axes down each column. " + ANGLE_CAVEAT)
