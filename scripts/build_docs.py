@@ -81,7 +81,7 @@ PROTECTED = {"explorer.html", "pmf_data.js"}
 GROUPS = [("overview", "Overview"), ("cross_system", "Across systems"),
           ("halved", "Halved structure"), ("qc", "Convergence QC")]
 GROUP_BLURB = {
-    "overview": "Every system in one place: one row per peptide system, one column per PMF type.",
+    "overview": "Every PMF in one figure: the 6×6 residue-pair grid, the three-residue windows and LIVA–LIVA, all eight systems overlaid in their fixed colours.",
     "cross_system": "The same PMF overlaid for all eight systems, well-depth maps and residue-6 (X) focus.",
     "halved": "Structure of LIVA-LIVA contact frames per trajectory half: contacts, H-bonds, angle, end-to-end distance, backbone dihedrals.",
     "qc": "Convergence checks: first half vs second half, full trajectory vs mean of halves.",

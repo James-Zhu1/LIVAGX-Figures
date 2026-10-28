@@ -792,25 +792,25 @@
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_mean.view.webp": {
-  "fp": "1415337-1793041161",
+  "fp": "1345153-1793221944",
   "thumb": [
    1000,
-   1277
+   547
   ],
   "view": [
-   2360,
-   3013
+   2400,
+   1312
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_full.view.webp": {
-  "fp": "1425123-1793041163",
+  "fp": "1358390-1793221945",
   "thumb": [
    1000,
-   1277
+   547
   ],
   "view": [
-   2360,
-   3013
+   2400,
+   1312
   ]
  }
 }

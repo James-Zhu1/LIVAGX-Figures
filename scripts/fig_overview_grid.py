@@ -1,15 +1,15 @@
-"""The big overview grid: one row per LIVAGX system, one column per PMF family.
+"""The big overview figure: every PMF, all eight LIVAGX systems overlaid.
 
-    col 1  residue-pair PMFs (36 ordered pairs)       X6 pairs emphasised
-    col 2  three-residue window PMFs (10 pairs)       AGX windows emphasised
-    col 3  LIVA-LIVA fragment PMF                     mean of halves + |dPMF|/2 band
-    col 4  6x6 map of pair well depths (min PMF)      shared diverging scale
+    a  6x6 grid of residue-pair PMFs (row = pep 1 position, col = pep 2 position)
+    b  4x4 upper triangle of three-residue window PMFs (LIV, IVA, VAG, AGX)
+    c  LIVA-LIVA fragment PMF (in the empty lower corner of b)
+    one line per system in its fixed colour; panels involving residue 6 tinted
 
 Outputs (all under overall/figures/overview/):
-    big_grid_mean.png            col 1 / col 4 from the mean of the two halves
-    big_grid_full.png            col 1 / col 4 from the whole trajectory
-    pair_well_depths_mean.csv    the numbers drawn in col 4 of big_grid_mean.png
-    pair_well_depths_full.csv    the numbers drawn in col 4 of big_grid_full.png
+    big_grid_mean.png            pair PMFs = mean of the two halves
+    big_grid_full.png            pair PMFs = whole trajectory
+    pair_well_depths_mean.csv    pair well depths (mean of halves)
+    pair_well_depths_full.csv    pair well depths (whole trajectory)
         columns: system, i, j, pair_label, min_pmf_kcal, r_min_nm,
                  resname_pep1, resname_pep2 (Amber names; residue 6 differs between
                  the peptides in livage_cn: GLU on pep 1, GLH on pep 2),
@@ -134,229 +134,123 @@ def row_note(s: System) -> str:
 
 
 # ------------------------------------------------------------------ panels
-def setup_curve_ax(ax, bottom: bool) -> None:
+GENERIC = "LIVAGX"
+LINE_SYS = 1.1  # one line per system; 8 overlaid
+X_TINT = "#f3f2ee"  # faint background on panels that involve residue 6 (X)
+PANEL = 1.75  # inches per pair panel
+
+
+def style_panel(ax, show_x: bool, show_y: bool, tint: bool = False) -> None:
     ax.set_xlim(*XLIM)
     ax.set_ylim(*YLIM)
-    ax.set_yticks(YTICKS)
     ax.set_xticks([0.4, 0.8, 1.2, 1.6])
-    ax.axhline(0, color=style.MUTED, lw=0.55, zorder=1)
-    if bottom:
-        ax.set_xlabel("COM distance (nm)")
-    else:
-        ax.tick_params(axis="x", labelbottom=False)
+    ax.set_yticks(YTICKS)
+    ax.axhline(0, color=style.AXIS, lw=0.6, zorder=1)
+    ax.tick_params(length=2, pad=1.5, labelsize=7)
+    if not show_x:
+        ax.tick_params(labelbottom=False)
+    if not show_y:
+        ax.tick_params(labelleft=False)
+    if tint:
+        ax.set_facecolor(X_TINT)
 
 
-def corner_note(ax, lines: list[str]) -> None:
-    ax.text(0.985, 0.955, "\n".join(lines), transform=ax.transAxes, ha="right", va="top",
-            fontsize=6.6, color=style.INK_2, linespacing=1.35, zorder=6)
+def overlay(ax, curves: dict) -> None:
+    """One line per system, fixed system colour, in SYSTEMS order."""
+    for s in SYSTEMS:
+        c = curves[s.key]
+        ax.plot(c.r, c.pmf, color=s.color, lw=LINE_SYS, alpha=0.9, zorder=3)
 
 
-def draw_pairs(ax, s: System, kind: str) -> None:
-    ctx, emph, bold = [], [], []
-    for i, j in pair_ids():
-        c = load_pair(s, i, j, kind=kind)
-        n_x = (i == X_POS) + (j == X_POS)
-        (ctx, emph, bold)[n_x].append(((i, j), c))
-    for _, c in ctx:
-        ax.plot(c.r, c.pmf, color=style.CONTEXT_GRAY, lw=style.THIN_W, zorder=2)
-    for _, c in emph:
-        ax.plot(c.r, c.pmf, color=s.color, lw=style.THIN_W, alpha=EMPH_ALPHA, zorder=3)
-    for _, c in bold:
-        ax.plot(c.r, c.pmf, color=s.color, lw=BOLD_W, zorder=4)
-    allp = [(well_depth(c), ij) for ij, c in ctx + emph + bold]
-    (d, r), (i, j) = min(allp, key=lambda t: t[0][0])
-    (dx, _), (ix, jx) = min(((well_depth(c), ij) for ij, c in emph + bold), key=lambda t: t[0][0])
-    corner_note(ax, [f"deepest {pair_lab(s, i, j)}  {fmt(d)}",
-                     f"deepest X6 pair {pair_lab(s, ix, jx)}  {fmt(dx)}"])
-
-
-def draw_windows(ax, s: System) -> None:
-    ctx, emph, bold = [], [], []
-    for a, b in WINDOW_PAIRS:
-        c = load_window(s, a, b)
-        n_x = (a == X_WIN) + (b == X_WIN)
-        (ctx, emph, bold)[n_x].append(((a, b), c))
-    for _, c in ctx:
-        ax.plot(c.r, c.pmf, color=style.CONTEXT_GRAY, lw=style.THIN_W, zorder=2)
-    for _, c in emph:
-        ax.plot(c.r, c.pmf, color=s.color, lw=style.THIN_W, alpha=EMPH_ALPHA, zorder=3)
-    for _, c in bold:
-        ax.plot(c.r, c.pmf, color=s.color, lw=BOLD_W, zorder=4)
-    (d, _), (a, b) = min(((well_depth(c), ab) for ab, c in ctx + emph + bold), key=lambda t: t[0][0])
-    (dx, _), (ax_, bx) = min(((well_depth(c), ab) for ab, c in emph + bold), key=lambda t: t[0][0])
-    corner_note(ax, [f"deepest {window_label(a, b, s)}  {fmt(d)}",
-                     f"deepest AGX pair {window_label(ax_, bx, s)}  {fmt(dx)}"])
-
-
-def draw_fragment(ax, s: System) -> None:
-    c = load_fragment(s)
-    ax.fill_between(c.r, c.pmf - c.err, c.pmf + c.err, color=s.color, alpha=0.25, lw=0, zorder=2)
-    for h in (c.half1, c.half2):
-        ax.plot(h[0], h[1], color=style.MUTED, lw=0.6, zorder=3)
-    ax.plot(c.r, c.pmf, color=s.color, lw=style.LINE_W, zorder=4)
-    d, r = well_depth(c)
-    corner_note(ax, [f"min {fmt(d)} kcal/mol at {r:.2f} nm"])
-
-
-def text_color(rgba) -> str:
-    r, g, b = to_rgb(rgba)
-    lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
-    return "#ffffff" if lum < 0.45 else style.INK
-
-
-def draw_heat(ax, s: System, mt: tuple[np.ndarray, np.ndarray], norm: Normalize, bottom: bool):
-    m, tail = mt
-    im = ax.imshow(m, cmap=style.CMAP_DIV, norm=norm, origin="upper",
-                   extent=(0.5, 6.5, 6.5, 0.5), interpolation="nearest")
-    ax.set_anchor("W")
-    ax.grid(False)
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    # rows = peptide 1, columns = peptide 2 (residue-6 tag can differ: livage_cn)
-    ax.set_xticks(POSITIONS, [res_label(s, 2, k) for k in POSITIONS], fontsize=6.4)
-    ax.set_yticks(POSITIONS, [res_label(s, 1, k) for k in POSITIONS], fontsize=6.4)
-    ax.tick_params(length=0, pad=2)
-    for i in POSITIONS:
-        for j in POSITIONS:
-            v = m[i - 1, j - 1]
-            if not np.isfinite(v):
-                continue
-            if tail[i - 1, j - 1]:  # minimum in the flat tail: no real well
-                ax.text(j, i, fmt(v), ha="center", va="center", fontsize=5.6,
-                        color=style.MUTED, fontstyle="italic")
-            else:
-                ax.text(j, i, fmt(v), ha="center", va="center", fontsize=5.6,
-                        color=text_color(style.CMAP_DIV(norm(v))))
-    # thin white cell separators
-    for k in np.arange(1.5, 6.5, 1.0):
-        ax.axhline(k, color=style.SURFACE, lw=0.6)
-        ax.axvline(k, color=style.SURFACE, lw=0.6)
-    # outline the X6 row and X6 column (the emphasised pairs of col 1)
-    for rect in (Rectangle((0.5, 5.5), 6, 1), Rectangle((5.5, 0.5), 1, 6)):
-        rect.set(fill=False, ec=s.color, lw=1.0, zorder=5, clip_on=False)
-        ax.add_patch(rect)
-    ax.set_ylabel("peptide 1", fontsize=7, labelpad=1)
-    if bottom:
-        ax.set_xlabel("peptide 2", fontsize=8)
-    return im
-
-
-# ------------------------------------------------------------------ figure
-def multicolor_line(lw: float, alpha: float = 1.0):
-    return tuple(Line2D([], [], color=s.color, lw=lw, alpha=alpha, solid_capstyle="butt")
-                 for s in SYSTEMS)
+def panel_title(ax, text: str) -> None:
+    ax.text(0.97, 0.94, text, transform=ax.transAxes, ha="right", va="top",
+            fontsize=8, color=style.INK, zorder=5,
+            bbox=dict(boxstyle="round,pad=0.15", fc=style.SURFACE, ec="none", alpha=0.8))
 
 
 def build(kind: str, depths: pd.DataFrame, vmax: float):
-    style.apply()
-    n = len(SYSTEMS)
-    widths = [LABEL_W, CURVE_W, CURVE_W, CURVE_W, HEAT_W]
-    W = sum(widths) + 1.2
-    H = HEADER_H + n * ROW_H + FOOTER_H
-    fig = plt.figure(figsize=(W, H))
-    gs = fig.add_gridspec(n, 5, width_ratios=widths, left=0.02, right=0.98,
-                          top=1 - HEADER_H / H, bottom=FOOTER_H / H, wspace=0.28, hspace=0.2)
-    norm = Normalize(-vmax, vmax)
-    axes = np.empty((n, 5), dtype=object)
-    im = None
-    for r, s in enumerate(SYSTEMS):
-        bottom = r == n - 1
-        lab = fig.add_subplot(gs[r, 0])
-        lab.axis("off")
-        lab.add_patch(Rectangle((0.94, 0.08), 0.045, 0.84, transform=lab.transAxes,
-                                color=s.color, lw=0, clip_on=False))
-        lab.text(0.88, 0.62, s.label, transform=lab.transAxes, ha="right", va="bottom",
-                 fontsize=10, color=style.INK, fontweight="bold")
-        note = "\n".join(textwrap.fill(line, 24) for line in row_note(s).split("\n"))
-        lab.text(0.88, 0.56, note, transform=lab.transAxes, ha="right", va="top",
-                 fontsize=7, color=style.INK_2, linespacing=1.3)
-        axes[r, 0] = lab
+    pair_kind = "full" if kind == "full" else "mean"
+    pairs = {(i, j): {s.key: load_pair(s, i, j, kind=pair_kind) for s in SYSTEMS} for i, j in pair_ids()}
+    wins = {(a, b): {s.key: load_window(s, a, b) for s in SYSTEMS} for a, b in WINDOW_PAIRS}
+    frag = {s.key: load_fragment(s) for s in SYSTEMS}
 
-        a1 = fig.add_subplot(gs[r, 1])
-        a2 = fig.add_subplot(gs[r, 2], sharex=a1, sharey=a1)
-        a3 = fig.add_subplot(gs[r, 3], sharex=a1, sharey=a1)
-        for a in (a1, a2, a3):
-            setup_curve_ax(a, bottom)
-        a1.set_ylabel(style.PMF_LABEL, fontsize=7.5)
-        draw_pairs(a1, s, kind)
-        draw_windows(a2, s)
-        draw_fragment(a3, s)
-        a4 = fig.add_subplot(gs[r, 4])
-        im = draw_heat(a4, s, depth_matrix(depths, s), norm, bottom)
-        axes[r, 1:] = [a1, a2, a3, a4]
+    gap = 0.9  # inches between the two blocks
+    fig_w = 12 * PANEL + gap + 0.95
+    fig_h = 6 * PANEL + 1.9
+    fig = plt.figure(figsize=(fig_w, fig_h))
+    left, bottom, top = 0.75 / fig_w, 0.55 / fig_h, 1 - 1.35 / fig_h
+    w6 = 6 * PANEL / fig_w
+    outer = fig.add_gridspec(1, 2, left=left, right=1 - 0.2 / fig_w, bottom=bottom, top=top,
+                             width_ratios=[1, 1], wspace=gap / (6 * PANEL))
+    g6 = outer[0].subgridspec(6, 6, hspace=0.09, wspace=0.09)
+    g4 = outer[1].subgridspec(4, 4, hspace=0.12, wspace=0.12)  # square panels, 1.5x pair size
 
-    # ---- header: panel titles, per-column keys, colour bar
-    src = ("mean of the two trajectory halves" if kind == "mean"
-           else "full trajectory (first 5% of frames dropped)")
-    halves = "mean of the two trajectory halves"
-    titles = [("a   Residue-pair PMFs (36)", src),
-              ("b   Three-residue windows (10)", halves + (" (no full-trajectory data)" if kind == "full" else "")),
-              ("c   LIVA\u2013LIVA fragment", halves),
-              ("d   Pair well-depth map",
-               "min of each pair PMF; " + ("halves mean" if kind == "mean" else "full traj.")
-               + f"\ngray italic = min at r \u2265 {TAIL_R:g} nm (tail, no well)")]
-    top = 1 - HEADER_H / H
-    title_y = top + 1.0 / H
-    sub_y = top + 0.94 / H
-    key_y = top + 0.1 / H
-    gray = Line2D([], [], color=style.CONTEXT_GRAY, lw=style.THIN_W + 0.4)
-    keys = [
-        [(gray, "25 pairs without X6"),
-         (multicolor_line(style.THIN_W + 0.4, EMPH_ALPHA + 0.2), "10 X6\u2013other pairs (row colour)"),
-         (multicolor_line(BOLD_W), "X6\u2013X6")],
-        [(gray, "6 window pairs without AGX"),
-         (multicolor_line(style.THIN_W + 0.4, EMPH_ALPHA + 0.2), "3 AGX\u2013other pairs (row colour)"),
-         (multicolor_line(BOLD_W), "AGX\u2013AGX")],
-        [(multicolor_line(style.LINE_W), "mean of halves"),
-         (tuple(Patch(color=s.color, alpha=0.25, lw=0) for s in SYSTEMS), "\u00b1 |PMF\u2081 \u2212 PMF\u2082| / 2"),
-         (Line2D([], [], color=style.MUTED, lw=0.8), "first / second half")],
-    ]
-    for r in range(n):
-        axes[r, 4].apply_aspect()  # heatmaps are square: use their real box
-    lefts = [axes[0, c].get_position().x0 for c in range(1, 4)]
-    hpos = axes[0, 4].get_position()
-    lefts.append(hpos.x0)
-    for c in range(4):
-        fig.text(lefts[c], title_y, titles[c][0], ha="left", va="bottom", fontsize=10,
-                 color=style.INK, fontweight="bold")
-        fig.text(lefts[c], sub_y, titles[c][1], ha="left", va="top", fontsize=7.3,
-                 color=style.INK_2, linespacing=1.3)
-    for c, key in enumerate(keys):
-        handles, labels = zip(*key)
-        fig.legend(handles, labels, loc="lower left", bbox_to_anchor=(lefts[c] - 0.004, key_y),
-                   bbox_transform=fig.transFigure, ncol=1, fontsize=7.3, handlelength=2.6,
-                   handletextpad=0.6, labelspacing=0.3, borderaxespad=0, borderpad=0,
-                   handler_map={tuple: HandlerTuple(ndivide=None, pad=0)})
-    cax = fig.add_axes([hpos.x0, top + 0.36 / H, hpos.width, 0.1 / H])
-    cb = fig.colorbar(im, cax=cax, orientation="horizontal")
-    cb.set_label("min PMF (kcal/mol); blue = attractive", fontsize=7.3, color=style.INK_2, labelpad=3)
-    cax.xaxis.set_label_position("top")
-    cb.set_ticks([-vmax, -vmax / 2, 0, vmax / 2, vmax])
-    cb.ax.tick_params(labelsize=6.5, length=2, pad=1.5)
-    cb.outline.set_visible(False)
+    # ---- a: 36 residue-pair PMFs, 8 systems each
+    for i, j in pair_ids():
+        ax = fig.add_subplot(g6[i - 1, j - 1])
+        style_panel(ax, show_x=(i == 6), show_y=(j == 1), tint=(i == X_POS or j == X_POS))
+        overlay(ax, pairs[(i, j)])
+        panel_title(ax, f"{GENERIC[i - 1]}{i}–{GENERIC[j - 1]}{j}")
+        if i == 1:
+            ax.set_title(f"{GENERIC[j - 1]}{j}", fontsize=10, pad=4)
+        if j == 1:
+            ax.set_ylabel(f"{GENERIC[i - 1]}{i}\n", fontsize=10, rotation=0, ha="right", va="center", labelpad=10)
+    fig.text(left + w6 / 2, top + 0.5 / fig_h, "a   Residue-pair PMFs  ·  rows: peptide 1, columns: peptide 2",
+             ha="center", fontsize=12, weight="bold")
+
+    # ---- b: 10 three-residue window PMFs (upper triangle) + c: LIVA-LIVA in the empty corner
+    win_names = ["LIV", "IVA", "VAG", "AGX"]
+    for a, b in WINDOW_PAIRS:
+        ax = fig.add_subplot(g4[a - 1, b - 1])
+        style_panel(ax, show_x=(a == b), show_y=(a == b), tint=(b == X_WIN))
+        overlay(ax, wins[(a, b)])
+        panel_title(ax, f"{win_names[a - 1]}–{win_names[b - 1]}")
+        if a == 1:
+            ax.set_title(win_names[b - 1], fontsize=10, pad=4)
+        if a == b:
+            ax.set_ylabel(win_names[a - 1], fontsize=10, rotation=0, ha="right", va="center", labelpad=14)
+    axf = fig.add_subplot(g4[2:4, 0:2])
+    style_panel(axf, show_x=True, show_y=True)
+    for s in SYSTEMS:
+        axf.plot(frag[s.key].r, frag[s.key].pmf, color=s.color, lw=1.7, alpha=0.9, zorder=3)
+    axf.text(0.03, 0.96, "c   LIVA–LIVA fragment", transform=axf.transAxes, ha="left", va="top",
+             fontsize=12, weight="bold", color=style.INK)
+    axf.set_xlabel(style.R_LABEL.replace("distance", "COM distance"), fontsize=9)
+    axf.set_ylabel(style.PMF_LABEL, fontsize=9)
+    axf.tick_params(labelsize=8)
+    for s in SYSTEMS:  # mark each system's minimum
+        d, r = well_depth(frag[s.key])
+        axf.plot([r], [d], "o", ms=5, color=s.color, mec=style.SURFACE, mew=1.0, zorder=4)
+
+    x4 = outer[1].get_position(fig)
+    fig.text((x4.x0 + x4.x1) / 2, top + 0.5 / fig_h, "b   Three-residue window PMFs",
+             ha="center", fontsize=12, weight="bold")
+
+    # ---- shared axis labels and legend
+    fig.text(left + w6 / 2, 0.12 / fig_h, "COM distance (nm)  ·  all panels: x 0.3–1.8 nm, "
+             f"y {fmt(YLIM[0])} to {fmt(YLIM[1], 1)} kcal/mol", ha="center", fontsize=9, color=style.INK_2)
+    fig.text(0.12 / fig_w, bottom + (top - bottom) / 2, "PMF (kcal/mol)", rotation=90,
+             va="center", fontsize=9, color=style.INK_2)
+    handles = [Line2D([], [], color=s.color, lw=2.2, label=s.label) for s in SYSTEMS]
+    handles.append(Patch(facecolor=X_TINT, edgecolor=style.AXIS, lw=0.5, label="panel involves residue 6 (X)"))
+    fig.legend(handles=handles, loc="upper center", ncol=9, bbox_to_anchor=(0.5, 1 - 0.02 / fig_h),
+               fontsize=9, handlelength=1.8, columnspacing=1.4, frameon=False)
     return fig
 
 
 def caption(kind: str, vmax: float) -> str:
-    lo, hi = fmt(YLIM[0]), fmt(YLIM[1], 1)
     src = ("mean of the two trajectory halves" if kind == "mean"
            else "whole trajectory after dropping the first 5% of frames (windows and fragment exist only "
                 "as halves, so b and c stay mean of halves)")
     return (
-        "One row per system, one column per PMF family: (a) all 36 residue-pair PMFs, gray = no X6, "
-        "thin system colour = X6 with another residue, bold = X6\u2013X6; (b) the 10 three-residue window "
-        "pairs, same encoding for AGX; (c) LIVA\u2013LIVA fragment, mean of halves with |PMF\u2081\u2212PMF\u2082|/2 "
-        "band, halves in gray; (d) minimum of each pair PMF (rows = peptide-1 position, cols = peptide-2 "
-        f"position, X6 row/column outlined; gray italic = minimum at r \u2265 {TAIL_R:g} nm, i.e. flat tail "
-        "next to the reference, no well; in LIVAGE (E\u207b/E\u2070) peptide 1 is GLU and peptide 2 GLH, so "
-        "its X6 row and column differ by construction). "
-        f"Curve panels share x (0.3\u20131.8 nm COM distance) and y ({lo} to {hi} kcal/mol, repulsive wall "
-        f"clipped) and the map uses one diverging scale \u00b1{vmax:g} kcal/mol for every row and both "
-        "versions of this figure; as in pmf_from_cpptraj.py each PMF is \u2212kT ln P(r) of the raw distance "
-        "histogram zeroed at 1.8 nm with no r\u00b2 Jacobian, so negative = attractive, but a non-interacting "
-        "pair would sit at +2kT ln(1.8 nm/r) (\u2248 +1.3 kcal/mol at 0.6 nm) and a curve above zero is not "
-        "necessarily repulsive. "
-        f"Columns a and d: {src}; numbers in figures/overview/pair_well_depths_{kind}.csv.")
+        "Every PMF for every system in one figure, one line per system in its fixed colour. "
+        "(a) the 36 residue-pair PMFs as a 6×6 grid (row = position on peptide 1, column = position on "
+        "peptide 2, X = residue 6); (b) the 10 three-residue window PMFs as the upper triangle of a 4×4 grid; "
+        "(c) the LIVA–LIVA fragment PMF, dots mark each system's minimum. Panels that involve residue 6 have "
+        "a tinted background. All panels share x (0.3–1.8 nm COM distance) and y "
+        f"({fmt(YLIM[0])} to {fmt(YLIM[1], 1)} kcal/mol, repulsive wall clipped). As in pmf_from_cpptraj.py each "
+        "PMF is −kT ln P(r) of the raw distance histogram zeroed at 1.8 nm, no r² Jacobian. "
+        f"Pair PMFs: {src}. Well depths are tabulated in figures/overview/pair_well_depths_{kind}.csv.")
 
 
 def main() -> None:
@@ -369,7 +263,7 @@ def main() -> None:
     vmax = float(np.ceil(worst * 4) / 4)  # symmetric range shared by both figures
     for order, kind in enumerate(("mean", "full")):
         fig = build(kind, tables[kind], vmax)
-        title = ("Overview grid: all PMF families × all systems"
+        title = ("Overview: all PMFs, all systems overlaid"
                  + (" (mean of halves)" if kind == "mean" else " (full-trajectory pairs)"))
         p = style.save(fig, f"{OUT_DIR}/big_grid_{kind}.png", title, caption(kind, vmax),
                        "overview", [s.key for s in SYSTEMS], order, dpi=170)
