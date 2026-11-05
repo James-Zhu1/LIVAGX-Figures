@@ -76,13 +76,13 @@ _SYS = [
      "one Glu charged, one neutral (GLH)", "livage/livage_charged_neutral" + _TT + "/analysis_continued"),
     ("livage_nn", "LIVAGE (E⁰/E⁰)", "LIVAGE", "GLH/GLH",
      "both Glu neutral (GLH)", "livage/livage_neutral_neutral" + _TT + "/analysis_continued"),
-    ("livagg", "LIVAGG", "LIVAGG", "GLY", "neutral", "livagg/livagg" + _TT + "/analysis_continued"),
-    ("livagh", "LIVAGH (H⁺)", "LIVAGH", "HIP", "His doubly protonated (HIP, +1)",
+    ("livagg", "LIVAGG (G⁰/G⁰)", "LIVAGG", "GLY/GLY", "neutral", "livagg/livagg" + _TT + "/analysis_continued"),
+    ("livagh", "LIVAGH (H⁺/H⁺)", "LIVAGH", "HIP/HIP", "His doubly protonated (HIP, +1 each)",
      "livagh/livagh" + _TT + "/analysis_continued"),
-    ("livagk", "LIVAGK", "LIVAGK", "LYS", "Lys +1", "livagk/livagk" + _TT + "/analysis_continued"),
-    ("livagq", "LIVAGQ", "LIVAGQ", "GLN", "neutral", "livagq/livagq" + _TT + "/analysis_continued"),
+    ("livagk", "LIVAGK (K⁺/K⁺)", "LIVAGK", "LYS/LYS", "Lys +1 each", "livagk/livagk" + _TT + "/analysis_continued"),
+    ("livagq", "LIVAGQ (Q⁰/Q⁰)", "LIVAGQ", "GLN/GLN", "neutral", "livagq/livagq" + _TT + "/analysis_continued"),
     # NB: the source folder really is spelled "analysis_contined".
-    ("livagr", "LIVAGR", "LIVAGR", "ARG", "Arg +1", "livagr/livagr" + _TT + "/analysis_contined"),
+    ("livagr", "LIVAGR (R⁺/R⁺)", "LIVAGR", "ARG/ARG", "Arg +1 each", "livagr/livagr" + _TT + "/analysis_contined"),
 ]
 SYSTEMS = [System(k, lab, seq, rn, note, PROJECT / rel, PALETTE[i])
            for i, (k, lab, seq, rn, note, rel) in enumerate(_SYS)]

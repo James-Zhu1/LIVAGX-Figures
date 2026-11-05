@@ -3584,9 +3584,9 @@
   ]
  },
  "livagg": {
-  "label": "LIVAGG",
+  "label": "LIVAGG (G⁰/G⁰)",
   "sequence": "LIVAGG",
-  "x_resname": "GLY",
+  "x_resname": "GLY/GLY",
   "note": "neutral",
   "source_dir": "livagg/livagg_tripled_time_new_ff/analysis_continued",
   "files": [
@@ -4781,10 +4781,10 @@
   ]
  },
  "livagh": {
-  "label": "LIVAGH (H⁺)",
+  "label": "LIVAGH (H⁺/H⁺)",
   "sequence": "LIVAGH",
-  "x_resname": "HIP",
-  "note": "His doubly protonated (HIP, +1)",
+  "x_resname": "HIP/HIP",
+  "note": "His doubly protonated (HIP, +1 each)",
   "source_dir": "livagh/livagh_tripled_time_new_ff/analysis_continued",
   "files": [
    {
@@ -5978,10 +5978,10 @@
   ]
  },
  "livagk": {
-  "label": "LIVAGK",
+  "label": "LIVAGK (K⁺/K⁺)",
   "sequence": "LIVAGK",
-  "x_resname": "LYS",
-  "note": "Lys +1",
+  "x_resname": "LYS/LYS",
+  "note": "Lys +1 each",
   "source_dir": "livagk/livagk_tripled_time_new_ff/analysis_continued",
   "files": [
    {
@@ -7175,9 +7175,9 @@
   ]
  },
  "livagq": {
-  "label": "LIVAGQ",
+  "label": "LIVAGQ (Q⁰/Q⁰)",
   "sequence": "LIVAGQ",
-  "x_resname": "GLN",
+  "x_resname": "GLN/GLN",
   "note": "neutral",
   "source_dir": "livagq/livagq_tripled_time_new_ff/analysis_continued",
   "files": [
@@ -8372,10 +8372,10 @@
   ]
  },
  "livagr": {
-  "label": "LIVAGR",
+  "label": "LIVAGR (R⁺/R⁺)",
   "sequence": "LIVAGR",
-  "x_resname": "ARG",
-  "note": "Arg +1",
+  "x_resname": "ARG/ARG",
+  "note": "Arg +1 each",
   "source_dir": "livagr/livagr_tripled_time_new_ff/analysis_contined",
   "files": [
    {
