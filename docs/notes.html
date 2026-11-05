@@ -18,7 +18,7 @@
 <p class="lede">How the numbers on these pages were made, the conventions to keep in mind when reading the plots,
 and the known problems in the source analysis.</p>
 <nav class="toc-inline"><a href="#systems">Systems</a> · <a href="#numbering">Residue numbering</a> · <a href="#pmf">PMFs</a> ·
-<a href="#halves">Halves</a> · <a href="#wells">Well depths</a> · <a href="#halved">Halved analysis</a> · <a href="#caveats">Caveats</a> ·
+<a href="#halves">Halves</a> · <a href="#wells">Well depths</a> · <a href="#halved">Halved analysis</a> · <a href="#pmf2d">2D PMFs</a> · <a href="#caveats">Caveats</a> ·
 <a href="#update">How to update</a> · <a href="#history">Browsing history</a> · <a href="#layout">Folder layout</a></nav>
 
 <h2 id="systems">Systems</h2>
@@ -75,16 +75,52 @@ The number of rows in <code>pep1pep2_angle_*_half.dat</code> is therefore the nu
 <code>hbond :2-5,10-13 nointramol</code> → <code>interhbond_*_half.txt</code> (inter-peptide H-bonds among L, I, V, A only; G, X and
 the caps are not in the mask; Frac = fraction of contact frames); the angle between two vectors → <code>pep1pep2_angle_*_half.dat</code>.</li>
 <li>On all frames of each half: end-to-end distance of peptide 1, <code>:2@CA</code>–<code>:7@CA</code> → <code>end_to_end_dist_*_half.dat</code>.</li>
+<li>SECTION 3 (appended 2026-11-04 to the end of the input, nothing above it changed; the input is
+<code>hbond_multidihedral_end2end_angle.in</code> in livagg, livagk, livagq, livagr and <code>hbond_multidihedral_angle.in</code> in
+the three LIVAGE systems and livagh): on the contact frames, <code>filtered_frames_first_half.nc</code> then
+<code>filtered_frames_second_half.nc</code>, the end-to-end distance of peptide A = peptide 1, <code>:2@CA</code>–<code>:7@CA</code>
+→ <code>end_to_end_dist_pepA.dat</code>, and of peptide B = peptide 2, <code>:10@CA</code>–<code>:15@CA</code> →
+<code>end_to_end_dist_pepB.dat</code>. Rows 1…N₁ are half 1 and N₁+1…N₁+N₂ half 2, the order of the two angle files. (The snippet
+this section was written from used <code>:2@CA :7@CA</code> for peptide B as well, which would repeat peptide A; peptide 2 is
+residues 10–15.)</li>
 <li>Plots: <code>combined_first_second_half.py</code> (H-bond network and heatmaps, angle and end-to-end histograms).</li>
 </ol>
 <p>Because H-bond fractions are per contact frame, a system with fewer contacts can show the same fraction with fewer bonds overall;
 multiply by the contact fraction for a per-frame comparison (the <code>hbonds_per_all_frames</code> column of
 <code>figures/halved/halved_summary.csv</code>).</p>
 
+<h2 id="pmf2d">Angle × end-to-end 2D PMFs</h2>
+<ul>
+<li>Data: per system, the contact-frame angle θ (<code>pep1pep2_angle_first_half.dat</code> then <code>_second_half.dat</code>,
+concatenated) matched row by row with the end-to-end distances d<sub>A</sub> and d<sub>B</sub> of SECTION 3 above; the loader refuses
+to plot if the row counts differ. The frame order was checked on 2026-11-04: for all eight systems and both halves, peptide A on the
+contact frames equals <code>end_to_end_dist_*_half.dat</code> (all frames) at exactly the frames that pass the LIVA–LIVA ≤ 7 Å filter,
+rebuilt from the <code>liva</code> column of <code>pmf_distances.dat</code> (largest difference 0.0000 Å).</li>
+<li>F(θ, d) = −k<sub>B</sub>T ln P(θ, d), P = bin count / number of contact frames with both halves pooled, 4.5° ×
+0.4 Å bins over 0–180° × 3–19 Å, T = 300 K. Each surface is shifted so its lowest bin is 0; empty bins stay empty. No
+Jacobian, as for the 1D PMFs and angle histograms: for two randomly oriented vectors P(θ) ∝ sin θ, so angles near 0° and 180° look
+less favourable partly by geometry alone.</li>
+<li>Three types: <b>A</b> uses d<sub>A</sub> (peptide 1), <b>B</b> uses d<sub>B</sub> (peptide 2), <b>average</b> =
+(F<sub>A</sub> + F<sub>B</sub>)/2 bin by bin (same frames, same normalisation), re-zeroed, empty where either is empty.
+In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU, residue 7) and peptide B the neutral one (GLH, residue 15); in every
+other system the two peptides are identical.</li>
+<li>Reading the maps: the ringed dot is the lowest bin, but the basin floor is flat (the next bins are within ~0.1 kcal/mol), so
+compare basins, not dots; each row uses its system colour on the same 0–4 kcal/mol range, and because the hues differ in lightness,
+compare systems by the 1 and 2 kcal/mol contours.</li>
+<li>Uncertainty: the same surfaces from half 1 and from half 2 alone. |F₁ − F₂|/2 and F<sub>A</sub> − F<sub>B</sub> are taken on
+−k<sub>B</sub>T ln p before any zeroing (each half normalised over its own frames; A and B share the frames, so
+F<sub>A</sub> − F<sub>B</sub> = −k<sub>B</sub>T ln(count<sub>A</sub>/count<sub>B</sub>)), mapped in
+<code>figures/e2e_angle_2d/pmf2d_halves_qc.png</code> and summarised in <code>pmf2d_summary.csv</code>. Even for identical
+peptides F<sub>A</sub> − F<sub>B</sub> is not pure noise, because θ is not symmetric in the two peptides (see the angle caveat).
+Every bin of every surface (the half columns each zeroed at their own lowest bin) is in <code>pmf2d_surfaces.csv</code>.</li>
+<li>Code: <code>scripts/e2e_angle_pmf.py</code> (loading, surfaces, drawing), <code>scripts/fig_e2e_angle_2d.py</code> (figures, tables);
+the same surfaces are columns 8–10 of <code>figures/overview/system_rows.png</code>.</li>
+</ul>
+
 <h2 id="caveats">Caveats</h2>
 <ol class="caveats">
-<li><b>Peptide angle vectors.</b> The source cpptraj input defines v1 = :2 → :5 (Leu → Ala of peptide 1) but v2 = :9 → :12 (ACE → Val of peptide 2); the matching vector would be :10 → :13, so this angle is likely off by one residue on peptide 2. The angle histograms and any angle statistic should be read with this in mind
-until the cpptraj input is fixed and re-run.</li>
+<li><b>Peptide angle vectors.</b> The source cpptraj input defines v1 = :2 → :5 (Leu → Ala of peptide 1) but v2 = :9 → :12 (ACE → Val of peptide 2); the matching vector would be :10 → :13, so this angle is likely off by one residue on peptide 2. The angle histograms and any angle statistic (including the angle axis of the
+2D PMFs) should be read with this in mind until the cpptraj input is fixed and re-run.</li>
 <li><b>livagr folder name.</b> The source folder is <code>livagr/livagr_tripled_time_new_ff/analysis_contined</code> (typo); the snapshot
 normalises it to <code>data/livagr/</code> like every other system, and the manifest keeps the real source path.</li>
 <li><b>Halved script label strings.</b> Plot titles and file names in the three LIVAGE folders say LIVAGH_CC / _CN / _NN: a label typo in combined_first_second_half.py. The data are the LIVAGE system. In <code>livagh</code> the script now sets
@@ -117,7 +153,7 @@ git -C overall checkout main                   # back to the latest</code></pre>
 <h2 id="layout">Folder layout of <code>overall/</code></h2>
 <ul>
 <li><code>data/&lt;system&gt;/</code> — snapshot of each analysis folder; <code>data/manifest.json</code> — every source file with status.</li>
-<li><code>figures/</code> — new figures (<code>overview/</code>, <code>cross_system/</code>, <code>halved/</code>, <code>qc/</code>) and their CSV
+<li><code>figures/</code> — new figures (<code>overview/</code>, <code>cross_system/</code>, <code>halved/</code>, <code>e2e_angle_2d/</code>, <code>qc/</code>) and their CSV
 tables; <code>figures/index.json</code> registers them with title and caption.</li>
 <li><code>docs/</code> — this site. <code>docs/systems/previews/</code> holds downscaled WebP copies of the very large original PNGs.</li>
 <li><code>scripts/</code> — <code>common.py</code> (systems, loaders), <code>style.py</code> (plot look), <code>sync_data.py</code>,
@@ -126,7 +162,7 @@ figure scripts, <code>build_docs.py</code>.</li>
 
 </main>
 <footer class="site-footer"><div class="inner">
-Generated by <code>overall/scripts/build_docs.py</code> on 2026-10-28 15:19 PDT.
+Generated by <code>overall/scripts/build_docs.py</code> on 2026-11-04 21:25 PST.
 Source analysis folders (read-only): <code>/hopper/groups/nerenberglab/Project-Peptide_Hydrogel/1-9/60mM_parallel</code>.
 </div></footer>
 <script src="assets/site.js" defer></script>

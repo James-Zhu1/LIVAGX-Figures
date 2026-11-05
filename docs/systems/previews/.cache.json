@@ -792,7 +792,7 @@
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_mean.view.webp": {
-  "fp": "1345153-1793225953",
+  "fp": "1345153-1793856252",
   "thumb": [
    1000,
    547
@@ -803,7 +803,7 @@
   ]
  },
  "systems/previews/_figures/figures/overview/big_grid_full.view.webp": {
-  "fp": "1358390-1793225954",
+  "fp": "1358390-1793856254",
   "thumb": [
    1000,
    547
@@ -814,14 +814,36 @@
   ]
  },
  "systems/previews/_figures/figures/overview/system_rows.view.webp": {
-  "fp": "6545169-1793225973",
+  "fp": "8463780-1793856277",
   "thumb": [
    1000,
-   1060
+   788
   ],
   "view": [
    2400,
-   2544
+   1890
+  ]
+ },
+ "systems/previews/_figures/figures/e2e_angle_2d/pmf2d_all_systems.view.webp": {
+  "fp": "1056888-1793856301",
+  "thumb": [
+   1000,
+   1829
+  ],
+  "view": [
+   2400,
+   4390
+  ]
+ },
+ "systems/previews/_figures/figures/e2e_angle_2d/pmf2d_halves_qc.view.webp": {
+  "fp": "1203922-1793856303",
+  "thumb": [
+   1000,
+   1980
+  ],
+  "view": [
+   2400,
+   4752
   ]
  }
 }

@@ -1052,6 +1052,22 @@
     "sha256": "ed18029e29fa68462fb3ee58260498fc76ca3fd337637845cd7d47c0d1c78cda"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 5349476,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_charged_charged_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "13b7968041a5f89ced4b6dea2a9717486d10c1150be31e85c780ffd8caed1be4"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 5349476,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_charged_charged_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "b69d145bdbb45d2bb6f6dc18fd43fe74b1c1edc99b9c423b81047c51fa2624f9"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-10T13:07:06",
@@ -1083,8 +1099,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-10T11:46:21",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livage/livage_charged_charged_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_angle.in",
     "status": "excluded"
    },
@@ -2226,6 +2242,22 @@
     "sha256": "94f45cee6c319faf0fab4b8ec2dcd803288bf03d49d87897856aba1e6956d947"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4635906,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_charged_neutral_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "1e54929fc98c58b3418795f5cbb41fd238adfb69573e64106756c7cc244a0b2f"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4635906,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_charged_neutral_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "21941c54a93f14b88726ac67f547dae182f1f88fff9a2f4053e3b143949a10fc"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-10T13:14:05",
@@ -2257,8 +2289,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-10T13:13:23",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livage/livage_charged_neutral_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_angle.in",
     "status": "excluded"
    },
@@ -3407,6 +3439,22 @@
     "sha256": "7ac6473b3b8df37e2ca4fa73989bc076609ae38bcb73aa4abdc2e71f6460100b"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4074708,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_neutral_neutral_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "19be2b270983f8b6496d0a36ad1ba1dbe3442e22dd9b39ae81f3efb72e8914bb"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4074708,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livage/livage_neutral_neutral_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "1d1dac562b36079fb41d5082b095f1d2e327a116f13433ece18f15682c82ae81"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-12T10:20:52",
@@ -3438,8 +3486,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-12T10:11:29",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livage/livage_neutral_neutral_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_angle.in",
     "status": "excluded"
    },
@@ -4588,6 +4636,22 @@
     "sha256": "fb09603471cd18e7119c42a1712bb0334ae10ae3cb3f83c5da35248f496c302f"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4860636,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livagg/livagg_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "8279fc054792c9047af78d32e953f2009b55e175592429a1c975a92016a89e7a"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4860636,
+    "mtime": "2026-11-04T20:41:48",
+    "source": "livagg/livagg_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "e6470dc18a2342095c992b650e67a3ced9968f8d3033e5a649b7472db857ef3c"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-22T13:54:39",
@@ -4619,8 +4683,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_end2end_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-22T13:53:58",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livagg/livagg_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_end2end_angle.in",
     "status": "excluded"
    },
@@ -5769,6 +5833,22 @@
     "sha256": "3a0ecbd28c9de4da23b9f2f8fbd46fafb5cf32c19ba0261736eff17c5e7c117c"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 3592644,
+    "mtime": "2026-11-04T20:41:49",
+    "source": "livagh/livagh_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "b854e5781c1e09f6ae2a7567f9dc0ddae9054684435867cabcb2e06df3e929f2"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 3592644,
+    "mtime": "2026-11-04T20:41:49",
+    "source": "livagh/livagh_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "7f3d3891027cdc850b066cc27c674aa83c559db684b53ce878fc96a04d6689c7"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-04T20:13:17",
@@ -5800,8 +5880,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_angle.in",
-    "size": 1894,
-    "mtime": "2026-10-04T20:12:47",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livagh/livagh_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_angle.in",
     "status": "excluded"
    },
@@ -6950,6 +7030,22 @@
     "sha256": "402f0f63e401f21282237b3987d04fa5e24041b7f0524833dd4fbcf4f5462e79"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4524520,
+    "mtime": "2026-11-04T20:41:50",
+    "source": "livagk/livagk_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "f72fc9bfff4ec729e6d7290db4508f9174aed7485ec9231ac35d7a7bdcd14076"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4524520,
+    "mtime": "2026-11-04T20:41:50",
+    "source": "livagk/livagk_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "a60d6ac896cae8ed5912a9c3a4726c3b3e0909f70ca5d4c912af2378477f6938"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-12T10:49:17",
@@ -6981,8 +7077,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_end2end_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-12T10:48:34",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livagk/livagk_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_end2end_angle.in",
     "status": "excluded"
    },
@@ -8131,6 +8227,22 @@
     "sha256": "2ffe265b96158c3627bb20adf697e6618c08c39cd05cb0636d1b328f10e70b19"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4229302,
+    "mtime": "2026-11-04T20:41:49",
+    "source": "livagq/livagq_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "b60ff4d4992b220b91cd2fd843e71ad6a8b1a4d1d3b1123863b2bcfca072e04c"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4229302,
+    "mtime": "2026-11-04T20:41:50",
+    "source": "livagq/livagq_tripled_time_new_ff/analysis_continued/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "dca4e176598e9b0472f3e6ace64371cf5f109804d79ca5663c3d8e69bd7f9417"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-22T13:49:02",
@@ -8162,8 +8274,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_end2end_angle.in",
-    "size": 1894,
-    "mtime": "2026-10-22T13:32:36",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livagq/livagq_tripled_time_new_ff/analysis_continued/halved/hbond_multidihedral_end2end_angle.in",
     "status": "excluded"
    },
@@ -9305,6 +9417,22 @@
     "sha256": "c70998b44426ecc5bbf28cc5808e1200ff6161c7dc6d0477c395aa7639ad01f2"
    },
    {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 3923788,
+    "mtime": "2026-11-04T20:41:50",
+    "source": "livagr/livagr_tripled_time_new_ff/analysis_contined/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "b09f8bc0aeb0fdebaac279da15d5a13d51292995887a587fdb43f912d1a67438"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 3923788,
+    "mtime": "2026-11-04T20:41:50",
+    "source": "livagr/livagr_tripled_time_new_ff/analysis_contined/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "73af3c60e94ad610ce36f77c5e24853a040792bcaee37d2a070eb3e7fa11ee99"
+   },
+   {
     "path": "halved/end_to_end_dist_second_half.dat",
     "size": 5940022,
     "mtime": "2026-10-22T14:19:38",
@@ -9336,8 +9464,8 @@
    },
    {
     "path": "halved/hbond_multidihedral_end2end_angle.in",
-    "size": 1893,
-    "mtime": "2026-10-22T14:18:57",
+    "size": 2539,
+    "mtime": "2026-11-04T20:41:24",
     "source": "livagr/livagr_tripled_time_new_ff/analysis_contined/halved/hbond_multidihedral_end2end_angle.in",
     "status": "excluded"
    },

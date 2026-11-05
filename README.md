@@ -14,7 +14,7 @@ file viewer; the site is self-contained, no internet needed).
 | `docs/index.html` | systems table + the big overview grid (row = peptide, column = PMF family) |
 | `docs/systems/<key>.html` | every original plot of one system, well-depth table, top H-bonds, file inventory |
 | `docs/compare/` | the same original plot side by side for all 8 systems |
-| `docs/figures.html` | new cross-system, halved-structure and convergence figures |
+| `docs/figures.html` | new cross-system, halved-structure, angle × end-to-end 2D PMF and convergence figures |
 | `docs/explorer.html` | interactive PMF overlay (pick a pair/window, toggle systems, hover values) |
 | `docs/data.html` | every source file: copied, too large, or excluded |
 | `docs/notes.html` | methods, conventions and known caveats |
@@ -35,7 +35,10 @@ Re-syncs `data/`, regenerates `figures/` and `docs/`, then commits and tags
 - `scripts/common.py` system registry (labels, paths, fixed colours), PMF loaders
 - `scripts/style.py` shared figure style
 - `scripts/sync_data.py` snapshot to `data/<key>/` (skips `*.in *.prmtop *.log *.nc` and files > 20 MB; all listed in `data/manifest.json`)
-- `scripts/fig_overview_grid.py` (all systems overlaid), `fig_system_rows.py` (8 rows x 7 analyses), `fig_cross_system.py`, `fig_halved_compare.py`, `fig_qc.py` figures + CSV tables in `figures/`
+- `scripts/fig_overview_grid.py` (all systems overlaid), `fig_system_rows.py` (8 rows x 10 analyses, the last three = angle × end-to-end 2D PMFs), `fig_cross_system.py`, `fig_halved_compare.py`, `fig_e2e_angle_2d.py`, `fig_qc.py` figures + CSV tables in `figures/`
+- `scripts/e2e_angle_pmf.py` angle × end-to-end 2D PMFs (pep A, pep B, average) from `halved/end_to_end_dist_pep{A,B}.dat`
 - `scripts/export_explorer_data.py`, `scripts/build_docs.py` the docs site
 
-To add a system, add one line to `_SYS` in `scripts/common.py` and run `./update.sh`.
+To add a system, add one line to `_SYS` in `scripts/common.py` and run `./update.sh`. Its `halved/` folder must already
+hold the SECTION 3 outputs `end_to_end_dist_pepA.dat` and `end_to_end_dist_pepB.dat` (end-to-end of peptide A `:2@CA :7@CA`
+and peptide B `:10@CA :15@CA` on the filtered frames), which the 2D PMF figures need.

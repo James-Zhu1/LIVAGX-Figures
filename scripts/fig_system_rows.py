@@ -1,4 +1,4 @@
-"""Per-system overview: one row per LIVAGX system, seven columns.
+"""Per-system overview: one row per LIVAGX system, ten columns.
 
     1  6x6 residue-pair PMFs        mean of halves, band = |PMF1-PMF2|/2
     2  three-residue window PMFs    4x4 upper triangle (LIV IVA VAG AGX), same
@@ -7,6 +7,9 @@
     5  H-bond network diagram       directed donor -> acceptor, width = mean occupancy
     6  pep1-pep2 angle              mean of the two half densities, band = |h1-h2|/2
     7  end-to-end distance          same
+    8  2D PMF angle x end-to-end    pep A (peptide 1), contact frames, halves pooled
+    9  2D PMF angle x end-to-end    pep B (peptide 2), same
+   10  2D PMF angle x end-to-end    (F_A + F_B)/2   (see e2e_angle_pmf.py)
 
 Output: overall/figures/overview/system_rows.png (300 dpi, group 'overview') and system_rows.pdf (vector).
 
@@ -27,6 +30,7 @@ from matplotlib.colors import LinearSegmentedColormap, Normalize, to_rgb  # noqa
 from matplotlib.lines import Line2D  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, Patch  # noqa: E402
 
+import e2e_angle_pmf as E2D  # noqa: E402
 import style  # noqa: E402
 from common import (FIGURES, SYSTEMS, WINDOW_PAIRS, assert_inside_overall, load_fragment,  # noqa: E402
                     load_pair, load_window, pair_ids)
@@ -56,8 +60,10 @@ def donor_edge(s, donor: int) -> str:
     return s.color if donor == 1 else HB_GRAY
 
 ROW_H = 3.3
-COL_W = [3.3, 3.3, 3.3, 4.6, 3.0, 3.0, 3.0]
+COL_W = [3.3, 3.3, 3.3, 4.6, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0]
+E2D_COL = 7  # first of the three 2D PMF columns (0-based)
 LABEL_W = 2.5
+BOTTOM_IN = 0.75  # bottom margin (in): x labels of the last row + the colour bars below them
 
 
 def mini_panel(ax, curve, color, labels: bool) -> None:
@@ -225,17 +231,22 @@ def build():
     e2e_ymax, ang_ymax = dens_max("e2e", E2E_BINS), dens_max("angle", ANG_BINS)
 
     fig_w = LABEL_W + sum(COL_W) + 0.5 * len(COL_W)
-    fig_h = ROW_H * len(SYSTEMS) + 0.4 * len(SYSTEMS) + 1.6
+    fig_h = ROW_H * len(SYSTEMS) + 0.4 * len(SYSTEMS) + 1.25 + BOTTOM_IN
     fig = plt.figure(figsize=(fig_w, fig_h))
     gs = fig.add_gridspec(len(SYSTEMS), len(COL_W), width_ratios=COL_W,
                           left=LABEL_W / fig_w, right=1 - 0.15 / fig_w,
-                          top=1 - 1.25 / fig_h, bottom=0.45 / fig_h, wspace=0.16, hspace=0.14)
+                          top=1 - 1.25 / fig_h, bottom=BOTTOM_IN / fig_h, wspace=0.16, hspace=0.14)
 
     heads = ["Residue-pair PMFs (6×6)", "Three-residue window PMFs", "LIVA–LIVA fragment PMF",
-             "H-bond occupancy (LIVA), by direction", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)"]
+             "H-bond occupancy (LIVA), by direction", "H-bond network", "pep1–pep2 angle", "End-to-end distance (pep 1)",
+             "2D PMF: angle × end-to-end, pep A", "2D PMF: angle × end-to-end, pep B", "2D PMF: average of A and B"]
     subs = ["each mini panel: x 0.3–1.8 nm, y −1.75…2.5 kcal/mol", "same axes; rows/cols = window on pep 1 / pep 2",
             "mean of halves ± |PMF₁−PMF₂|/2", "rows = donor, cols = acceptor; per contact frame, mean ± |h₁−h₂|/2",
-            "filled = pep 1, open = pep 2; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2"]
+            "filled = pep 1, open = pep 2; arrow = donor N–H → acceptor O", "mean of half densities ± |h₁−h₂|/2", "mean of half densities ± |h₁−h₂|/2",
+            "pep A = pep 1, :2@CA–:7@CA; contact frames, halves pooled",
+            "pep B = pep 2, :10@CA–:15@CA; same frames and bins",
+            "(F_A + F_B)/2 per bin; each panel 0 at its lowest bin"]
+    e2d = {s.key: E2D.surfaces(E2D.load(s))[0] for s in SYSTEMS}
 
     for r, s in enumerate(SYSTEMS):
         bottom = r == len(SYSTEMS) - 1
@@ -252,6 +263,8 @@ def build():
                       ANG_BINS, (0, 180), "angle (deg)", bottom, ang_ymax)
         density_panel(fig.add_subplot(gs[r, 6]), s, d["first"]["e2e"], d["second"]["e2e"],
                       E2E_BINS, (3, 19), "end-to-end distance (Å)", bottom, e2e_ymax)
+        for k, t in enumerate(E2D.TYPES):
+            E2D.draw(fig.add_subplot(gs[r, E2D_COL + k]), s, e2d[s.key][t], bottom=bottom, left=k == 0, fs=7)
 
         # row label with system colour bar
         box = gs[r, 0].get_position(fig)
@@ -276,16 +289,21 @@ def build():
     box = gs[len(SYSTEMS) - 1, 3].get_position(fig)
     bw = 0.42 * (box.x1 - box.x0)
     for k, (donor, x0) in enumerate(((1, box.x0 + 0.04 * (box.x1 - box.x0)), (2, box.x0 + 0.54 * (box.x1 - box.x0)))):
-        cax = fig.add_axes([x0, 0.12 / fig_h, bw, 0.1 / fig_h])
+        cax = fig.add_axes([x0, 0.2 / fig_h, bw, 0.1 / fig_h])
         cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=donor_cmap(SYSTEMS[-1], donor)), cax=cax,
                           orientation="horizontal")
         cb.set_label(f"pep {donor} → pep {3 - donor} occupancy" + (" (each row in its system colour)" if donor == 1 else ""), fontsize=7)
         cb.ax.tick_params(labelsize=6)
+    # one colour bar for the three 2D PMF columns, under the middle one
+    box = gs[len(SYSTEMS) - 1, E2D_COL + 1].get_position(fig)
+    cax = fig.add_axes([box.x0 + 0.08 * (box.x1 - box.x0), 0.2 / fig_h, 0.84 * (box.x1 - box.x0), 0.1 / fig_h])
+    E2D.colorbar(fig, cax, SYSTEMS[-1], "2D PMF (kcal/mol), 0 = lowest bin; lines = contours "
+                 f"{', '.join(f'{v:g}' for v in E2D.LEVELS)} (each row in its system colour)", fs=7)
     return fig
 
 
 CAPTION = (
-    "One row per system, seven analyses. Columns 1–3: residue-pair (6×6, row = position on peptide 1, "
+    "One row per system, ten analyses. Columns 1–3: residue-pair (6×6, row = position on peptide 1, "
     "column = position on peptide 2), three-residue window (upper triangle) and LIVA–LIVA PMFs, all the "
     "mean of the two trajectory halves with a ±|PMF₁−PMF₂|/2 band; every PMF panel shares x 0.3–1.8 nm and "
     "y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide "
@@ -295,7 +313,17 @@ CAPTION = (
     "H-bonds as directed arrows (donor N–H → acceptor O; system colour = peptide 1 donates, gray = peptide 2) on the circular layout of the original analysis script (filled nodes = peptide 1, open = peptide 2); width and opacity ∝ mean occupancy on one scale "
     f"for all rows, bonds below {MIN_EDGE} not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) "
     "and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, "
-    "vertical line = mean; shared axes down each column. " + ANGLE_CAVEAT)
+    "vertical line = mean; shared axes down each column. Columns 8–10: 2D PMFs F(θ, d) = −kT ln P(θ, d) of the "
+    "pep1–pep2 angle θ (x, 0–180°) and the Cα–Cα end-to-end distance d (y, 3–19 Å) on the LIVA–LIVA contact frames, "
+    "both halves pooled: the angle files of half 1 then half 2 matched row by row to end_to_end_dist_pepA.dat and "
+    "end_to_end_dist_pepB.dat (SECTION 3 of the halved cpptraj input, run on the same filtered frames). Column 8 = "
+    "peptide A (peptide 1, :2@CA–:7@CA), column 9 = peptide B (peptide 2, :10@CA–:15@CA), column 10 = their bin-by-bin "
+    f"average (F_A + F_B)/2; {E2D.ANG_BIN:g}° × {E2D.E2E_BIN:g} Å bins, T = 300 K, each panel zeroed at its lowest bin "
+    "(ringed dot; the basin floor is flat, so read the basin rather than the dot), contours at "
+    f"{', '.join(f'{v:g}' for v in E2D.LEVELS)} kcal/mol, colour capped at {E2D.FMAX:g} kcal/mol (lightest step = "
+    f"≥ {E2D.FMAX:g} or never visited), no Jacobian (sin θ or d²); same numeric range in every row, but the system "
+    "hues differ in lightness, so compare rows by the contours. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu "
+    "(GLU) and peptide B the neutral one (GLH). " + ANGLE_CAVEAT)
 
 
 def main() -> None:
@@ -305,7 +333,8 @@ def main() -> None:
     pdf = assert_inside_overall(FIGURES / "overview" / "system_rows.pdf")
     fig.savefig(pdf, bbox_inches="tight")
     print("wrote", pdf, f"{pdf.stat().st_size / 1e6:.2f} MB")
-    p = style.save(fig, "overview/system_rows.png", "Per-system overview: PMFs, H-bonds, angle, end-to-end",
+    p = style.save(fig, "overview/system_rows.png",
+                   "Per-system overview: PMFs, H-bonds, angle, end-to-end, angle × end-to-end 2D PMFs",
                    CAPTION, "overview", [s.key for s in SYSTEMS], order=2, dpi=300)
     print("wrote", p, f"{p.stat().st_size / 1e6:.2f} MB")
 

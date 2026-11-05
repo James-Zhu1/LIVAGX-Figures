@@ -148,6 +148,120 @@
   "order": 8
  },
  {
+  "file": "figures/e2e_angle_2d/pmf2d_all_systems.png",
+  "title": "Angle × end-to-end 2D PMFs, all systems",
+  "caption": "Angle × end-to-end 2D PMFs on LIVA–LIVA contact frames, one row per system; columns = end-to-end distance of peptide A (peptide 1), of peptide B (peptide 2) and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livage_cc",
+   "livage_cn",
+   "livage_nn",
+   "livagg",
+   "livagh",
+   "livagk",
+   "livagq",
+   "livagr"
+  ],
+  "order": 0
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_halves_qc.png",
+  "title": "Angle × end-to-end 2D PMF: halves and A vs B",
+  "caption": "Convergence and peptide A vs B for the angle × end-to-end 2D PMFs. Left and middle: |F₁ − F₂|/2 between the surfaces built from half 1 and from half 2 alone, each −kT ln p normalised over its own frames (no per-surface zero, so no constant offset), for peptide A and peptide B. Right: F_A − F_B = −kT ln(count_A / count_B) on the pooled frames; blue = that (θ, d) is more probable with peptide A's end-to-end distance. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Even for identical peptides A − B is not pure noise: θ is not symmetric in the two peptides (v1 = :2→:5 on peptide 1, v2 = :9→:12 on peptide 2, see caveat), so it mixes sampling noise with that asymmetry. Bins are coloured where the column's pooled surface (A, B, average) is below 4 kcal/mol; hatched = not shown. Panel numbers = mean and max |value| over bins below 2 kcal/mol on the same surface (the halves_* and A_minus_B_* columns of pmf2d_summary.csv). Contours = average surface at 1, 2 kcal/mol. Same bins and definitions as the 2D PMFs.",
+  "group": "e2e_angle",
+  "systems": [
+   "livage_cc",
+   "livage_cn",
+   "livage_nn",
+   "livagg",
+   "livagh",
+   "livagk",
+   "livagq",
+   "livagr"
+  ],
+  "order": 1
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livage_cc.png",
+  "title": "LIVAGE (E⁻/E⁻): angle × end-to-end 2D PMF",
+  "caption": "LIVAGE (E⁻/E⁻): angle × end-to-end 2D PMFs on its 243,157 LIVA–LIVA contact frames (115,255 in half 1, 127,902 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livage_cc"
+  ],
+  "order": 10
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livage_cn.png",
+  "title": "LIVAGE (E⁻/E⁰): angle × end-to-end 2D PMF",
+  "caption": "LIVAGE (E⁻/E⁰): angle × end-to-end 2D PMFs on its 210,722 LIVA–LIVA contact frames (106,611 in half 1, 104,111 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livage_cn"
+  ],
+  "order": 11
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livage_nn.png",
+  "title": "LIVAGE (E⁰/E⁰): angle × end-to-end 2D PMF",
+  "caption": "LIVAGE (E⁰/E⁰): angle × end-to-end 2D PMFs on its 185,213 LIVA–LIVA contact frames (86,805 in half 1, 98,408 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livage_nn"
+  ],
+  "order": 12
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livagg.png",
+  "title": "LIVAGG: angle × end-to-end 2D PMF",
+  "caption": "LIVAGG: angle × end-to-end 2D PMFs on its 220,937 LIVA–LIVA contact frames (114,812 in half 1, 106,125 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livagg"
+  ],
+  "order": 13
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livagh.png",
+  "title": "LIVAGH (H⁺): angle × end-to-end 2D PMF",
+  "caption": "LIVAGH (H⁺): angle × end-to-end 2D PMFs on its 163,301 LIVA–LIVA contact frames (83,290 in half 1, 80,011 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livagh"
+  ],
+  "order": 14
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livagk.png",
+  "title": "LIVAGK: angle × end-to-end 2D PMF",
+  "caption": "LIVAGK: angle × end-to-end 2D PMFs on its 205,659 LIVA–LIVA contact frames (99,653 in half 1, 106,006 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livagk"
+  ],
+  "order": 15
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livagq.png",
+  "title": "LIVAGQ: angle × end-to-end 2D PMF",
+  "caption": "LIVAGQ: angle × end-to-end 2D PMFs on its 192,240 LIVA–LIVA contact frames (99,455 in half 1, 92,785 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livagq"
+  ],
+  "order": 16
+ },
+ {
+  "file": "figures/e2e_angle_2d/pmf2d_livagr.png",
+  "title": "LIVAGR: angle × end-to-end 2D PMF",
+  "caption": "LIVAGR: angle × end-to-end 2D PMFs on its 178,353 LIVA–LIVA contact frames (91,464 in half 1, 86,889 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "group": "e2e_angle",
+  "systems": [
+   "livagr"
+  ],
+  "order": 17
+ },
+ {
   "file": "figures/halved/contact_frames.png",
   "title": "LIVA–LIVA contact frames per trajectory half",
   "caption": "Percentage (and number, right column) of the 270 000 frames of each trajectory half in which the centre-of-mass distance between the LIVA segments of the two peptides (cpptraj distance :2-5 vs :10-13, mass-weighted) is below 7 Å; these are the frames used for the angle, H-bond and backbone-dihedral analyses. Open marker = half 1 (frames 30 001–300 000), filled = half 2 (330 001–600 000); a long gray connector means the two halves disagree, i.e. contact formation is not converged.",
@@ -319,8 +433,8 @@
  },
  {
   "file": "figures/overview/system_rows.png",
-  "title": "Per-system overview: PMFs, H-bonds, angle, end-to-end",
-  "caption": "One row per system, seven analyses. Columns 1–3: residue-pair (6×6, row = position on peptide 1, column = position on peptide 2), three-residue window (upper triangle) and LIVA–LIVA PMFs, all the mean of the two trajectory halves with a ±|PMF₁−PMF₂|/2 band; every PMF panel shares x 0.3–1.8 nm and y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide backbone H-bond occupancy over the LIVA positions (the cpptraj mask), split by direction as in the original hbond heatmaps (left: peptide 1 N–H donates to peptide 2 O; right: peptide 2 donates to peptide 1; rows = donor, columns = acceptor; system colour = peptide 1 donates, gray = peptide 2 donates, both on the same 0–max range), per LIVA–LIVA contact frame, mean ± half difference. Column 5: the same H-bonds as directed arrows (donor N–H → acceptor O; system colour = peptide 1 donates, gray = peptide 2) on the circular layout of the original analysis script (filled nodes = peptide 1, open = peptide 2); width and opacity ∝ mean occupancy on one scale for all rows, bonds below 0.005 not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, vertical line = mean; shared axes down each column. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
+  "title": "Per-system overview: PMFs, H-bonds, angle, end-to-end, angle × end-to-end 2D PMFs",
+  "caption": "One row per system, ten analyses. Columns 1–3: residue-pair (6×6, row = position on peptide 1, column = position on peptide 2), three-residue window (upper triangle) and LIVA–LIVA PMFs, all the mean of the two trajectory halves with a ±|PMF₁−PMF₂|/2 band; every PMF panel shares x 0.3–1.8 nm and y −1.75 to 2.5 kcal/mol (−kT ln P(r), zeroed at 1.8 nm, no r² Jacobian). Column 4: inter-peptide backbone H-bond occupancy over the LIVA positions (the cpptraj mask), split by direction as in the original hbond heatmaps (left: peptide 1 N–H donates to peptide 2 O; right: peptide 2 donates to peptide 1; rows = donor, columns = acceptor; system colour = peptide 1 donates, gray = peptide 2 donates, both on the same 0–max range), per LIVA–LIVA contact frame, mean ± half difference. Column 5: the same H-bonds as directed arrows (donor N–H → acceptor O; system colour = peptide 1 donates, gray = peptide 2) on the circular layout of the original analysis script (filled nodes = peptide 1, open = peptide 2); width and opacity ∝ mean occupancy on one scale for all rows, bonds below 0.005 not drawn. Columns 6–7: pep1–pep2 vector angle (contact frames) and peptide-1 end-to-end Cα distance (all frames), mean of the two half densities with ±|h₁−h₂|/2 band, vertical line = mean; shared axes down each column. Columns 8–10: 2D PMFs F(θ, d) = −kT ln P(θ, d) of the pep1–pep2 angle θ (x, 0–180°) and the Cα–Cα end-to-end distance d (y, 3–19 Å) on the LIVA–LIVA contact frames, both halves pooled: the angle files of half 1 then half 2 matched row by row to end_to_end_dist_pepA.dat and end_to_end_dist_pepB.dat (SECTION 3 of the halved cpptraj input, run on the same filtered frames). Column 8 = peptide A (peptide 1, :2@CA–:7@CA), column 9 = peptide B (peptide 2, :10@CA–:15@CA), column 10 = their bin-by-bin average (F_A + F_B)/2; 4.5° × 0.4 Å bins, T = 300 K, each panel zeroed at its lowest bin (ringed dot; the basin floor is flat, so read the basin rather than the dot), contours at 1, 2 kcal/mol, colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited), no Jacobian (sin θ or d²); same numeric range in every row, but the system hues differ in lightness, so compare rows by the contours. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH). Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
   "group": "overview",
   "systems": [
    "livage_cc",
