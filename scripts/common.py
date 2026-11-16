@@ -75,7 +75,7 @@ PALETTE = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
 PALETTE_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
                 "#d55181", "#008300", "#9085e9", "#e66767", "#a845b0"]
 _SLOT = {"livage_cc": 0, "livage_cn": 1, "livage_nn": 2, "livagg": 3, "livagh": 4,
-         "livagk": 5, "livagq": 6, "livagr": 7, "livagh_cc": 8}
+         "livagk": 5, "livagq": 6, "livagr": 7, "livagh_nn": 8}
 
 _TT = "_tripled_time_new_ff"
 _SYS = [
@@ -88,9 +88,9 @@ _SYS = [
     ("livagg", "LIVAGG (G⁰/G⁰)", "LIVAGG", "GLY/GLY", "neutral", "livagg/livagg" + _TT + "/analysis_continued"),
     ("livagh", "LIVAGH (H⁺/H⁺)", "LIVAGH", "HIP/HIP", "His doubly protonated (HIP, +1 each)",
      "livagh/livagh" + _TT + "/analysis_continued"),
-    # neutral His, N-epsilon protonated; folder named "cc" by the user, analysis in analysis/
-    ("livagh_cc", "LIVAGH (H⁰/H⁰)", "LIVAGH", "HIE/HIE", "His neutral, Nε-protonated (HIE, 0 each)",
-     "livagh/livagh_new_ff_cc/analysis"),
+    # neutral His (HIE, N-epsilon protonated) on both peptides; analysis in analysis/, not analysis_continued
+    ("livagh_nn", "LIVAGH (H⁰/H⁰)", "LIVAGH", "HIE/HIE", "His neutral, Nε-protonated (HIE, 0 each)",
+     "livagh/livagh_new_ff_nn/analysis"),
     ("livagk", "LIVAGK (K⁺/K⁺)", "LIVAGK", "LYS/LYS", "Lys +1 each", "livagk/livagk" + _TT + "/analysis_continued"),
     ("livagq", "LIVAGQ (Q⁰/Q⁰)", "LIVAGQ", "GLN/GLN", "neutral", "livagq/livagq" + _TT + "/analysis_continued"),
     # NB: the source folder really is spelled "analysis_contined".

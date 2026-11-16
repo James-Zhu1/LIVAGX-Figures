@@ -1,7 +1,7 @@
 # LIVAGX overall documentation
 
 Cross-system documentation of the 60 mM parallel two-peptide LIVAGX runs
-(`livag*/*_tripled_time_new_ff/analysis_continued/`, plus `livagh/livagh_new_ff_cc/analysis/` for LIVAGH H⁰/H⁰). Only this folder is
+(`livag*/*_tripled_time_new_ff/analysis_continued/`, plus `livagh/livagh_new_ff_nn/analysis/` for LIVAGH H⁰/H⁰). Only this folder is
 written; the source analysis folders are read, never changed.
 
 ## Browse

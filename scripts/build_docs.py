@@ -162,8 +162,8 @@ PRESETS = [
     ("All", [s.key for s in SYSTEMS]),
     ("LIVAGE protonation states", ["livage_cc", "livage_cn", "livage_nn"]),
     ("Cationic X (H⁺, K, R)", ["livagh", "livagk", "livagr"]),
-    ("His protonation (H⁺ vs H⁰)", ["livagh", "livagh_cc"]),
-    ("Neutral X (G, Q, E⁰/E⁰, H⁰)", ["livagg", "livagq", "livage_nn", "livagh_cc"]),
+    ("His protonation (H⁺ vs H⁰)", ["livagh", "livagh_nn"]),
+    ("Neutral X (G, Q, E⁰/E⁰, H⁰)", ["livagg", "livagq", "livage_nn", "livagh_nn"]),
 ]
 
 NOW = datetime.now().astimezone()
@@ -1116,8 +1116,8 @@ def build_system_pages(sds, figs, fimgs, vmax_pair, vmax_win) -> None:
         if s.key == "livagr":
             label_note = ('<p class="note warn"><b>Folder name.</b> The source folder is spelled '
                           '<code>analysis_contined</code>; the snapshot stores it as <code>data/livagr/</code> like the others.</p>')
-        if s.key == "livagh_cc":
-            label_note = ('<p class="note warn"><b>Source folder.</b> <code>livagh/livagh_new_ff_cc/analysis</code> (not '
+        if s.key == "livagh_nn":
+            label_note = ('<p class="note warn"><b>Source folder.</b> <code>livagh/livagh_new_ff_nn/analysis</code> (not '
                           '<code>…_tripled_time_new_ff/analysis_continued</code>); same protocol and length as the other systems '
                           '(600,000 frames, halves 30,001–300,000 and 330,001–600,000, identical cpptraj inputs). Residue 6 is '
                           'HIE (neutral His, Nε-protonated) on both peptides. <code>pmf_distances.dat</code> and '
@@ -1465,7 +1465,7 @@ the caps are not in the mask; Frac = fraction of contact frames); the angle betw
 <li>On all frames of each half: end-to-end distance of peptide 1, <code>:2@CA</code>–<code>:7@CA</code> → <code>end_to_end_dist_*_half.dat</code>.</li>
 <li>SECTION 3 (appended 2026-11-04 to the end of the input, nothing above it changed; the input is
 <code>hbond_multidihedral_end2end_angle.in</code> in livagg, livagk, livagq, livagr and <code>hbond_multidihedral_angle.in</code> in
-the three LIVAGE systems, livagh and livagh_cc, where the user added it before the run): on the contact frames, <code>filtered_frames_first_half.nc</code> then
+the three LIVAGE systems, livagh and livagh_nn, where the user added it before the run): on the contact frames, <code>filtered_frames_first_half.nc</code> then
 <code>filtered_frames_second_half.nc</code>, the end-to-end distance of peptide A = peptide 1, <code>:2@CA</code>–<code>:7@CA</code>
 → <code>end_to_end_dist_pepA.dat</code>, and of peptide B = peptide 2, <code>:10@CA</code>–<code>:15@CA</code> →
 <code>end_to_end_dist_pepB.dat</code>. Rows 1…N₁ are half 1 and N₁+1…N₁+N₂ half 2, the order of the two angle files. (The snippet
@@ -1481,7 +1481,7 @@ multiply by the contact fraction for a per-frame comparison (the <code>hbonds_pe
 <ul>
 <li>Data: per system, the contact-frame angle θ (<code>pep1pep2_angle_first_half.dat</code> then <code>_second_half.dat</code>,
 concatenated) matched row by row with the end-to-end distances d<sub>A</sub> and d<sub>B</sub> of SECTION 3 above; the loader refuses
-to plot if the row counts differ. The frame order was checked on 2026-11-04 for the first eight systems, and on 2026-11-16 for livagh_cc: for every system and both halves, peptide A on the
+to plot if the row counts differ. The frame order was checked on 2026-11-04 for the first eight systems, and on 2026-11-16 for livagh_nn: for every system and both halves, peptide A on the
 contact frames equals <code>end_to_end_dist_*_half.dat</code> (all frames) at exactly the frames that pass the LIVA–LIVA ≤ 7 Å filter,
 rebuilt from the <code>liva</code> column of <code>pmf_distances.dat</code> (largest difference 0.0000 Å).</li>
 <li>F(θ, d) = −k<sub>B</sub>T ln P(θ, d), P = bin count / number of contact frames with both halves pooled, {E2D_ANG_BIN:g}° ×

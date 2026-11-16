@@ -10,7 +10,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -28,7 +28,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -46,7 +46,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -64,7 +64,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -82,7 +82,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -112,7 +112,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -130,7 +130,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -148,7 +148,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -166,7 +166,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -184,7 +184,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -242,12 +242,12 @@
   "order": 14
  },
  {
-  "file": "figures/e2e_angle_2d/pmf2d_livagh_cc.png",
+  "file": "figures/e2e_angle_2d/pmf2d_livagh_nn.png",
   "title": "LIVAGH (H⁰/H⁰): angle × end-to-end 2D PMF",
   "caption": "LIVAGH (H⁰/H⁰): angle × end-to-end 2D PMFs on its 215,400 LIVA–LIVA contact frames (102,085 in half 1, 113,315 in half 2), for peptide A, peptide B and their average. F = −kT ln P(θ, d) on the LIVA–LIVA contact frames (centre-of-mass distance of :2-5 and :10-13 ≤ 7 Å), half 1 (frames 30 001–300 000) and half 2 (330 001–600 000) pooled; 4.5° × 0.4 Å bins, T = 300 K, each surface shifted so its lowest bin is 0, no Jacobian (sin θ or d²). θ = angle between v1 = :2→:5 (peptide 1) and v2 = :9→:12 (peptide 2) from pep1pep2_angle_*_half.dat; d = Cα–Cα end-to-end distance from SECTION 3 of the halved cpptraj input (end_to_end_dist_pepA.dat = :2@CA–:7@CA, end_to_end_dist_pepB.dat = :10@CA–:15@CA, both on filtered_frames_first_half.nc then _second_half.nc, matched row by row to the angle files). Average = (F_A + F_B)/2 bin by bin, then re-zeroed; empty where either surface is empty. In LIVAGE (E⁻/E⁰) peptide A carries the charged Glu (GLU) and peptide B the neutral one (GLH); in every other system the two peptides are identical. Contours at 1, 2 kcal/mol; ringed dot = lowest bin (the basin floor is flat, several bins lie within ~0.1 kcal/mol of it, so read the basin rather than the dot; bin centre and gap in pmf2d_summary.csv); colour capped at 4 kcal/mol (lightest step = ≥ 4 or never visited). Same numeric range in every row, each in its own system colour; the hues differ in lightness, so compare systems by the contour lines, not by shade. Caveat: in the source cpptraj input the second vector is :9→:12 (ACE→Val of peptide 2) while the first is :2→:5 (Leu→Ala of peptide 1), probably an off-by-one for :10→:13, so the angle is between two slightly different segments.",
   "group": "e2e_angle",
   "systems": [
-   "livagh_cc"
+   "livagh_nn"
   ],
   "order": 15
  },
@@ -292,7 +292,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -310,7 +310,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -328,7 +328,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -346,7 +346,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -364,7 +364,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -382,7 +382,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -400,7 +400,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -418,7 +418,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -436,7 +436,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -454,7 +454,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -472,7 +472,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -490,7 +490,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -508,7 +508,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
@@ -526,7 +526,7 @@
    "livage_nn",
    "livagg",
    "livagh",
-   "livagh_cc",
+   "livagh_nn",
    "livagk",
    "livagq",
    "livagr"
