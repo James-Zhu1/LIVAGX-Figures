@@ -10,16 +10,17 @@
   --sys-livage_nn:#1baf7a;
   --sys-livagg:#eda100;
   --sys-livagh:#e87ba4;
+  --sys-livagh_cc:#b0328c;
   --sys-livagk:#008300;
   --sys-livagq:#6250d6;
   --sys-livagr:#e34948;
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#8f8d86;--hairline:#2c2c2a;--chip:#242422;--link:#86b6ef;--focus:#3987e5;--paper:#ffffff;--bar:#184f95;--shadow:0 8px 24px rgba(0,0,0,.5);--sys-livage_cc:#3987e5;--sys-livage_cn:#d95926;--sys-livage_nn:#199e70;--sys-livagg:#c98500;--sys-livagh:#d55181;--sys-livagk:#008300;--sys-livagq:#9085e9;--sys-livagr:#e66767;}
+  :root:not([data-theme="light"]){color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#8f8d86;--hairline:#2c2c2a;--chip:#242422;--link:#86b6ef;--focus:#3987e5;--paper:#ffffff;--bar:#184f95;--shadow:0 8px 24px rgba(0,0,0,.5);--sys-livage_cc:#3987e5;--sys-livage_cn:#d95926;--sys-livage_nn:#199e70;--sys-livagg:#c98500;--sys-livagh:#d55181;--sys-livagh_cc:#a845b0;--sys-livagk:#008300;--sys-livagq:#9085e9;--sys-livagr:#e66767;}
   :root:not([data-theme="light"]) .heat td.v{background:var(--hd);color:var(--td)}
   :root:not([data-theme="light"]) .legend-bar{background:var(--gd)}
 }
-:root[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#8f8d86;--hairline:#2c2c2a;--chip:#242422;--link:#86b6ef;--focus:#3987e5;--paper:#ffffff;--bar:#184f95;--shadow:0 8px 24px rgba(0,0,0,.5);--sys-livage_cc:#3987e5;--sys-livage_cn:#d95926;--sys-livage_nn:#199e70;--sys-livagg:#c98500;--sys-livagh:#d55181;--sys-livagk:#008300;--sys-livagq:#9085e9;--sys-livagr:#e66767;}
+:root[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#8f8d86;--hairline:#2c2c2a;--chip:#242422;--link:#86b6ef;--focus:#3987e5;--paper:#ffffff;--bar:#184f95;--shadow:0 8px 24px rgba(0,0,0,.5);--sys-livage_cc:#3987e5;--sys-livage_cn:#d95926;--sys-livage_nn:#199e70;--sys-livagg:#c98500;--sys-livagh:#d55181;--sys-livagh_cc:#a845b0;--sys-livagk:#008300;--sys-livagq:#9085e9;--sys-livagr:#e66767;}
 :root[data-theme="dark"] .heat td.v{background:var(--hd);color:var(--td)}
 :root[data-theme="dark"] .legend-bar{background:var(--gd)}
 

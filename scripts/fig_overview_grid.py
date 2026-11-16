@@ -1,4 +1,4 @@
-"""The big overview figure: every PMF, all eight LIVAGX systems overlaid.
+"""The big overview figure: every PMF, all LIVAGX systems overlaid.
 
     a  6x6 grid of residue-pair PMFs (row = pep 1 position, col = pep 2 position)
     b  4x4 upper triangle of three-residue window PMFs (LIV, IVA, VAG, AGX)
@@ -185,7 +185,7 @@ def build(kind: str, depths: pd.DataFrame, vmax: float):
     g6 = outer[0].subgridspec(6, 6, hspace=0.09, wspace=0.09)
     g4 = outer[1].subgridspec(4, 4, hspace=0.12, wspace=0.12)  # square panels, 1.5x pair size
 
-    # ---- a: 36 residue-pair PMFs, 8 systems each
+    # ---- a: 36 residue-pair PMFs, all systems each
     for i, j in pair_ids():
         ax = fig.add_subplot(g6[i - 1, j - 1])
         style_panel(ax, show_x=(i == 6), show_y=(j == 1), tint=(i == X_POS or j == X_POS))
@@ -233,7 +233,7 @@ def build(kind: str, depths: pd.DataFrame, vmax: float):
              va="center", fontsize=9, color=style.INK_2)
     handles = [Line2D([], [], color=s.color, lw=2.2, label=s.label) for s in SYSTEMS]
     handles.append(Patch(facecolor=X_TINT, edgecolor=style.AXIS, lw=0.5, label="panel involves residue 6 (X)"))
-    fig.legend(handles=handles, loc="upper center", ncol=9, bbox_to_anchor=(0.5, 1 - 0.02 / fig_h),
+    fig.legend(handles=handles, loc="upper center", ncol=len(handles), bbox_to_anchor=(0.5, 1 - 0.02 / fig_h),
                fontsize=9, handlelength=1.8, columnspacing=1.4, frameon=False)
     return fig
 

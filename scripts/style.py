@@ -1,7 +1,7 @@
 """One matplotlib look for every overall/ figure.
 
 Colours follow the validated reference data-viz palette:
-  * systems   -> common.PALETTE slots 1-8, fixed per system (never by rank)
+  * systems   -> common.PALETTE slots 1-9, fixed per system (never by rank)
   * magnitude -> one-hue blue ramp (SEQ_BLUE)
   * signed    -> blue (negative / attractive) <-> red (positive), gray midpoint
 Chrome is recessive: hairline solid grid, muted axes, text in neutral ink.
@@ -27,9 +27,8 @@ GRID = "#e1e0d9"
 AXIS = "#c3c2b7"
 CONTEXT_GRAY = "#c3c2b7"  # de-emphasised curves ("the rest")
 
-# dark-mode steps of the same eight hues, for HTML/JS views
-PALETTE_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
-                "#d55181", "#008300", "#9085e9", "#e66767"]
+# dark-mode steps of the system hues, for HTML/JS views (defined in common.py)
+from common import PALETTE_DARK  # noqa: E402,F401
 
 SEQ_BLUE = ["#cde2fb", "#b7d3f6", "#9ec5f4", "#86b6ef", "#6da7ec", "#5598e7",
             "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95", "#104281", "#0d366b"]

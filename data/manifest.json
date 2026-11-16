@@ -5977,6 +5977,1203 @@
    }
   ]
  },
+ "livagh_cc": {
+  "label": "LIVAGH (H⁰/H⁰)",
+  "sequence": "LIVAGH",
+  "x_resname": "HIE/HIE",
+  "note": "His neutral, Nε-protonated (HIE, 0 each)",
+  "source_dir": "livagh/livagh_new_ff_cc/analysis",
+  "files": [
+   {
+    "path": "LIVAGH_PMF/fragment_pmf_halves_value/LIVA_LIVA_halves.csv",
+    "size": 3503,
+    "mtime": "2026-11-16T11:48:36",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/fragment_pmf_halves_value/LIVA_LIVA_halves.csv",
+    "status": "copied",
+    "sha256": "26390eaf29b03318f8cf6828c98356b15f085d7a3674dc0fb706afdfb9d9cc17"
+   },
+   {
+    "path": "LIVAGH_PMF/plots/PMF_LIVAGH_6x6_full_trajectory.png",
+    "size": 2847733,
+    "mtime": "2026-11-16T11:48:36",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/plots/PMF_LIVAGH_6x6_full_trajectory.png",
+    "status": "copied",
+    "sha256": "2ec2e7c6b0fbaad3875711508563f291c262f52ae1052ba952885098487afd71"
+   },
+   {
+    "path": "LIVAGH_PMF/plots/PMF_LIVAGH_6x6_halves_comparison.png",
+    "size": 4080333,
+    "mtime": "2026-11-16T11:48:26",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/plots/PMF_LIVAGH_6x6_halves_comparison.png",
+    "status": "copied",
+    "sha256": "f6dc524686107beeca507a3e699e99b22226ec4189143fd0d61068b39da1951b"
+   },
+   {
+    "path": "LIVAGH_PMF/plots/PMF_LIVAGH_6x6_mean_uncertainty.png",
+    "size": 4771543,
+    "mtime": "2026-11-16T11:48:31",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/plots/PMF_LIVAGH_6x6_mean_uncertainty.png",
+    "status": "copied",
+    "sha256": "39a3116ed47da2581701d948a1cc0a9c4e27bb490ef02068fb2695535360b854"
+   },
+   {
+    "path": "LIVAGH_PMF/plots/PMF_LIVAGH_LIVA_LIVA_halves.png",
+    "size": 269503,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/plots/PMF_LIVAGH_LIVA_LIVA_halves.png",
+    "status": "copied",
+    "sha256": "0a24475e42fbb6a1ff32d197004a3932aa7dbcfafe4c5337644acd674cc624e0"
+   },
+   {
+    "path": "LIVAGH_PMF/plots/PMF_LIVAGH_three_residue_halves.png",
+    "size": 1256604,
+    "mtime": "2026-11-16T11:48:39",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/plots/PMF_LIVAGH_three_residue_halves.png",
+    "status": "copied",
+    "sha256": "46e6eb9550b51157a27ede9a4c25d4b2b3f74598c270570cea7013499ce8c64f"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__1_L.csv",
+    "size": 3236,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__1_L.csv",
+    "status": "copied",
+    "sha256": "2d9b3171d3cd4168ab0adcaa5b94b7c3a7e10fee3d7c7a53e4ce45f8b4192208"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__2_I.csv",
+    "size": 3282,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__2_I.csv",
+    "status": "copied",
+    "sha256": "5a5ba7e235188963c0f86e0fcb982621d18b9f6a2ed938c133fa57f2311a1628"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__3_V.csv",
+    "size": 3304,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__3_V.csv",
+    "status": "copied",
+    "sha256": "48e999e03b6ec91c4a3c8494dd635eef76ef7716810f5020648f34fb8ced9d9c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__4_A.csv",
+    "size": 3369,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__4_A.csv",
+    "status": "copied",
+    "sha256": "394eac3ef65cc0975af7b90473760136ee5d36bc1c3168ed83bf620f27fab077"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__5_G.csv",
+    "size": 3417,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__5_G.csv",
+    "status": "copied",
+    "sha256": "9e8eae340c54697f6df82da540d44a5206ada7176aefc71efa1c9b709abc2a94"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__6_H.csv",
+    "size": 3346,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_1_L__6_H.csv",
+    "status": "copied",
+    "sha256": "ce8e3e79cee3f4ed3396f03a3c17b6a7712f9f680f44b9f6fd1c2a44f4f3f7cd"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__1_L.csv",
+    "size": 3279,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__1_L.csv",
+    "status": "copied",
+    "sha256": "82341b32a58f09b46655214bff26f68b99c01ee97c3ce3a2d452a943abe0eee7"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__2_I.csv",
+    "size": 3300,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__2_I.csv",
+    "status": "copied",
+    "sha256": "7b7f2ea9abe8968d05b0f4af2a9e89d23883c1bd2ba90d7be04416bc573f211b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__3_V.csv",
+    "size": 3283,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__3_V.csv",
+    "status": "copied",
+    "sha256": "b306213973598fd83f0e985c7fcb4cae98277515ee6f6597d1fa01fc099a2d7c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__4_A.csv",
+    "size": 3394,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__4_A.csv",
+    "status": "copied",
+    "sha256": "0e16afe20230dcf4ae390ae71c5fa117b8be9f5a816774f2e781eadedfec412e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__5_G.csv",
+    "size": 3304,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__5_G.csv",
+    "status": "copied",
+    "sha256": "6746390194c3404e65362b80cba6a44e71d9fff8322df5b46c69ab859162150a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__6_H.csv",
+    "size": 3363,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_2_I__6_H.csv",
+    "status": "copied",
+    "sha256": "09ac712df4a7e301245717804a5ea729ab04e3dbfb0459c9d82023222cb63252"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__1_L.csv",
+    "size": 3251,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__1_L.csv",
+    "status": "copied",
+    "sha256": "00e0619592fe6220c2568318313255a1848c87a13ae525647c6dc57c8d804d1e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__2_I.csv",
+    "size": 3320,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__2_I.csv",
+    "status": "copied",
+    "sha256": "331532118ed52d5cb766b301db44179f8ece84e435a451c623c488c524fd21d3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__3_V.csv",
+    "size": 3277,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__3_V.csv",
+    "status": "copied",
+    "sha256": "b81b51cbe2cb50d5ab008b207a5324e743ee8f5540cda7c673e452f51f9b8f2a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__4_A.csv",
+    "size": 3353,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__4_A.csv",
+    "status": "copied",
+    "sha256": "7dc23d984436f6e59bd207d38b683d81605364f579a92155dd106f06b14defbd"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__5_G.csv",
+    "size": 3254,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__5_G.csv",
+    "status": "copied",
+    "sha256": "617d49f77d13b6e99b3ff7a67171f656e1459d04ed43c3f97df20542dbf07fd1"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__6_H.csv",
+    "size": 3303,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_3_V__6_H.csv",
+    "status": "copied",
+    "sha256": "eeed81c0ce3719c2c5aca6eb1a402d9006932f84ff30b2f00775c264adb5203a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__1_L.csv",
+    "size": 3368,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__1_L.csv",
+    "status": "copied",
+    "sha256": "7a83c00b100a25ef4eb97215107dc5901ee8e230f835cd679bf4fa3fdb73179b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__2_I.csv",
+    "size": 3388,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__2_I.csv",
+    "status": "copied",
+    "sha256": "8f8a7b856ac22380ebccb39e4ccaa5270b8a8974e29d255db9ad5095164ba56b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__3_V.csv",
+    "size": 3367,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__3_V.csv",
+    "status": "copied",
+    "sha256": "2ea3b8d8b298ab633a6a4373bf5768d6551f6df4becbe783edd5699b88188b23"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__4_A.csv",
+    "size": 3403,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__4_A.csv",
+    "status": "copied",
+    "sha256": "ed0e64377ad472a2d912d726a3ebfd9394662a453fcce00e09f2591791d892a3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__5_G.csv",
+    "size": 3269,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__5_G.csv",
+    "status": "copied",
+    "sha256": "d6d0822c1c9f2366ea0f0b7a60076ff4a76545e29218b22e7ece3c168321c311"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__6_H.csv",
+    "size": 3398,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_4_A__6_H.csv",
+    "status": "copied",
+    "sha256": "f9a25c278c12ffe1592fba3edf539e53245561a40847fa6652d61771d080d136"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__1_L.csv",
+    "size": 3395,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__1_L.csv",
+    "status": "copied",
+    "sha256": "099e98b8b3ca87567b8fc505bca31e8ec44ee2719d84998a16c28489858b27dc"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__2_I.csv",
+    "size": 3466,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__2_I.csv",
+    "status": "copied",
+    "sha256": "f2229977b96c13e24072e530ed29415d1bd7903d04793cdedbbee3d368d129ef"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__3_V.csv",
+    "size": 3407,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__3_V.csv",
+    "status": "copied",
+    "sha256": "7cedec73fa90a475e232f445e08dfb53cedda2c6dc4c55f63d0e938ea0fcd90c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__4_A.csv",
+    "size": 3406,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__4_A.csv",
+    "status": "copied",
+    "sha256": "711fd55e43c2ffe83b43ddf6fe96ce2589d015a822f7ff1fc524d7be13096dee"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__5_G.csv",
+    "size": 3467,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__5_G.csv",
+    "status": "copied",
+    "sha256": "25951f08f84f291749745dade916d440c30b75bc9962e5c78bee2559c4b53f58"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__6_H.csv",
+    "size": 3397,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_5_G__6_H.csv",
+    "status": "copied",
+    "sha256": "f99307a2c9e933389f8a535a8ed1e2123714be881641462dec7dae33d4fbe59a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__1_L.csv",
+    "size": 3357,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__1_L.csv",
+    "status": "copied",
+    "sha256": "49110d07264a7c735a32c38595e7f957542c52c8bd672252a66758bd7a69789c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__2_I.csv",
+    "size": 3323,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__2_I.csv",
+    "status": "copied",
+    "sha256": "e10a8902953a1edb11083a314ee22662cc6d70c4fc27e140eba65aef58ab0922"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__3_V.csv",
+    "size": 3248,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__3_V.csv",
+    "status": "copied",
+    "sha256": "5a9843d337a17d693dcba4cba4c25840620763481c28857a13ea4cb0be564ad8"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__4_A.csv",
+    "size": 3235,
+    "mtime": "2026-11-16T11:48:32",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__4_A.csv",
+    "status": "copied",
+    "sha256": "2df91aab8e96aac3c399846602aa9dfaf56578bb52bf346214664e8c25fc7870"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__5_G.csv",
+    "size": 3378,
+    "mtime": "2026-11-16T11:48:33",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__5_G.csv",
+    "status": "copied",
+    "sha256": "8306bf55c7bfc73b027a4b51ff9a2db7c51046d42099df4c387ca04c27f67504"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__6_H.csv",
+    "size": 3203,
+    "mtime": "2026-11-16T11:48:33",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_full_value/pair_6_H__6_H.csv",
+    "status": "copied",
+    "sha256": "a24f7015aaea612bcc3c66e37d341e919cb44a9d06b85f70b551107318a13653"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__1_L.csv",
+    "size": 6516,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__1_L.csv",
+    "status": "copied",
+    "sha256": "71b998db47144f333b9939b6f0b58651e8d840a06f29beb82fb3de666aadd529"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__2_I.csv",
+    "size": 6560,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__2_I.csv",
+    "status": "copied",
+    "sha256": "19168d42dbcd253e96c62a1c80e8a39c853ddb68b6580a2880d70becf068721a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__3_V.csv",
+    "size": 6604,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__3_V.csv",
+    "status": "copied",
+    "sha256": "87b4cce7a713abe60219eb38b641b7285a1a8572f6525bd7b0d82bdc870b170b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__4_A.csv",
+    "size": 6757,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__4_A.csv",
+    "status": "copied",
+    "sha256": "5e89d30cec29fa3c68047c8f19e1e2c7a9e60e8d12714671511347c66afd7946"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__5_G.csv",
+    "size": 6812,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__5_G.csv",
+    "status": "copied",
+    "sha256": "930898ccfab4b660e615c36aa67da8152d28c4e44732332027022df0247e73df"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__6_H.csv",
+    "size": 6712,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_1_L__6_H.csv",
+    "status": "copied",
+    "sha256": "e9a3004a07f3c91da3cf2aa40c0fb3962ecbe467a96389ec1cb5855731c13b6e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__1_L.csv",
+    "size": 6575,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__1_L.csv",
+    "status": "copied",
+    "sha256": "018036bcde006ed519494fba5854ac818d850fb2e8ca1fd78ac9657c56021f5b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__2_I.csv",
+    "size": 6622,
+    "mtime": "2026-11-16T11:48:21",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__2_I.csv",
+    "status": "copied",
+    "sha256": "dd315ade363a51b2da95457a011fd96d0a260d3e778da2768117f73ea0629502"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__3_V.csv",
+    "size": 6576,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__3_V.csv",
+    "status": "copied",
+    "sha256": "41dcbc904d8066ff7b2e74a44080bec51195b9bc05bd07a37c6a3dd3a3047f0a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__4_A.csv",
+    "size": 6789,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__4_A.csv",
+    "status": "copied",
+    "sha256": "b7277fc1d64b935bfe08fa8a646552bb0434fed6fc976a7afb913e86d664b1c3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__5_G.csv",
+    "size": 6631,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__5_G.csv",
+    "status": "copied",
+    "sha256": "e8c64987ce18f33ef7708d9290fa1c594a35a28e11eec1bc29958a43cf464c3e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__6_H.csv",
+    "size": 6715,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_2_I__6_H.csv",
+    "status": "copied",
+    "sha256": "00841f03141da78a14523bf1106c128babdc735ef6ecbf2a23d831938394a19b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__1_L.csv",
+    "size": 6535,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__1_L.csv",
+    "status": "copied",
+    "sha256": "994dfe7c67b740f06a80b2ee15426c052a52679619ee0a3bd79fa03d4c4d4cbd"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__2_I.csv",
+    "size": 6637,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__2_I.csv",
+    "status": "copied",
+    "sha256": "37ae6bcb083657aa47634e8469aea1bbd8f378f873b75ebb072bdb1ef192cf58"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__3_V.csv",
+    "size": 6538,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__3_V.csv",
+    "status": "copied",
+    "sha256": "4090c1a0bbf06ac634e27626fdc5bc729c152dad5a98cd2afaf48564caf43a48"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__4_A.csv",
+    "size": 6437,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__4_A.csv",
+    "status": "copied",
+    "sha256": "ab5a7301cbb83f9626c379d737e4c807921554833f5a06e3f638d9697ff77007"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__5_G.csv",
+    "size": 6788,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__5_G.csv",
+    "status": "copied",
+    "sha256": "e770a7f132656f76483492b2a27c334cfadc85e0200b1288c615554fcf16cd3c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__6_H.csv",
+    "size": 6626,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_3_V__6_H.csv",
+    "status": "copied",
+    "sha256": "8076ce0041770df8b80bcd17d3020377a1969dca8db7ba14d39079d534c9ab77"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__1_L.csv",
+    "size": 6737,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__1_L.csv",
+    "status": "copied",
+    "sha256": "09707dcb2b27ba876a64eae8d41c92968e1295ab1c37a47ca1431f8e0d1c613d"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__2_I.csv",
+    "size": 6781,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__2_I.csv",
+    "status": "copied",
+    "sha256": "ea1f051d469a8a58259708c24be87a27ba7c364b968f9d743c379b80f72fdef3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__3_V.csv",
+    "size": 6734,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__3_V.csv",
+    "status": "copied",
+    "sha256": "8389f486da26ad13e308cab028c0d106ee7871641b1c47dce32e58f4289568de"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__4_A.csv",
+    "size": 6817,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__4_A.csv",
+    "status": "copied",
+    "sha256": "47e9f887ebaf883f2f12de03758c449e6425031882cf26759e948eae86cb18a0"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__5_G.csv",
+    "size": 6699,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__5_G.csv",
+    "status": "copied",
+    "sha256": "02fc6b23fa233cde54bddeebf390c5f1a4c8403e93a08b2ee7f8cca66b2f8dbc"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__6_H.csv",
+    "size": 6810,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_4_A__6_H.csv",
+    "status": "copied",
+    "sha256": "ead06bd2e8e71956b3027c3b926af7ab65c31c95823640f4cb98bc6231f6c53d"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__1_L.csv",
+    "size": 6794,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__1_L.csv",
+    "status": "copied",
+    "sha256": "ba37633fda6b209e2d26d4a2dda9fe78d54a4ec74774003c0a8061d02b88116e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__2_I.csv",
+    "size": 6948,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__2_I.csv",
+    "status": "copied",
+    "sha256": "0e2bf6f529ae9dbd784d22fbd00c66297732cf9006fc91c9ec6d67686a00a839"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__3_V.csv",
+    "size": 6809,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__3_V.csv",
+    "status": "copied",
+    "sha256": "0c018837e684421bb3233c3309895b87a73c3dc2438689ddc797c295ab09df43"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__4_A.csv",
+    "size": 6815,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__4_A.csv",
+    "status": "copied",
+    "sha256": "d5b178ae785d7116bffaeacfd0496c71618e61200c7de110fbe7919424bb55a4"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__5_G.csv",
+    "size": 6948,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__5_G.csv",
+    "status": "copied",
+    "sha256": "1caa6b13834d374d7c34d63519eaa6e5554f29a0fd0ccc664bed95355975243f"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__6_H.csv",
+    "size": 6791,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_5_G__6_H.csv",
+    "status": "copied",
+    "sha256": "f180b8ac14b4ac9f976b675e205f0896a9e7c92af46d4434355be2996fb3d91a"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__1_L.csv",
+    "size": 6707,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__1_L.csv",
+    "status": "copied",
+    "sha256": "e6a895e843ef734b93f9ead34f338a5915ac340cdf159e52ee06843a741fed13"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__2_I.csv",
+    "size": 6656,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__2_I.csv",
+    "status": "copied",
+    "sha256": "764485caf34fc4fab76b8e395025d4dd203b72f89b58ca1c2edd2569c9f104e4"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__3_V.csv",
+    "size": 6538,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__3_V.csv",
+    "status": "copied",
+    "sha256": "db3f6afce0a96ddc95e03d99c6618a2ff521746fcc754e1a03e5ba70f468ba9e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__4_A.csv",
+    "size": 6622,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__4_A.csv",
+    "status": "copied",
+    "sha256": "be8780f697754b5c175624a019d43e9aeafac4c46780874abe727f87aa38d76e"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__5_G.csv",
+    "size": 6795,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__5_G.csv",
+    "status": "copied",
+    "sha256": "8f7c04dd1a635ae693b1c9b18dfdb1779c714fb61d7d4fa1ed87a392846df52c"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__6_H.csv",
+    "size": 6409,
+    "mtime": "2026-11-16T11:48:22",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_halves_value/pair_6_H__6_H.csv",
+    "status": "copied",
+    "sha256": "687eb32840c617c22a200dc6d2ea027d93afcb1c233332de30b2e9d33e039463"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__1_L.csv",
+    "size": 11758,
+    "mtime": "2026-11-16T11:48:26",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__1_L.csv",
+    "status": "copied",
+    "sha256": "0f2367f090a0af3ab642e4bdcd96f120841a9f3a78b20b700c0bd67a0efb5cdc"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__2_I.csv",
+    "size": 11844,
+    "mtime": "2026-11-16T11:48:26",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__2_I.csv",
+    "status": "copied",
+    "sha256": "5f6ea25a49fa65ec83e4941d835de05b62e2190af20aeb6da0c58a7d547febaf"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__3_V.csv",
+    "size": 11896,
+    "mtime": "2026-11-16T11:48:26",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__3_V.csv",
+    "status": "copied",
+    "sha256": "466b8f052e5bf6234e86fe9501ee5875958142c5255f5e270015114b3a51cf15"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__4_A.csv",
+    "size": 12178,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__4_A.csv",
+    "status": "copied",
+    "sha256": "c3fcecfab257c15258ed4464315f1234427ef94a15d9203634725150508bfb6b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__5_G.csv",
+    "size": 12275,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__5_G.csv",
+    "status": "copied",
+    "sha256": "61f78af80207119ecc35022e1ef2f99116c1f16b69a99e556bca98e938ae2a30"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__6_H.csv",
+    "size": 12095,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_1_L__6_H.csv",
+    "status": "copied",
+    "sha256": "81463bb1c58a198f3fafcf8bcb59429c275ade853061576fe0ce84f561d0290f"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__1_L.csv",
+    "size": 11850,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__1_L.csv",
+    "status": "copied",
+    "sha256": "6af543e18bf26baeb2970630fe97e36b02bdf1812a6228a658ae2622bb06a403"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__2_I.csv",
+    "size": 11938,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__2_I.csv",
+    "status": "copied",
+    "sha256": "7ed335a75bb806d750f2b2359055d5c4ffa1daa6a5ba52fc78313b9d5dea5d34"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__3_V.csv",
+    "size": 11884,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__3_V.csv",
+    "status": "copied",
+    "sha256": "3db5560af74cce44a7af7417fcbf036d070f1f502ba94089df0e47cce4bcc1ee"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__4_A.csv",
+    "size": 12229,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__4_A.csv",
+    "status": "copied",
+    "sha256": "2b4e10086b36f528a8252285ef6e1fdf6a4fae5ee11ae6317963d6a7e58566d5"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__5_G.csv",
+    "size": 12040,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__5_G.csv",
+    "status": "copied",
+    "sha256": "97390b73208cf9cfdd87c924abe278576af962eb64a1f88ba117a13e3c3ff452"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__6_H.csv",
+    "size": 12064,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_2_I__6_H.csv",
+    "status": "copied",
+    "sha256": "b240ef6e5f64a23f9a75e1a0dba68e99bb7501d3ff2ced1baff0292b5d549477"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__1_L.csv",
+    "size": 11791,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__1_L.csv",
+    "status": "copied",
+    "sha256": "066a4cad5dd32c8da8e8907794321f563ce4da632d07d735123d77f05118dbb8"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__2_I.csv",
+    "size": 11939,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__2_I.csv",
+    "status": "copied",
+    "sha256": "c1c91c1e6715ea6891643b9a18d59709ec94b82882fc25dd851040aee4b96cf2"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__3_V.csv",
+    "size": 11794,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__3_V.csv",
+    "status": "copied",
+    "sha256": "08730dddd3f8c17842dd2a31161aea7c530ac2032070b758ea16d1b034f2d6b9"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__4_A.csv",
+    "size": 11696,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__4_A.csv",
+    "status": "copied",
+    "sha256": "cb1c2c9547a56b916139571bff655c120dc602d74ac84df0a04aef0e1a7d1afc"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__5_G.csv",
+    "size": 12224,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__5_G.csv",
+    "status": "copied",
+    "sha256": "b3ef45e42f141fe37646fe84f0429f3377d520f8ef7878ffbcb62cd14eaf1232"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__6_H.csv",
+    "size": 11917,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_3_V__6_H.csv",
+    "status": "copied",
+    "sha256": "72bcb270448303da73e1546a7dca9b04485c43dc997d981d83b2c1468a1689e4"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__1_L.csv",
+    "size": 12172,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__1_L.csv",
+    "status": "copied",
+    "sha256": "466b7f3e909fb3f0a49da53eeadf67a22625e161157f9aff2d5ce768229e51d9"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__2_I.csv",
+    "size": 12247,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__2_I.csv",
+    "status": "copied",
+    "sha256": "fe95ffd0d2e66f899d39e65e046f3cf28723e4f547f2b6b0873845efd019e2bf"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__3_V.csv",
+    "size": 12141,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__3_V.csv",
+    "status": "copied",
+    "sha256": "fdf31083e61c84d66dbe6664f936a7cb217c98f43922b5d82b169c605e5307f4"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__4_A.csv",
+    "size": 12322,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__4_A.csv",
+    "status": "copied",
+    "sha256": "b0f60c346d94c44f811a7dd3dfa367be8bcfb5e206701892fbd755f9bc61b888"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__5_G.csv",
+    "size": 12212,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__5_G.csv",
+    "status": "copied",
+    "sha256": "341b861073a74034a84327b7cd45f1e81406e34ae6f2704b85dcf144d0f1f273"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__6_H.csv",
+    "size": 12290,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_4_A__6_H.csv",
+    "status": "copied",
+    "sha256": "2d2815aafb7b68a16a5500558b93ea7f8aca0621802bec8521f3de4a8be23399"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__1_L.csv",
+    "size": 12249,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__1_L.csv",
+    "status": "copied",
+    "sha256": "bfbe13f14de92599361b97eb542e0ac443f39164b1bd5ffdc4d467e0e456b482"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__2_I.csv",
+    "size": 12510,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__2_I.csv",
+    "status": "copied",
+    "sha256": "392a84d4aa817a050000214f90eac9b3523966504785a16566dcc3ceeacf15bd"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__3_V.csv",
+    "size": 12292,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__3_V.csv",
+    "status": "copied",
+    "sha256": "7ef58082145621d9fe27d1a3009334ac7136afdb7e1b520350e485c70e1c99e3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__4_A.csv",
+    "size": 12304,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__4_A.csv",
+    "status": "copied",
+    "sha256": "c05919924f5120e73edbb071b4931c5ec1cf221f56830a0caa914b548458b4ba"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__5_G.csv",
+    "size": 12560,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__5_G.csv",
+    "status": "copied",
+    "sha256": "2ae91aeed1174042a7558f36f32734ed4b2ce9fffba2f18e222cc5fc5019cfb1"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__6_H.csv",
+    "size": 12345,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_5_G__6_H.csv",
+    "status": "copied",
+    "sha256": "6333084e312400562b5ac5fa803b710fd3c483a07206534b1bba1f4455c44f1f"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__1_L.csv",
+    "size": 12062,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__1_L.csv",
+    "status": "copied",
+    "sha256": "4de556d244b5eaa09351b38c58249743aa524bb1d16ea1c9742af25f66a68aca"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__2_I.csv",
+    "size": 12014,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__2_I.csv",
+    "status": "copied",
+    "sha256": "d95067794edc254e5053868d8633e2ce754d6fdeefec7922bf2c95a4abe68138"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__3_V.csv",
+    "size": 11764,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__3_V.csv",
+    "status": "copied",
+    "sha256": "8ad76c161218d780c89946ed50de812beb7a6c09aa24f4b8106a845ac1cb0e4b"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__4_A.csv",
+    "size": 12102,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__4_A.csv",
+    "status": "copied",
+    "sha256": "fb18197f8c23021ba6fa3ee32478973395d4b34a062687d35d012f832a1c0d72"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__5_G.csv",
+    "size": 12320,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__5_G.csv",
+    "status": "copied",
+    "sha256": "4f290b57a125cb309cafd26631be045122fcf4ad4ea589a01bafd290bf755ed3"
+   },
+   {
+    "path": "LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__6_H.csv",
+    "size": 11665,
+    "mtime": "2026-11-16T11:48:27",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/single_residue_pmf_mean_value/pair_6_H__6_H.csv",
+    "status": "copied",
+    "sha256": "217c25bfab1fe95fef14d03e422698cdd392af443982bdc0b892a7661d484834"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/AGH__AGH_halves.csv",
+    "size": 3669,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/AGH__AGH_halves.csv",
+    "status": "copied",
+    "sha256": "2a7d321274189094d7451d4384aaa9bb7ff1783416c13e9bd9dae916f3126279"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/IVA__AGH_halves.csv",
+    "size": 3624,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/IVA__AGH_halves.csv",
+    "status": "copied",
+    "sha256": "7817638b076b6589f0e37eab0bfe52405a73b4bf38a59aadab404e0d46230b3c"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/IVA__IVA_halves.csv",
+    "size": 3390,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/IVA__IVA_halves.csv",
+    "status": "copied",
+    "sha256": "b2348b49003490ddcdad8e12c43a430ea261722ad5cdd02b1b0b7250fd46d205"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/IVA__VAG_halves.csv",
+    "size": 3527,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/IVA__VAG_halves.csv",
+    "status": "copied",
+    "sha256": "f4afaa745fd0c39f0e4f796b403644e35572b7842a085069a000eec2ff026766"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/LIV__AGH_halves.csv",
+    "size": 3606,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/LIV__AGH_halves.csv",
+    "status": "copied",
+    "sha256": "16e10fd7b733c6c1cde2cc107f108b90749c22d76168ec003468a7807b1dc938"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/LIV__IVA_halves.csv",
+    "size": 3499,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/LIV__IVA_halves.csv",
+    "status": "copied",
+    "sha256": "ae3693ce61727ce7c61dac4adc22f829de8ff9d14af44edd93c3b209fc229c97"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/LIV__LIV_halves.csv",
+    "size": 3360,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/LIV__LIV_halves.csv",
+    "status": "copied",
+    "sha256": "521769183586bf0beff4ab82ff113eeb6f27347b88c10724a33dc12823d3bdc3"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/LIV__VAG_halves.csv",
+    "size": 3452,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/LIV__VAG_halves.csv",
+    "status": "copied",
+    "sha256": "6bf6f299d1215e6e619d709da4bcf8c4bccf748510cf25d78630ec635278ba12"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/VAG__AGH_halves.csv",
+    "size": 3545,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/VAG__AGH_halves.csv",
+    "status": "copied",
+    "sha256": "c78595cd4698498c210a2790e9c71eaa81342b528979e3182455f63b862b9935"
+   },
+   {
+    "path": "LIVAGH_PMF/three_residue_pmf_halves_value/VAG__VAG_halves.csv",
+    "size": 3538,
+    "mtime": "2026-11-16T11:48:37",
+    "source": "livagh/livagh_new_ff_cc/analysis/LIVAGH_PMF/three_residue_pmf_halves_value/VAG__VAG_halves.csv",
+    "status": "copied",
+    "sha256": "d0b81287d4d0fc09548570420b1d9020b841ca4121105f19b252076c681b1014"
+   },
+   {
+    "path": "com_frames_nowater.dcd",
+    "size": 1444800196,
+    "mtime": "2026-11-16T10:03:28",
+    "source": "livagh/livagh_new_ff_cc/analysis/com_frames_nowater.dcd",
+    "status": "too_large"
+   },
+   {
+    "path": "dcd.in",
+    "size": 179,
+    "mtime": "2026-11-12T15:32:48",
+    "source": "livagh/livagh_new_ff_cc/analysis/dcd.in",
+    "status": "excluded"
+   },
+   {
+    "path": "dist.in",
+    "size": 292,
+    "mtime": "2026-11-12T15:32:56",
+    "source": "livagh/livagh_new_ff_cc/analysis/dist.in",
+    "status": "excluded"
+   },
+   {
+    "path": "halved/LIVAGH_tripled_time_new_ff_doubled_angle_histogram_first_vs_second_half.png",
+    "size": 181571,
+    "mtime": "2026-11-16T10:20:20",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/LIVAGH_tripled_time_new_ff_doubled_angle_histogram_first_vs_second_half.png",
+    "status": "copied",
+    "sha256": "245f44f36ed9194f73b396b13c8c3e88cc3031f7d0d481b56f2272a3a5588f87"
+   },
+   {
+    "path": "halved/LIVAGH_tripled_time_new_ff_doubled_end_to_end_dist_histogram_first_vs_second_half.png",
+    "size": 192858,
+    "mtime": "2026-11-16T10:20:20",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/LIVAGH_tripled_time_new_ff_doubled_end_to_end_dist_histogram_first_vs_second_half.png",
+    "status": "copied",
+    "sha256": "3a6fbe4835e667ef542067f4a28acb281646f5c4cec9d886bd065554f4b58702"
+   },
+   {
+    "path": "halved/combined_first_second_half.py",
+    "size": 15587,
+    "mtime": "2026-11-12T15:32:54",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/combined_first_second_half.py",
+    "status": "copied",
+    "sha256": "6a9faf3d14ecc12eaeb62f6d34bb578b76ab6e6276b3f9a502643012b8841fa1"
+   },
+   {
+    "path": "halved/end_to_end_dist_first_half.dat",
+    "size": 5940022,
+    "mtime": "2026-11-16T10:16:57",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/end_to_end_dist_first_half.dat",
+    "status": "copied",
+    "sha256": "a6798abbff452cc296df7ff4273588e68b3bb7a0ceb8f19bfa2abb36d810d21c"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepA.dat",
+    "size": 4738822,
+    "mtime": "2026-11-16T10:17:16",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/end_to_end_dist_pepA.dat",
+    "status": "copied",
+    "sha256": "67b366476a0f58185420cfa3781cc2caf35cc1f45f56965dce456856579c280e"
+   },
+   {
+    "path": "halved/end_to_end_dist_pepB.dat",
+    "size": 4738822,
+    "mtime": "2026-11-16T10:17:16",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/end_to_end_dist_pepB.dat",
+    "status": "copied",
+    "sha256": "fbb18f1aac3a1de60ec8d971bee6c51f0b7b533ca4a152e553e5749125067601"
+   },
+   {
+    "path": "halved/end_to_end_dist_second_half.dat",
+    "size": 5940022,
+    "mtime": "2026-11-16T10:17:15",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/end_to_end_dist_second_half.dat",
+    "status": "copied",
+    "sha256": "1c6faeb1ad242b31b009832b81fc15eb87c09448b26a64ca1b7754e034cc226f"
+   },
+   {
+    "path": "halved/filtered_frames_first_half.nc",
+    "size": 242963128,
+    "mtime": "2026-11-16T10:16:54",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/filtered_frames_first_half.nc",
+    "status": "excluded"
+   },
+   {
+    "path": "halved/filtered_frames_second_half.nc",
+    "size": 269690528,
+    "mtime": "2026-11-16T10:17:12",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/filtered_frames_second_half.nc",
+    "status": "excluded"
+   },
+   {
+    "path": "halved/hbond_heatmaps_LIVAGH_tripled_time_new_ff_doubled_first_second_half.png",
+    "size": 1015155,
+    "mtime": "2026-11-16T10:20:19",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/hbond_heatmaps_LIVAGH_tripled_time_new_ff_doubled_first_second_half.png",
+    "status": "copied",
+    "sha256": "fd2491068581551f896fe0e2f145e08b25ccbf65f9bb76db006689369f6350a6"
+   },
+   {
+    "path": "halved/hbond_multidihedral_angle.in",
+    "size": 2539,
+    "mtime": "2026-11-12T15:32:54",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/hbond_multidihedral_angle.in",
+    "status": "excluded"
+   },
+   {
+    "path": "halved/hbond_network_LIVAGH_tripled_time_new_ff_doubled_first_second_half.png",
+    "size": 1925278,
+    "mtime": "2026-11-16T10:20:18",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/hbond_network_LIVAGH_tripled_time_new_ff_doubled_first_second_half.png",
+    "status": "copied",
+    "sha256": "a7aa806c90e4463ff5089005e52db33b15e92cb836968ce1d471afd65f335436"
+   },
+   {
+    "path": "halved/interhbond_first_half.txt",
+    "size": 2871,
+    "mtime": "2026-11-16T10:16:56",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/interhbond_first_half.txt",
+    "status": "copied",
+    "sha256": "725710a45a7901c1fb1ea5aaff6787bb8abc5b4d0b63842dbfb64e256db82b0e"
+   },
+   {
+    "path": "halved/interhbond_second_half.txt",
+    "size": 2871,
+    "mtime": "2026-11-16T10:17:13",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/interhbond_second_half.txt",
+    "status": "copied",
+    "sha256": "e9903ba0bb3359386dea66f5ea22e14f107d2dc4716d5db0643605244aa67b37"
+   },
+   {
+    "path": "halved/multidihedral_first_half.dat",
+    "size": 32769606,
+    "mtime": "2026-11-16T10:16:56",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/multidihedral_first_half.dat",
+    "status": "too_large"
+   },
+   {
+    "path": "halved/multidihedral_second_half.dat",
+    "size": 36374436,
+    "mtime": "2026-11-16T10:17:13",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/multidihedral_second_half.dat",
+    "status": "too_large"
+   },
+   {
+    "path": "halved/pep1pep2_angle_first_half.dat",
+    "size": 2245892,
+    "mtime": "2026-11-16T10:16:56",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/pep1pep2_angle_first_half.dat",
+    "status": "copied",
+    "sha256": "159c7b6acb9fe17625a5a1176852f6e610fe2c6226e21bc30b7bd74fd35f9eab"
+   },
+   {
+    "path": "halved/pep1pep2_angle_second_half.dat",
+    "size": 2492952,
+    "mtime": "2026-11-16T10:17:14",
+    "source": "livagh/livagh_new_ff_cc/analysis/halved/pep1pep2_angle_second_half.dat",
+    "status": "copied",
+    "sha256": "d1d4da6ffd8c6a80293cdeed2d788e21a6288653ff51ce9bcd769d0ac37b7888"
+   },
+   {
+    "path": "livagh_nowater.prmtop",
+    "size": 92049,
+    "mtime": "2026-11-16T10:03:28",
+    "source": "livagh/livagh_new_ff_cc/analysis/livagh_nowater.prmtop",
+    "status": "excluded"
+   },
+   {
+    "path": "make_dcd.in",
+    "size": 300,
+    "mtime": "2026-11-12T15:32:54",
+    "source": "livagh/livagh_new_ff_cc/analysis/make_dcd.in",
+    "status": "excluded"
+   },
+   {
+    "path": "pmf_distances.dat",
+    "size": 418800698,
+    "mtime": "2026-11-16T11:48:14",
+    "source": "livagh/livagh_new_ff_cc/analysis/pmf_distances.dat",
+    "status": "too_large"
+   },
+   {
+    "path": "pmf_distances.in",
+    "size": 5988,
+    "mtime": "2026-11-12T15:32:54",
+    "source": "livagh/livagh_new_ff_cc/analysis/pmf_distances.in",
+    "status": "excluded"
+   },
+   {
+    "path": "pmf_from_cpptraj.py",
+    "size": 27362,
+    "mtime": "2026-11-12T15:32:56",
+    "source": "livagh/livagh_new_ff_cc/analysis/pmf_from_cpptraj.py",
+    "status": "copied",
+    "sha256": "6181dc640368a2af320a325065fe5fb77d314e3502f36aaac2aa8c00dd95eb88"
+   }
+  ]
+ },
  "livagk": {
   "label": "LIVAGK (K⁺/K⁺)",
   "sequence": "LIVAGK",

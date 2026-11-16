@@ -1,6 +1,6 @@
 """Convergence / quality-control figures: first half vs second half of every PMF.
 
-For each of the 8 systems and each of the 47 PMFs (36 single-residue pairs,
+For each system and each of the 47 PMFs (36 single-residue pairs,
 10 three-residue window pairs, the LIVA-LIVA fragment) the two trajectory
 halves (frames after the 5 % trim, see pmf_from_cpptraj.py) are put on a
 common grid with common.combine_halves - the same algorithm as the source
@@ -300,7 +300,11 @@ def fig_depth_halves(tab: pd.DataFrame) -> Path:
     lim = (lo, hi)
     line = np.array(lim)
 
-    fig, axes = plt.subplots(2, 4, figsize=(13.2, 7.9), sharex=True, sharey=True)
+    nr, nc = C.grid_shape(len(C.SYSTEMS))
+    fig, axes = plt.subplots(nr, nc, figsize=(3.3 * nc, 3.6 * nr + 0.7), sharex=True, sharey=True,
+                             squeeze=False)
+    for ax in axes.flat[len(C.SYSTEMS):]:
+        ax.set_visible(False)
     for ax, s in zip(axes.flat, C.SYSTEMS):
         sub = tab[tab.system == s.key]
         ax.fill_between(line, line - FLAG_THRESHOLD, line + FLAG_THRESHOLD,
@@ -335,8 +339,10 @@ def fig_depth_halves(tab: pd.DataFrame) -> Path:
         ax.set_aspect("equal")
         ax.xaxis.set_major_locator(plt.MultipleLocator(0.5))
         ax.yaxis.set_major_locator(plt.MultipleLocator(0.5))
-    for ax in axes[1]:
-        ax.set_xlabel("well depth, half 1 (kcal/mol)")
+    for k, ax in enumerate(axes.flat[:len(C.SYSTEMS)]):
+        if k + nc >= len(C.SYSTEMS):  # lowest visible panel of its column
+            ax.set_xlabel("well depth, half 1 (kcal/mol)")
+            ax.tick_params(labelbottom=True)
     for ax in axes[:, 0]:
         ax.set_ylabel("well depth, half 2 (kcal/mol)")
 
@@ -348,11 +354,11 @@ def fig_depth_halves(tab: pd.DataFrame) -> Path:
                 Patch(facecolor=S.GRID, alpha=0.7, label=f"|half 2 − half 1| ≤ {FLAG_THRESHOLD:g} kcal/mol"),
                 Line2D([], [], ls="none", marker="o", markersize=8, markerfacecolor="none",
                        markeredgecolor=S.INK, label="black outline = largest |Δ| in panel")]
-    fig.legend(handles=handles, loc="lower center", ncol=6, bbox_to_anchor=(0.5, -0.005),
+    fig.legend(handles=handles, loc="lower center", ncol=6 if nc >= 4 else 3, bbox_to_anchor=(0.5, -0.005),
                fontsize=8, handletextpad=0.4, columnspacing=1.6)
     fig.suptitle("Well depth (minimum PMF) from the first vs the second half of the trajectory  ·  "
                  "47 PMFs per system", x=0.06, ha="left", fontsize=10.5, color=S.INK)
-    fig.tight_layout(rect=(0, 0.045, 1, 0.97), h_pad=2.2, w_pad=1.2)
+    fig.tight_layout(rect=(0, 0.045 if nc >= 4 else 0.06, 1, 0.97), h_pad=2.2, w_pad=1.2)
 
     caption = (
         "Each point is one of the 47 PMFs of a system (marker shape = PMF family); x = minimum of the "

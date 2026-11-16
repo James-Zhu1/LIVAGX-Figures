@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export every PMF curve of the eight LIVAGX systems for the interactive explorer.
+"""Export every PMF curve of the LIVAGX systems for the interactive explorer.
 
 Writes docs/assets/pmf_data.js, a plain script that sets ``window.PMF_DATA``.
 The explorer page (docs/explorer.html) is opened straight from disk (file://),
@@ -38,11 +38,6 @@ from common import (BY_KEY, DOCS, MANIFEST, NORMALIZATION_DISTANCE, PAIR_BIN, SY
                     WINDOW_BIN, WINDOW_PAIRS, WINDOW_STARTS, assert_inside_overall,
                     load_fragment, load_pair, load_window, pair_ids)
 
-try:  # style.py imports matplotlib; only the dark palette is needed here
-    from style import PALETTE_DARK
-except Exception:  # pragma: no cover - fall back to the documented values
-    PALETTE_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
-                    "#d55181", "#008300", "#9085e9", "#e66767"]
 
 OUT = DOCS / "assets" / "pmf_data.js"
 Y_DECIMALS = 4
@@ -157,13 +152,13 @@ def export() -> dict:
     as_of = data_as_of()
     systems = []
     pmf = {}
-    for k, s in enumerate(SYSTEMS):
+    for s in SYSTEMS:
         # residue-6 Amber name on peptide 1 and on peptide 2 ("GLU/GLH" -> both);
         # only LIVAGE (E-/E0) differs: GLU on peptide 1, GLH on peptide 2 (prmtop)
         xs = s.x_resname.split("/")
         systems.append(dict(key=s.key, label=s.label, sequence=s.sequence,
                             x_resname=s.x_resname, x_by_peptide=[xs[0], xs[-1]], note=s.note,
-                            color_light=s.color, color_dark=PALETTE_DARK[k],
+                            color_light=s.color, color_dark=s.color_dark,
                             source_dir=str(s.analysis_dir.relative_to(common.PROJECT)),
                             data_as_of=as_of.get(s.key)))
         pairs = {}

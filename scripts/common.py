@@ -42,8 +42,9 @@ class System:
     sequence: str  # one-letter sequence, e.g. LIVAGE
     x_resname: str  # Amber residue name of residue 6 (from prmtop)
     note: str  # protonation / charge note
-    analysis_dir: Path  # source analysis_continued folder (read only)
+    analysis_dir: Path  # source analysis folder (read only)
     color: str  # fixed categorical colour (entity, never rank)
+    color_dark: str  # the same hue's dark-mode step (HTML/JS views)
 
     @property
     def x(self) -> str:
@@ -62,11 +63,19 @@ class System:
         return self.snapshot / f"{self.sequence}_PMF"
 
 
-# Categorical slots 1-8 of the validated reference palette (light mode), in
-# fixed order. Exactly eight systems -> one slot each; a ninth system must not
-# get a generated hue (facet or fold instead).
+# Categorical slots 1-8 of the validated reference palette (light mode), plus
+# slot 9 (deep magenta) added with LIVAGH H0/H0 on 2026-11-16. Slot 9 was checked
+# against the other eight (OKLab x100, Machado CVD simulation): >= 16 normal
+# vision, >= 12 protan/deutan/tritan in light mode; dark step >= 8.5 everywhere.
+# Each system owns its slot through _SLOT (by key), so adding or reordering
+# systems never repaints the others. Do not generate further hues.
 PALETTE = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
-           "#e87ba4", "#008300", "#6250d6", "#e34948"]
+           "#e87ba4", "#008300", "#6250d6", "#e34948", "#b0328c"]
+# dark-mode steps of the same hues, same slot order
+PALETTE_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
+                "#d55181", "#008300", "#9085e9", "#e66767", "#a845b0"]
+_SLOT = {"livage_cc": 0, "livage_cn": 1, "livage_nn": 2, "livagg": 3, "livagh": 4,
+         "livagk": 5, "livagq": 6, "livagr": 7, "livagh_cc": 8}
 
 _TT = "_tripled_time_new_ff"
 _SYS = [
@@ -79,14 +88,26 @@ _SYS = [
     ("livagg", "LIVAGG (G⁰/G⁰)", "LIVAGG", "GLY/GLY", "neutral", "livagg/livagg" + _TT + "/analysis_continued"),
     ("livagh", "LIVAGH (H⁺/H⁺)", "LIVAGH", "HIP/HIP", "His doubly protonated (HIP, +1 each)",
      "livagh/livagh" + _TT + "/analysis_continued"),
+    # neutral His, N-epsilon protonated; folder named "cc" by the user, analysis in analysis/
+    ("livagh_cc", "LIVAGH (H⁰/H⁰)", "LIVAGH", "HIE/HIE", "His neutral, Nε-protonated (HIE, 0 each)",
+     "livagh/livagh_new_ff_cc/analysis"),
     ("livagk", "LIVAGK (K⁺/K⁺)", "LIVAGK", "LYS/LYS", "Lys +1 each", "livagk/livagk" + _TT + "/analysis_continued"),
     ("livagq", "LIVAGQ (Q⁰/Q⁰)", "LIVAGQ", "GLN/GLN", "neutral", "livagq/livagq" + _TT + "/analysis_continued"),
     # NB: the source folder really is spelled "analysis_contined".
     ("livagr", "LIVAGR (R⁺/R⁺)", "LIVAGR", "ARG/ARG", "Arg +1 each", "livagr/livagr" + _TT + "/analysis_contined"),
 ]
-SYSTEMS = [System(k, lab, seq, rn, note, PROJECT / rel, PALETTE[i])
-           for i, (k, lab, seq, rn, note, rel) in enumerate(_SYS)]
+SYSTEMS = [System(k, lab, seq, rn, note, PROJECT / rel, PALETTE[_SLOT[k]], PALETTE_DARK[_SLOT[k]])
+           for k, lab, seq, rn, note, rel in _SYS]
 BY_KEY = {s.key: s for s in SYSTEMS}
+
+
+def grid_shape(n: int) -> tuple[int, int]:
+    """Rows x columns for one small-multiple panel per system: 2x4 up to eight, 3x3 for nine."""
+    if n <= 8:
+        return 2, 4
+    if n == 9:
+        return 3, 3
+    return -(-n // 4), 4
 
 # Residue layout in the prmtop: ACE(1) L I V A G X(2-7) NHE(8) ACE(9) L I V A G X(10-15) NHE(16)
 POSITIONS = list(range(1, 7))  # peptide positions 1..6; position 6 = X

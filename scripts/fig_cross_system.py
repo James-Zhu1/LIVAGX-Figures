@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-system PMF comparison: the same PMF overlaid for all eight LIVAGX systems.
+"""Cross-system PMF comparison: the same PMF overlaid for all LIVAGX systems.
 
 Run from overall/:
 
@@ -14,7 +14,7 @@ with group 'cross_system'):
     fragment_mean.png           LIVA-LIVA fragment: overlay + per-system halves/band
     x_residue_focus.png         every PMF that involves residue 6 (X)
     livage_protonation.png      LIVAGE charge states only (E-/E-, E-/E0, E0/E0)
-    well_depth_heatmap.png      min of the mean PMF, 8 systems x 47 PMFs
+    well_depth_heatmap.png      min of the mean PMF, systems x 47 PMFs
     well_position_heatmap.png   distance of that minimum
     well_depth_vs_livagg.png    well depth minus the LIVAGG (X = Gly) well depth
     well_depths_all.csv         tidy table behind the heatmaps
@@ -212,11 +212,11 @@ def fig_pairs(store: Store, kind: str, order: int):
     fig.text(0.045, 0.475, S.PMF_LABEL, ha="center", va="center", rotation=90, fontsize=10, color=S.INK_2)
     what = ("mean of the two trajectory halves" if kind == "mean"
             else "full trajectory, first 5% dropped")
-    fig.suptitle(f"Residue-pair PMFs across the eight LIVAGX systems ({what})", fontsize=13, y=0.985)
+    fig.suptitle(f"Residue-pair PMFs across the nine LIVAGX systems ({what})", fontsize=13, y=0.985)
     fig.legend(handles=system_handles(SYSTEMS), loc="upper center", bbox_to_anchor=(0.54, 0.965),
-               ncol=8, fontsize=9.5, handlelength=2.2, columnspacing=1.8)
+               ncol=len(SYSTEMS), fontsize=9.5, handlelength=2.2, columnspacing=1.2)
     if kind == "mean":
-        cap = ("Each panel overlays the eight systems' PMF of the centre-of-mass distance between residue i of "
+        cap = ("Each panel overlays the nine systems' PMF of the centre-of-mass distance between residue i of "
                "peptide 1 (row) and residue j of peptide 2 (column); X = residue 6 (E, G, H, K, Q or R) and the "
                "tinted panels are the 11 pairs that involve it. Curves are the mean of the two 5%-trimmed trajectory "
                "halves (single_residue_pmf_mean_value, 0.01 nm bins, zero at 1.8 nm), so a negative dip is an "
@@ -254,7 +254,7 @@ def fig_windows(store: Store, order: int):
     # legend in the empty lower triangle
     legend_in_slot(fig, [axes[2, 0], axes[3, 0], axes[3, 1]], system_handles(SYSTEMS), ncol=1,
                    fontsize=10, title="system")
-    fig.suptitle("Three-residue window PMFs across the eight LIVAGX systems (mean of halves)",
+    fig.suptitle("Three-residue window PMFs across the nine LIVAGX systems (mean of halves)",
                  fontsize=13, y=0.98)
     cap = ("Upper triangle of the 4x4 grid of three-residue window pairs (LIV, IVA, VAG, AGX; X = residue 6); "
            "off-diagonal panels pool both orderings (window i on peptide 1 with j on peptide 2 and vice versa), as "
@@ -267,9 +267,10 @@ def fig_windows(store: Store, order: int):
 
 # ------------------------------------------------------------------ (d) fragment
 def fig_fragment(store: Store, order: int):
-    fig = plt.figure(figsize=(16.5, 6.6))
-    gs = fig.add_gridspec(2, 6, width_ratios=[2.5, 0.28, 1, 1, 1, 1], left=0.05, right=0.995,
-                          bottom=0.1, top=0.8, wspace=0.1, hspace=0.3)
+    nr, nc = C.grid_shape(len(SYSTEMS))
+    fig = plt.figure(figsize=(16.5 if nc >= 4 else 14.5, 6.6 if nr <= 2 else 8.8))
+    gs = fig.add_gridspec(nr, 2 + nc, width_ratios=[2.5, 0.28] + [1] * nc, left=0.05, right=0.995,
+                          bottom=0.1 if nr <= 2 else 0.08, top=0.8, wspace=0.1, hspace=0.3)
     big = fig.add_subplot(gs[:, 0])
     pmf_axis(big, GROUP_XLIM)
     draw_systems(big, store, SYSTEMS, "fragment", None, lw=S.LINE_W)
@@ -278,7 +279,7 @@ def fig_fragment(store: Store, order: int):
     big.set_title("all systems (mean of halves)", fontsize=10.5, loc="left")
     smalls = []
     for k, s in enumerate(SYSTEMS):
-        r, c = divmod(k, 4)
+        r, c = divmod(k, nc)
         ax = fig.add_subplot(gs[r, 2 + c], sharex=big, sharey=big)
         smalls.append(ax)
         pmf_axis(ax, GROUP_XLIM)
@@ -294,23 +295,23 @@ def fig_fragment(store: Store, order: int):
         ax.set_title(s.label, fontsize=9.5, loc="left")
         if c != 0:
             ax.tick_params(labelleft=False)
-        if r == 0:
+        if k + nc < len(SYSTEMS):  # another panel below in this column
             ax.tick_params(labelbottom=False)
         else:
             ax.set_xlabel(S.R_LABEL, fontsize=8.5)
     fig.legend(handles=system_handles(SYSTEMS), loc="upper center", bbox_to_anchor=(0.5, 0.955),
-               ncol=8, fontsize=9.5, handlelength=2.2, columnspacing=1.8)
+               ncol=len(SYSTEMS), fontsize=9.5, handlelength=2.0, columnspacing=1.0)
     enc = [Line2D([], [], color=S.INK_2, lw=S.LINE_W, label="mean of halves (system colour)"),
            Patch(facecolor=S.INK_2, alpha=0.25, lw=0, label="± |PMF₁ − PMF₂| / 2"),
            Line2D([], [], color=S.CONTEXT_GRAY, lw=S.THIN_W * 1.5, label="1st half"),
            Line2D([], [], color=S.MUTED, lw=S.THIN_W * 1.5, label="2nd half")]
     x0 = smalls[0].get_position().x0
-    x1 = smalls[3].get_position().x1
+    x1 = smalls[nc - 1].get_position().x1
     fig.legend(handles=enc, loc="lower center", bbox_to_anchor=((x0 + x1) / 2, 0.835), ncol=4,
                fontsize=8.5, handlelength=2.0, columnspacing=1.5)
-    fig.suptitle("LIVA–LIVA fragment PMF across the eight LIVAGX systems", fontsize=13, y=1.0)
+    fig.suptitle("LIVA–LIVA fragment PMF across the nine LIVAGX systems", fontsize=13, y=1.0)
     cap = ("PMF of the centre-of-mass distance between the LIVA fragments (positions 1-4 = residues 2-5 and "
-           "10-13, so residue 6 itself is not included) of the two peptides: left, the eight "
+           "10-13, so residue 6 itself is not included) of the two peptides: left, the nine "
            "systems' mean-of-halves PMFs overlaid; right, one panel per system with the two 5%-trimmed trajectory "
            "halves in gray, the mean in the system colour, the ±|PMF₁−PMF₂|/2 band and the well minimum ± its "
            "half-to-half error. Data: fragment_pmf_halves_value/LIVA_LIVA_halves.csv (0.02 nm bins, zero at "

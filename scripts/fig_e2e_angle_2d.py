@@ -8,7 +8,7 @@ On the LIVA-LIVA contact frames (both halves pooled, see e2e_angle_pmf.py):
   type avg  (F_A + F_B) / 2
 
 Outputs (group 'e2e_angle', all under overall/figures/e2e_angle_2d/):
-  pmf2d_all_systems.png    8 systems x 3 types on one numeric range (0-4 kcal/mol)
+  pmf2d_all_systems.png    all systems x 3 types on one numeric range (0-4 kcal/mol)
   pmf2d_<key>.png          one row per system (shown on that system's page)
   pmf2d_halves_qc.png      |F_half1 - F_half2| / 2 for A and B, and F_A - F_B
   pmf2d_surfaces.csv       every bin of every surface (+ counts, + half surfaces)

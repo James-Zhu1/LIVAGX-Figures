@@ -42,7 +42,7 @@ from matplotlib.lines import Line2D
 from matplotlib.transforms import blended_transform_factory, offset_copy
 
 import style
-from common import (FIGURES, SYSTEMS, assert_inside_overall, halved_dir,
+from common import (FIGURES, SYSTEMS, assert_inside_overall, grid_shape, halved_dir,
                     load_cpptraj_dat, load_hbonds)
 
 GROUP = "halved"
@@ -210,7 +210,7 @@ def fig_contact_frames(data):
     a2 = np.array([data[s.key]["second"]["n_all"] for s in SYSTEMS])
     p1, p2 = 100 * n1 / a1, 100 * n2 / a2
 
-    fig, ax = plt.subplots(figsize=(7.4, 3.9))
+    fig, ax = plt.subplots(figsize=(7.4, 1.1 + 0.35 * len(SYSTEMS)))  # 3.9 in for eight systems
     dumbbell(ax, p1, p2, SYSTEMS)
     lo, hi = pad_range(min(p1.min(), p2.min()), max(p1.max(), p2.max()), 0.12)
     ax.set_xlim(lo, hi)
@@ -251,8 +251,13 @@ def hbond_panels(data, which: str):
         vmin, cmap = -vmax, style.CMAP_DIV
         fmt = lambda v: "0" if abs(v) < 0.005 else f"{v:+.2f}".replace("0.", ".").replace("-", "−")  # noqa: E731
 
-    fig, axes = plt.subplots(2, 4, figsize=(10.2, 5.5), sharex=True, sharey=True)
-    fig.subplots_adjust(left=0.08, right=0.88, top=0.88, bottom=0.1, wspace=0.12, hspace=0.32)
+    nr, nc = grid_shape(len(SYSTEMS))
+    fig_w, fig_h = 2.35 * nc + 0.8, 2.45 * nr + 0.6
+    fig, axes = plt.subplots(nr, nc, figsize=(fig_w, fig_h), sharex=True, sharey=True, squeeze=False)
+    fig.subplots_adjust(left=0.75 / fig_w, right=1 - 1.2 / fig_w, top=1 - 0.65 / fig_h,
+                        bottom=0.55 / fig_h, wspace=0.12, hspace=0.32)
+    for ax in axes.flat[len(SYSTEMS):]:
+        ax.set_visible(False)
     labels = POS_LABELS[:4]
     for ax, s in zip(axes.flat, SYSTEMS):
         m = mats[s.key]
@@ -272,11 +277,11 @@ def hbond_panels(data, which: str):
         swatch_title(ax, s)
         ax.text(1.0, 1.03, sub, transform=ax.transAxes, ha="right", va="bottom", fontsize=7.5,
                 color=style.INK_2)
-    for ax in axes[1]:
+    for ax in axes[-1]:
         ax.set_xlabel("position on the other peptide")
     for ax in axes[:, 0]:
         ax.set_ylabel("position on one peptide")
-    cax = fig.add_axes([0.905, 0.18, 0.015, 0.6])
+    cax = fig.add_axes([1 - 0.95 / fig_w, 0.18, 0.15 / fig_w, 0.6])
     cb = fig.colorbar(im, cax=cax)
     cb.outline.set_visible(False)
     if which == "mean":
@@ -493,7 +498,7 @@ def fig_ramachandran(edges, hists):
     cmap.set_under(style.SEQ_BLUE[0])
 
     nrow, ncol = len(SYSTEMS), 6
-    fig, axes = plt.subplots(nrow, ncol, figsize=(10.4, 14.2), sharex=True, sharey=True)
+    fig, axes = plt.subplots(nrow, ncol, figsize=(10.4, 1.0 + 1.65 * nrow), sharex=True, sharey=True)
     fig.subplots_adjust(left=0.16, right=0.9, top=0.93, bottom=0.05, wspace=0.08, hspace=0.1)
     ticks = [-180, -90, 0, 90, 180]
     ticklabels = ["−180", "", "0", "", "180"]
@@ -565,7 +570,7 @@ def fig_ss(ss: pd.DataFrame):
     h2 = ss[ss.half == "second"].set_index(["system", "position"])
     maxdiff = 100 * max((h1[c] - h2[c]).abs().max() for c, _ in cols)
 
-    fig, axes = plt.subplots(1, 4, figsize=(14.0, 4.2), sharey=True)
+    fig, axes = plt.subplots(1, 4, figsize=(14.0, 1.0 + 0.4 * len(SYSTEMS)), sharey=True)
     fig.subplots_adjust(left=0.1, right=0.92, top=0.82, bottom=0.13, wspace=0.06)
     for ax, (col, name) in zip(axes, cols):
         m = mats[col]

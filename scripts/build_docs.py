@@ -13,7 +13,7 @@ Reads (never writes) the inputs below and writes HTML under overall/docs/:
 Output
   docs/index.html, figures.html, data.html, notes.html, changelog.html
   docs/systems/<key>.html             one page per system
-  docs/compare/index.html, <type>.html  one page per original plot type, 8 systems
+  docs/compare/index.html, <type>.html  one page per original plot type, all systems
   docs/assets/site.css, site.js       shared look + lightbox / filters / theme
   docs/systems/previews/**            downscaled WebP copies of the very large
                                       original PNGs (up to 12024 x 12024 px), made
@@ -54,16 +54,13 @@ try:  # e2e_angle_pmf pulls in matplotlib; the notes only need its bin widths
 except ImportError:  # same values as e2e_angle_pmf.py
     E2D_ANG_BIN, E2D_E2E_BIN = 4.5, 0.4
 
-# Colours: light palette from common.SYSTEMS, dark steps + diverging map from
+# Colours: light and dark system steps from common.SYSTEMS, diverging map from
 # style.py when importable (it pulls in matplotlib); otherwise identical copies.
 DIV_LIGHT = ["#104281", "#3987e5", "#9ec5f4", "#f0efec", "#f4a6a5", "#e34948", "#a32525"]
 try:
     import style as _style  # noqa: E402
-    PALETTE_DARK = list(_style.PALETTE_DARK)
     _CMAP_DIV = _style.CMAP_DIV
 except Exception:  # pragma: no cover - fallback keeps the generator stdlib+pandas
-    PALETTE_DARK = ["#3987e5", "#d95926", "#199e70", "#c98500",
-                    "#d55181", "#008300", "#9085e9", "#e66767"]
     _CMAP_DIV = None
 # dark-mode diverging steps: magnitude -> brighter against the dark surface
 DIV_DARK = ["#9ec5f4", "#3987e5", "#1f4f8c", "#2c2c2a", "#8c2f2e", "#e66767", "#f4a6a5"]
@@ -86,8 +83,8 @@ PROTECTED = {"explorer.html", "pmf_data.js"}
 GROUPS = [("overview", "Overview"), ("cross_system", "Across systems"),
           ("halved", "Halved structure"), ("e2e_angle", "Angle × end-to-end 2D PMF"), ("qc", "Convergence QC")]
 GROUP_BLURB = {
-    "overview": "Every PMF in one figure: the 6×6 residue-pair grid, the three-residue windows and LIVA–LIVA, all eight systems overlaid in their fixed colours.",
-    "cross_system": "The same PMF overlaid for all eight systems, well-depth maps and residue-6 (X) focus.",
+    "overview": "Every PMF in one figure: the 6×6 residue-pair grid, the three-residue windows and LIVA–LIVA, all nine systems overlaid in their fixed colours.",
+    "cross_system": "The same PMF overlaid for all nine systems, well-depth maps and residue-6 (X) focus.",
     "halved": "Structure of LIVA-LIVA contact frames per trajectory half: contacts, H-bonds, angle, end-to-end distance, backbone dihedrals.",
     "e2e_angle": "2D PMFs of the pep1–pep2 angle against each peptide's end-to-end distance on LIVA–LIVA contact frames (halves pooled): peptide A, peptide B and their average, with half-to-half and A-vs-B checks.",
     "qc": "Convergence checks: first half vs second half, full trajectory vs mean of halves.",
@@ -165,7 +162,8 @@ PRESETS = [
     ("All", [s.key for s in SYSTEMS]),
     ("LIVAGE protonation states", ["livage_cc", "livage_cn", "livage_nn"]),
     ("Cationic X (H⁺, K, R)", ["livagh", "livagk", "livagr"]),
-    ("Neutral X (G, Q, E⁰/E⁰)", ["livagg", "livagq", "livage_nn"]),
+    ("His protonation (H⁺ vs H⁰)", ["livagh", "livagh_cc"]),
+    ("Neutral X (G, Q, E⁰/E⁰, H⁰)", ["livagg", "livagq", "livage_nn", "livagh_cc"]),
 ]
 
 NOW = datetime.now().astimezone()
@@ -896,7 +894,7 @@ def csvs_for(fig_file: str, figs: list[dict]) -> list[Path]:
 def systems_note(keys: list[str], depth: int) -> str:
     keys = [k for k in keys if k in BY_KEY]
     if not keys or set(keys) == set(BY_KEY):
-        return '<span>all 8 systems</span>'
+        return f'<span>all {len(SYSTEMS)} systems</span>'
     return " ".join(f'<span class="nowrap">{sw(k)}{esc(BY_KEY[k].label)}</span>' for k in keys)
 
 
@@ -975,7 +973,7 @@ def build_index(sds, figs, fimgs, commits, head, manifest) -> None:
     n_types = len({p.ptype for sd in sds for p in sd.plots})
     cards = [
         ("compare/index.html", "Compare one plot across systems",
-         "Each original plot type side by side for all eight systems, with a lightbox to flip between them.",
+         "Each original plot type side by side for all nine systems, with a lightbox to flip between them.",
          f"{n_types} plot types × {len(sds)} systems"),
         ("figures.html#cross_system", "Across systems", GROUP_BLURB["cross_system"],
          f"{len(by_group.get('cross_system', []))} figures"),
@@ -1002,8 +1000,8 @@ def build_index(sds, figs, fimgs, commits, head, manifest) -> None:
 <section class="hero">
   <p class="eyebrow">Two-peptide MD · 60 mM · parallel · Amber · 300 K</p>
   <h1>LIVAGX peptide PMFs — 60 mM parallel</h1>
-  <p class="lede">Potentials of mean force between two LIVAG<b>X</b> hexapeptides for eight variants of residue 6
-  (E in three protonation states, G, H<sup>+</sup>, K, Q, R): 36 residue pairs, ten three-residue window pairs and the
+  <p class="lede">Potentials of mean force between two LIVAG<b>X</b> hexapeptides for nine variants of residue 6
+  (E in three protonation states, G, H in two (H<sup>+</sup> and neutral H<sup>0</sup>), K, Q, R): 36 residue pairs, ten three-residue window pairs and the
   LIVA fragment, each from two trajectory halves; plus the structure of LIVA–LIVA contact frames per half.</p>
   {seq_chips(None)}
   <dl class="facts">
@@ -1118,6 +1116,15 @@ def build_system_pages(sds, figs, fimgs, vmax_pair, vmax_win) -> None:
         if s.key == "livagr":
             label_note = ('<p class="note warn"><b>Folder name.</b> The source folder is spelled '
                           '<code>analysis_contined</code>; the snapshot stores it as <code>data/livagr/</code> like the others.</p>')
+        if s.key == "livagh_cc":
+            label_note = ('<p class="note warn"><b>Source folder.</b> <code>livagh/livagh_new_ff_cc/analysis</code> (not '
+                          '<code>…_tripled_time_new_ff/analysis_continued</code>); same protocol and length as the other systems '
+                          '(600,000 frames, halves 30,001–300,000 and 330,001–600,000, identical cpptraj inputs). Residue 6 is '
+                          'HIE (neutral His, Nε-protonated) on both peptides. <code>pmf_distances.dat</code> and '
+                          '<code>LIVAGH_PMF/</code> first held byte-identical copies of the H⁺ (HIP) run; on 2026-11-16 they were '
+                          'recomputed from this run\'s trajectory with the unchanged <code>pmf_distances.in</code> and '
+                          '<code>pmf_from_cpptraj.py</code>. The halved PNGs are named with the label '
+                          '<code>LIVAGH_tripled_time_new_ff_doubled</code>.</p>')
         if s.key == "livagh":
             label_note = ('<p class="note warn"><b>Script label.</b> <code>halved/combined_first_second_half.py</code> now '
                           'sets the label <code>LIVAGH_tripled_time_new_ff_doubled</code>, but the halved PNGs were written '
@@ -1217,13 +1224,13 @@ def build_compare(sds, figs) -> None:
                      f'<span class="count">{"PMF" if kind == "pmf" else "halved analysis"} · {n} systems</span></a>')
     body = f"""
 <h1>Compare one plot across systems</h1>
-<p class="lede">The original plots of each analysis folder, one page per plot type, all eight systems side by side.
+<p class="lede">The original plots of each analysis folder, one page per plot type, all nine systems side by side.
 Open any image to flip through the systems with ← / →. For overlays on shared axes see <a href="../figures.html#cross_system">Across systems</a>
 and the <a href="../explorer.html">interactive explorer</a>.</p>
 <div class="cards">{"".join(cards)}</div>
 """
     write(DOCS / "compare" / "index.html", page("Compare", body, depth, "compare/index.html",
-                                                desc="Same original plot for all eight systems"))
+                                                desc="Same original plot for all nine systems"))
 
     for k, t in enumerate(types):
         title, kind, desc = PLOT_TYPES.get(t, (plot_title(t), "other", ""))
@@ -1273,7 +1280,7 @@ and the <a href="../explorer.html">interactive explorer</a>.</p>
 {pager}
 """
         write(DOCS / "compare" / f"{t}.html", page(title, body, depth, "compare/index.html", wide=True,
-                                                   desc=f"{title} for all eight systems"))
+                                                   desc=f"{title} for all nine systems"))
 
 
 def build_figures(figs, fimgs) -> None:
@@ -1458,7 +1465,7 @@ the caps are not in the mask; Frac = fraction of contact frames); the angle betw
 <li>On all frames of each half: end-to-end distance of peptide 1, <code>:2@CA</code>–<code>:7@CA</code> → <code>end_to_end_dist_*_half.dat</code>.</li>
 <li>SECTION 3 (appended 2026-11-04 to the end of the input, nothing above it changed; the input is
 <code>hbond_multidihedral_end2end_angle.in</code> in livagg, livagk, livagq, livagr and <code>hbond_multidihedral_angle.in</code> in
-the three LIVAGE systems and livagh): on the contact frames, <code>filtered_frames_first_half.nc</code> then
+the three LIVAGE systems, livagh and livagh_cc, where the user added it before the run): on the contact frames, <code>filtered_frames_first_half.nc</code> then
 <code>filtered_frames_second_half.nc</code>, the end-to-end distance of peptide A = peptide 1, <code>:2@CA</code>–<code>:7@CA</code>
 → <code>end_to_end_dist_pepA.dat</code>, and of peptide B = peptide 2, <code>:10@CA</code>–<code>:15@CA</code> →
 <code>end_to_end_dist_pepB.dat</code>. Rows 1…N₁ are half 1 and N₁+1…N₁+N₂ half 2, the order of the two angle files. (The snippet
@@ -1474,7 +1481,7 @@ multiply by the contact fraction for a per-frame comparison (the <code>hbonds_pe
 <ul>
 <li>Data: per system, the contact-frame angle θ (<code>pep1pep2_angle_first_half.dat</code> then <code>_second_half.dat</code>,
 concatenated) matched row by row with the end-to-end distances d<sub>A</sub> and d<sub>B</sub> of SECTION 3 above; the loader refuses
-to plot if the row counts differ. The frame order was checked on 2026-11-04: for all eight systems and both halves, peptide A on the
+to plot if the row counts differ. The frame order was checked on 2026-11-04 for the first eight systems, and on 2026-11-16 for livagh_cc: for every system and both halves, peptide A on the
 contact frames equals <code>end_to_end_dist_*_half.dat</code> (all frames) at exactly the frames that pass the LIVA–LIVA ≤ 7 Å filter,
 rebuilt from the <code>liva</code> column of <code>pmf_distances.dat</code> (largest difference 0.0000 Å).</li>
 <li>F(θ, d) = −k<sub>B</sub>T ln P(θ, d), P = bin count / number of contact frames with both halves pooled, {E2D_ANG_BIN:g}° ×
@@ -2056,7 +2063,7 @@ JS = r"""/* LIVAGX docs: generated by overall/scripts/build_docs.py — edit the
 
 def build_assets() -> None:
     light = "\n".join(f"  --sys-{s.key}:{s.color};" for s in SYSTEMS)
-    dark_sys = "".join(f"--sys-{s.key}:{PALETTE_DARK[k]};" for k, s in enumerate(SYSTEMS))
+    dark_sys = "".join(f"--sys-{s.key}:{s.color_dark};" for s in SYSTEMS)
     dark = ("color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#8f8d86;"
             "--hairline:#2c2c2a;--chip:#242422;--link:#86b6ef;--focus:#3987e5;--paper:#ffffff;--bar:#184f95;"
             "--shadow:0 8px 24px rgba(0,0,0,.5);" + dark_sys)
